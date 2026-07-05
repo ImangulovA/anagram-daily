@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Anagram Daily</title>
+<!-- Real modules (built by other agents). Loaded before our inline app.
+     If missing, an inline FALLBACK further down supplies stubs. -->
+<script src="scoring.js"></script>
+<script src="data/puzzles.js"></script>
+<style>
+  /* ---------- Fonts: system fallbacks only, NO external requests ---------- */
+  :root{
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    --accent:#fdc800;
+    --bg:#fdf6e3;
+    --surface:#ffffff;
+    --ink:#1a1a1a;
+    --muted:#6b6b6b;
+    --line:#1a1a1a;
+    --good:#33cc77;
+    --bad:#ff5252;
+    --box:#ffffff;
+    --box-lock:#fff3c4;
+    --shadow:6px 6px 0 var(--line);
+    --shadow-sm:3px 3px 0 var(--line);
+  }
+  [data-theme="dark"]{
+    --accent:#fdc800;
+    --bg:#141414;
+    --surface:#1f1f1f;
+    --ink:#f4f4f4;
+    --muted:#a0a0a0;
+    --line:#f4f4f4;
+    --good:#3bd47f;
+    --bad:#ff6b6b;
+    --box:#262626;
+    --box-lock:#4a3f14;
+    --shadow:6px 6px 0 var(--line);
+    --shadow-sm:3px 3px 0 var(--line);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--font-sans);
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.4;
+    -webkit-text-size-adjust:100%;
+    padding-bottom:40px;
+  }
+  button{font-family:var(--font-sans);cursor:pointer;}
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    padding:14px 16px;
+    border-bottom:3px solid var(--line);
+    background:var(--surface);
+    position:sticky;top:0;z-index:20;
+  }
+  .hub-link{
+    font-family:var(--font-mono);font-weight:700;font-size:13px;
+    text-decoration:none;color:var(--ink);
+    border:2px solid var(--line);border-radius:8px;
+    padding:6px 10px;background:var(--surface);
+    box-shadow:var(--shadow-sm);
+  }
+  .hub-link:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line);}
+  h1{
+    font-size:22px;margin:0;font-weight:900;letter-spacing:-.5px;
+    flex:1 1 auto;min-width:120px;
+  }
+  h1 .accent{background:var(--accent);padding:0 6px;border:2px solid var(--line);border-radius:6px;}
+  .score-pill{
+    font-family:var(--font-mono);font-weight:800;font-size:15px;
+    border:2px solid var(--line);border-radius:8px;
+    padding:6px 12px;background:var(--accent);color:#1a1a1a;
+    box-shadow:var(--shadow-sm);white-space:nowrap;
+  }
+  .icon-btn{
+    border:2px solid var(--line);border-radius:8px;
+    background:var(--surface);color:var(--ink);
+    width:40px;height:38px;font-size:16px;
+    box-shadow:var(--shadow-sm);display:inline-flex;align-items:center;justify-content:center;
+  }
+  .icon-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line);}
+
+  /* ---------- Layout ---------- */
+  main{max-width:760px;margin:0 auto;padding:16px;}
+  .sub{
+    font-family:var(--font-mono);font-size:13px;color:var(--muted);
+    display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .card{
+    background:var(--surface);
+    border:3px solid var(--line);border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:16px;margin-bottom:18px;
+  }
+  .card h2{margin:0 0 4px 0;font-size:13px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+  .clue-text{font-size:17px;font-weight:600;margin:2px 0 12px 0;}
+  .clue-meta{font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-bottom:8px;}
+
+  /* ---------- Letter boxes ---------- */
+  .boxes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+  .lbox{
+    width:38px;height:44px;
+    border:2px solid var(--line);border-radius:8px;
+    background:var(--box);color:var(--ink);
+    font-family:var(--font-mono);font-weight:800;font-size:20px;
+    text-align:center;text-transform:uppercase;
+    padding:0;
+    box-shadow:var(--shadow-sm);
+    transition:transform .05s;
+  }
+  .lbox:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent);}
+  .lbox.locked{background:var(--box-lock);}
+  .lbox.correct{background:var(--good);color:#08210f;}
+  @media (max-width:480px){ .lbox{width:30px;height:38px;font-size:16px;} }
+
+  .row-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .btn{
+    border:2px solid var(--line);border-radius:8px;
+    background:var(--surface);color:var(--ink);
+    font-weight:700;font-size:13px;padding:8px 12px;
+    box-shadow:var(--shadow-sm);
+  }
+  .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line);}
+  .btn.primary{background:var(--accent);color:#1a1a1a;}
+  .btn.ghost{background:transparent;}
+  .btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none;}
+  .btn .cost{font-family:var(--font-mono);font-size:11px;opacity:.75;margin-left:2px;}
+
+  .feedback{font-family:var(--font-mono);font-size:13px;font-weight:700;margin-left:4px;}
+  .feedback.ok{color:var(--good);}
+  .feedback.no{color:var(--bad);}
+
+  /* ---------- Letter pool ---------- */
+  .pool-wrap{margin-bottom:6px;}
+  .pool{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;min-height:48px;}
+  .tile{
+    width:42px;height:48px;
+    border:2px solid var(--line);border-radius:8px;
+    background:var(--accent);color:#1a1a1a;
+    font-family:var(--font-mono);font-weight:800;font-size:22px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--shadow-sm);cursor:grab;user-select:none;
+    transition:transform .12s ease;
+  }
+  .tile:active{cursor:grabbing;transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line);}
+  .tile.used{opacity:.28;}
+  @media (max-width:480px){ .tile{width:34px;height:40px;font-size:17px;} }
+
+  /* ---------- Final answer ---------- */
+  .final-card{border-color:var(--accent);}
+  .shake{animation:shake .4s;}
+  @keyframes shake{
+    0%,100%{transform:translateX(0);}
+    20%{transform:translateX(-8px);}
+    40%{transform:translateX(8px);}
+    60%{transform:translateX(-6px);}
+    80%{transform:translateX(6px);}
+  }
+  .flashbad{animation:flashbad .5s;}
+  @keyframes flashbad{0%{background:var(--bad);}100%{background:var(--box);}}
+
+  /* ---------- End screen ---------- */
+  .end{text-align:center;}
+  .end .big{font-family:var(--font-mono);font-size:44px;font-weight:900;margin:6px 0;}
+  .end .verdict{font-size:20px;font-weight:800;margin-bottom:14px;}
+  .reveal-list{text-align:left;margin:14px 0;}
+  .reveal-row{border-top:2px dashed var(--line);padding:10px 0;}
+  .reveal-row .w{font-family:var(--font-mono);font-weight:900;font-size:20px;letter-spacing:2px;}
+  .reveal-row .d{color:var(--muted);font-size:14px;}
+  .countdown{font-family:var(--font-mono);font-size:15px;margin-top:10px;}
+  .countdown b{font-size:19px;}
+
+  /* ---------- Calendar ---------- */
+  #calendar-modal{
+    position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;
+    display:none;align-items:flex-start;justify-content:center;padding:24px 12px;overflow:auto;
+  }
+  #calendar-modal.open{display:flex;}
+  .cal-panel{
+    background:var(--surface);border:3px solid var(--line);border-radius:14px;
+    box-shadow:var(--shadow);padding:16px;max-width:420px;width:100%;
+  }
+  .cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+  .cal-day{
+    aspect-ratio:1;border:2px solid var(--line);border-radius:8px;
+    background:var(--surface);font-family:var(--font-mono);font-weight:700;font-size:13px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;
+  }
+  .cal-day .dnum{font-size:14px;}
+  .cal-day .dmark{font-size:10px;line-height:1;margin-top:2px;}
+  .cal-day.future{opacity:.3;cursor:not-allowed;}
+  .cal-day.today{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent);}
+  .cal-day.solved{background:var(--good);}
+  .cal-day.played{background:var(--box-lock);}
+  .cal-day.current{outline:3px solid var(--accent);}
+  .cal-dow{font-family:var(--font-mono);font-size:11px;color:var(--muted);text-align:center;}
+
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%);
+    background:var(--ink);color:var(--bg);
+    font-family:var(--font-mono);font-size:13px;font-weight:700;
+    padding:10px 16px;border-radius:10px;border:2px solid var(--accent);
+    z-index:80;opacity:0;pointer-events:none;transition:opacity .2s;
+  }
+  .toast.show{opacity:1;}
+
+  .hidden{display:none !important;}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+</style>
+</head>
+<body>
+<header>
+  <a class="hub-link" href="https://imangulova.github.io/games/">&#9666; All games</a>
+  <h1><span class="accent">Anagram</span> Daily</h1>
+  <div class="score-pill" id="score-pill" aria-live="polite">20.0 / 20</div>
+  <button class="icon-btn" id="calendar-btn" aria-label="Open calendar archive" title="Archive">&#128197;</button>
+  <button class="icon-btn" id="theme-btn" aria-label="Toggle dark or light theme" title="Theme">&#9680;</button>
+</header>
+
+<main>
+  <div class="sub">
+    <span id="puzzle-label">Puzzle #0 &middot; 2026-07-05</span>
+    <span id="difficulty-label"></span>
+  </div>
+
+  <!-- Game area -->
+  <div id="game-area">
+    <!-- Source A -->
+    <section class="card src-card" id="card-a" aria-labelledby="lbl-a">
+      <h2 id="lbl-a">Clue 1 (Word A)</h2>
+      <p class="clue-text" id="clue-a">—</p>
+      <div class="boxes" id="boxes-a" role="group" aria-label="Letters for word A"></div>
+      <div class="row-actions">
+        <button class="btn primary" data-check="a">Check <span class="cost">-0.5</span></button>
+        <button class="btn" data-revletter="a">Reveal a letter <span class="cost">-1</span></button>
+        <button class="btn ghost" data-revword="a">Reveal word <span class="cost">-4</span></button>
+        <span class="feedback" id="fb-a" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <!-- Source B -->
+    <section class="card src-card" id="card-b" aria-labelledby="lbl-b">
+      <h2 id="lbl-b">Clue 2 (Word B)</h2>
+      <p class="clue-text" id="clue-b">—</p>
+      <div class="boxes" id="boxes-b" role="group" aria-label="Letters for word B"></div>
+      <div class="row-actions">
+        <button class="btn primary" data-check="b">Check <span class="cost">-0.5</span></button>
+        <button class="btn" data-revletter="b">Reveal a letter <span class="cost">-1</span></button>
+        <button class="btn ghost" data-revword="b">Reveal word <span class="cost">-4</span></button>
+        <span class="feedback" id="fb-b" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <!-- Letter pool -->
+    <section class="card pool-wrap" aria-labelledby="lbl-pool">
+      <h2 id="lbl-pool">Letter pool (A + B) &mdash; anagram of the answer</h2>
+      <div class="pool" id="pool" role="group" aria-label="Combined letter pool"></div>
+      <div class="row-actions">
+        <button class="btn" id="shuffle-btn">&#128256; Shuffle <span class="cost">free</span></button>
+      </div>
+    </section>
+
+    <!-- Final answer -->
+    <section class="card final-card" aria-labelledby="lbl-c">
+      <h2 id="lbl-c">Final answer (Word C)</h2>
+      <p class="clue-text" id="clue-c">—</p>
+      <div class="boxes" id="boxes-c" role="group" aria-label="Letters for the final answer"></div>
+      <div class="row-actions">
+        <button class="btn primary" id="submit-btn">Submit <span class="cost">-1 if wrong</span></button>
+        <button class="btn" data-revfinal>Reveal a letter <span class="cost">-1.5</span></button>
+        <button class="btn ghost" id="giveup-btn">Give up <span class="cost">&rarr; 0</span></button>
+        <span class="feedback" id="fb-c" aria-live="polite"></span>
+      </div>
+    </section>
+  </div>
+
+  <!-- End screen -->
+  <div id="end-screen" class="card end hidden" aria-live="polite">
+    <h2 style="color:var(--ink);font-size:14px;">Result</h2>
+    <div class="big" id="end-score">0.0 / 20</div>
+    <div class="verdict" id="end-verdict"></div>
+    <div class="reveal-list" id="end-reveal"></div>
+    <div class="row-actions" style="justify-content:center;">
+      <button class="btn primary" id="share-btn">&#128257; Share</button>
+      <button class="btn" id="archive-btn2">&#128197; Archive</button>
+    </div>
+    <div class="countdown">Next puzzle in <b id="countdown">--:--:--</b></div>
+  </div>
+</main>
+
+<!-- Calendar archive -->
+<div id="calendar-modal" role="dialog" aria-modal="true" aria-label="Puzzle archive">
+  <div class="cal-panel">
+    <div class="cal-head">
+      <button class="icon-btn" id="cal-prev" aria-label="Previous month">&#8249;</button>
+      <strong id="cal-title" style="font-family:var(--font-mono);"></strong>
+      <button class="icon-btn" id="cal-next" aria-label="Next month">&#8250;</button>
+    </div>
+    <div class="cal-grid" id="cal-dow" style="margin-bottom:6px;"></div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div class="row-actions" style="justify-content:flex-end;margin-top:12px;">
+      <button class="btn" id="cal-close">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =========================================================================
+   FALLBACK STUBS — used ONLY if the real modules are missing.
+   Real scoring.js / data/puzzles.js (loaded above) take precedence.
+   ========================================================================= */
+(function(){
+  if(!window.PUZZLES){
+    window.__ANAGRAM_FALLBACK_PUZZLES = true;
+    window.PUZZLES = [
+      { day:0, date:"2026-07-05",
+        a:{word:"MOON",   clue:"Earth's natural satellite"},
+        b:{word:"STARER", clue:"One who gazes fixedly"},
+        c:{word:"ASTRONOMER", clue:"A scientist who studies the stars"},
+        difficulty:3 },
+      { day:1, date:"2026-07-06",
+        a:{word:"CAT",  clue:"Small domestic feline"},
+        b:{word:"LODGE", clue:"A small house or cabin"},
+        c:{word:"DECALOG", clue:"A set of ten rules (the Ten Commandments)"},
+        difficulty:2 }
+    ];
+  }
+
+  if(!window.AnagramScoring){
+    window.__ANAGRAM_FALLBACK_SCORING = true;
+    // Minimal shim mirroring the contract API. Real module enforces exact rules.
+    function sortw(s){ return s.toUpperCase().split('').sort().join(''); }
+    window.AnagramScoring = {
+      create:function(opts){
+        var puzzle = opts.puzzle, dayIndex = opts.dayIndex;
+        var key = "anagram_day"+dayIndex;
+        var words = { a:puzzle.a.word.toUpperCase(), b:puzzle.b.word.toUpperCase(), c:puzzle.c.word.toUpperCase() };
+        var st;
+        try{ st = JSON.parse(localStorage.getItem(key)); }catch(e){ st=null; }
+        if(!st || typeof st.score!=="number"){
+          st = { started:true, finished:false, score:20, maxScore:20,
+                 revealed:{a:[],b:[],c:[]}, guesses:0, checks:0, live:true,
+                 result:null };
+        }
+        // Normalize revealed to arrays of indices
+        ['a','b','c'].forEach(function(k){ if(!Array.isArray(st.revealed[k])) st.revealed[k]=[]; });
+        // per-source paid hint (for -4 cap)
+        st._paid = st._paid || {a:0,b:0};
+        function save(){
+          st.result = { score:disp(), max:20 };
+          try{ localStorage.setItem(key, JSON.stringify(st)); }catch(e){}
+        }
+        function clamp(){ if(st.score<0) st.score=0; }
+        function disp(){ return Math.max(0, Math.round(st.score*10)/10); }
+        function state(){
+          return { score:disp(), maxScore:20, finished:st.finished,
+                   revealed:{a:st.revealed.a.slice(),b:st.revealed.b.slice(),c:st.revealed.c.slice()},
+                   guesses:st.guesses, checks:st.checks };
+        }
+        return {
+          state:state,
+          shuffle:function(){ return state(); },
+          checkSource:function(which, typed){
+            if(st.finished) return { correct:false, score:disp() };
+            st.score-=0.5; st.checks++; clamp();
+            var ok = (typed||'').toUpperCase()===words[which];
+            save(); return { correct:ok, score:disp() };
+          },
+          revealSourceLetter:function(which){
+            if(st.finished) return { letter:null, index:-1, score:disp() };
+            var w=words[which], rev=st.revealed[which];
+            var idx=-1; for(var i=0;i<w.length;i++){ if(rev.indexOf(i)<0){ idx=i; break; } }
+            if(idx<0) return { letter:null, index:-1, score:disp() };
+            rev.push(idx); st.score-=1; st._paid[which]+=1; clamp(); save();
+            return { letter:w[idx], index:idx, score:disp() };
+          },
+          revealSourceWord:function(which){
+            if(st.finished) return { word:words[which], score:disp() };
+            var w=words[which], rev=st.revealed[which];
+            var cost=Math.max(0, 4 - st._paid[which]);
+            st.score-=cost; st._paid[which]+=cost; clamp();
+            for(var i=0;i<w.length;i++){ if(rev.indexOf(i)<0) rev.push(i); }
+            save(); return { word:w, score:disp() };
+          },
+          revealFinalLetter:function(){
+            if(st.finished) return { letter:null, index:-1, score:disp() };
+            var w=words.c, rev=st.revealed.c;
+            var idx=-1; for(var i=0;i<w.length;i++){ if(rev.indexOf(i)<0){ idx=i; break; } }
+            if(idx<0) return { letter:null, index:-1, score:disp() };
+            rev.push(idx); st.score-=1.5; clamp(); save();
+            return { letter:w[idx], index:idx, score:disp() };
+          },
+          guessFinal:function(typed){
+            if(st.finished) return { correct:false, score:disp(), finished:true };
+            var ok=(typed||'').toUpperCase()===words.c;
+            st.guesses++;
+            if(ok){ st.finished=true; st.live=false; }
+            else { st.score-=1; clamp(); }
+            save(); return { correct:ok, score:disp(), finished:st.finished };
+          },
+          giveUp:function(){
+            st.score=0; st.finished=true; st.live=false; save();
+            return { score:0, finished:true };
+          },
+          shareText:function(){
+            var s=disp();
+            var solved = st.finished && s>0 && (st.guesses>0);
+            var line = "Anagram Daily #"+dayIndex+" — "+s.toFixed(1)+"/20";
+            var emoji = st.finished ? (s>=18?"🟨🟨🟨":(s>=10?"🟨🟨⬜":"🟨⬜⬜")) : "…";
+            return line+"\n"+emoji+"\nhttps://imangulova.github.io/games/";
+          }
+        };
+      }
+    };
+  }
+})();
+
+/* =========================================================================
+   APP
+   ========================================================================= */
+(function(){
+  "use strict";
+  var HUB="https://imangulova.github.io/games/";
+  var ANCHOR = new Date(2026, 6, 5); // local midnight 2026-07-05 (month 6 = July)
+
+  /* ---- Day index (DST-safe, local date parts) ---- */
+  function localMidnight(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function dayIndexFor(date){
+    var todayMid = localMidnight(date).getTime();
+    var anchorMid = localMidnight(ANCHOR).getTime();
+    return Math.floor((todayMid - anchorMid)/86400000);
+  }
+  var TODAY_INDEX = dayIndexFor(new Date());
+  /* ---- Available puzzle-day bounds (supports historical negative days) ---- */
+  var MIN_DAY = 0, MAX_DAY = 0;
+  (function(){
+    var list = window.PUZZLES || [];
+    if(list.length){
+      MIN_DAY = MAX_DAY = list[0].day;
+      for(var i=1;i<list.length;i++){
+        if(list[i].day<MIN_DAY) MIN_DAY=list[i].day;
+        if(list[i].day>MAX_DAY) MAX_DAY=list[i].day;
+      }
+    }
+  })();
+
+  /* ---- Puzzle lookup ---- */
+  function puzzleForDay(idx){
+    var list = window.PUZZLES || [];
+    for(var i=0;i<list.length;i++){ if(list[i].day===idx) return list[i]; }
+    // fall back to modulo so archive/today always renders something
+    if(list.length){ return list[((idx%list.length)+list.length)%list.length]; }
+    return null;
+  }
+
+  /* ---- Theme (shared key with hub) ---- */
+  function applyTheme(t){
+    document.documentElement.setAttribute('data-theme', t==='dark'?'dark':'light');
+    var btn=document.getElementById('theme-btn');
+    btn.textContent = (t==='dark') ? '☀' : '◐'; // sun in dark, half-circle in light
+  }
+  function initTheme(){
+    var t='light';
+    try{ t=localStorage.getItem('games_theme')||'light'; }catch(e){}
+    applyTheme(t);
+  }
+  document.getElementById('theme-btn').addEventListener('click', function(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    var next = cur==='dark'?'light':'dark';
+    try{ localStorage.setItem('games_theme', next); }catch(e){}
+    applyTheme(next);
+  });
+
+  /* ---- Toast ---- */
+  var toastEl=document.getElementById('toast'), toastTimer=null;
+  function toast(msg){
+    toastEl.textContent=msg; toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(function(){ toastEl.classList.remove('show'); }, 2200);
+  }
+
+  /* =====================================================================
+     GAME CONTROLLER (per day)
+     ===================================================================== */
+  var currentIndex=null, game=null, puzzle=null;
+  var typed={a:[],b:[],c:[]};       // per-cell characters the player typed
+  var poolOrder=[];                  // display order of pool tiles
+  var countdownTimer=null;
+
+  var el = {
+    scorePill:document.getElementById('score-pill'),
+    puzzleLabel:document.getElementById('puzzle-label'),
+    diffLabel:document.getElementById('difficulty-label'),
+    clueA:document.getElementById('clue-a'),
+    clueB:document.getElementById('clue-b'),
+    clueC:document.getElementById('clue-c'),
+    boxesA:document.getElementById('boxes-a'),
+    boxesB:document.getElementById('boxes-b'),
+    boxesC:document.getElementById('boxes-c'),
+    pool:document.getElementById('pool'),
+    fbA:document.getElementById('fb-a'),
+    fbB:document.getElementById('fb-b'),
+    fbC:document.getElementById('fb-c'),
+    gameArea:document.getElementById('game-area'),
+    endScreen:document.getElementById('end-screen'),
+    endScore:document.getElementById('end-score'),
+    endVerdict:document.getElementById('end-verdict'),
+    endReveal:document.getElementById('end-reveal'),
+    countdown:document.getElementById('countdown')
+  };
+
+  function difficultyStars(d){
+    d=Math.max(1,Math.min(5, d||1));
+    return '★'.repeat(d)+'☆'.repeat(5-d);
+  }
+
+  function loadDay(idx){
+    if(idx>TODAY_INDEX) idx=TODAY_INDEX; // never load the future
+    currentIndex=idx;
+    puzzle=puzzleForDay(idx);
+    if(!puzzle){ el.gameArea.innerHTML='<div class="card">No puzzle available.</div>'; return; }
+    game=window.AnagramScoring.create({ dayIndex:idx, puzzle:puzzle });
+
+    // reset typed buffers from any previously revealed letters
+    var s=game.state();
+    typed={a:[],b:[],c:[]};
+    seedRevealed('a', puzzle.a.word); seedRevealed('b', puzzle.b.word); seedRevealed('c', puzzle.c.word);
+
+    el.puzzleLabel.textContent = 'Puzzle #'+idx+' · '+(puzzle.date||'');
+    el.diffLabel.textContent = 'Difficulty '+difficultyStars(puzzle.difficulty);
+    el.clueA.textContent = puzzle.a.clue;
+    el.clueB.textContent = puzzle.b.clue;
+    el.clueC.textContent = puzzle.c.clue;
+
+    buildBoxes('a', puzzle.a.word.length);
+    buildBoxes('b', puzzle.b.word.length);
+    buildBoxes('c', puzzle.c.word.length);
+    buildPool();
+    el.fbA.textContent=''; el.fbB.textContent=''; el.fbC.textContent='';
+
+    render();
+  }
+
+  // fill typed[] with any letters scoring says are revealed
+  function seedRevealed(which, word){
+    var s=game.state(); var rev=(s.revealed && s.revealed[which])||[];
+    word=word.toUpperCase();
+    rev.forEach(function(i){ typed[which][i]=word[i]; });
+  }
+
+  function buildBoxes(which, len){
+    var container = which==='a'?el.boxesA:(which==='b'?el.boxesB:el.boxesC);
+    container.innerHTML='';
+    for(var i=0;i<len;i++){
+      var inp=document.createElement('input');
+      inp.type='text'; inp.className='lbox';
+      inp.maxLength=1; inp.autocomplete='off'; inp.autocapitalize='characters';
+      inp.setAttribute('inputmode','latin');
+      inp.setAttribute('aria-label', 'Word '+which.toUpperCase()+' letter '+(i+1));
+      inp.dataset.which=which; inp.dataset.idx=String(i);
+      inp.value = typed[which][i] || '';
+      wireBox(inp);
+      container.appendChild(inp);
+    }
+  }
+
+  function wireBox(inp){
+    inp.addEventListener('input', function(e){
+      var which=inp.dataset.which, i=+inp.dataset.idx;
+      var v=(inp.value||'').toUpperCase().replace(/[^A-Z]/g,'');
+      inp.value=v.slice(-1);
+      typed[which][i]=inp.value;
+      if(inp.value){ focusSibling(inp, +1); }
+      clearFeedback(which);
+    });
+    inp.addEventListener('keydown', function(e){
+      var which=inp.dataset.which, i=+inp.dataset.idx;
+      if(e.key==='Backspace'){
+        if(!inp.value){ e.preventDefault(); var p=focusSibling(inp,-1); if(p){ p.value=''; typed[p.dataset.which][+p.dataset.idx]=''; } }
+        else { typed[which][i]=''; }
+      } else if(e.key==='ArrowLeft'){ e.preventDefault(); focusSibling(inp,-1); }
+      else if(e.key==='ArrowRight'){ e.preventDefault(); focusSibling(inp,+1); }
+      else if(e.key==='Enter'){
+        if(which==='c'){ doSubmit(); }
+        else { doCheck(which); }
+      }
+    });
+    inp.addEventListener('focus', function(){ inp.select(); });
+  }
+
+  function focusSibling(inp, dir){
+    var container=inp.parentNode;
+    var boxes=container.querySelectorAll('.lbox:not(.locked)');
+    // simpler: navigate all boxes, skipping locked
+    var all=Array.prototype.slice.call(container.querySelectorAll('.lbox'));
+    var cur=all.indexOf(inp);
+    var j=cur+dir;
+    while(j>=0 && j<all.length){
+      if(!all[j].classList.contains('locked')){ all[j].focus(); return all[j]; }
+      j+=dir;
+    }
+    return null;
+  }
+
+  function clearFeedback(which){
+    var fb = which==='a'?el.fbA:(which==='b'?el.fbB:el.fbC);
+    fb.textContent=''; fb.className='feedback';
+  }
+
+  /* ---- Letter pool ---- */
+  function buildPool(){
+    var combined = (puzzle.a.word + puzzle.b.word).toUpperCase().split('');
+    poolOrder = shuffleArr(combined.slice());
+    renderPool();
+  }
+  function renderPool(){
+    el.pool.innerHTML='';
+    poolOrder.forEach(function(ch, i){
+      var t=document.createElement('button');
+      t.type='button'; t.className='tile'; t.textContent=ch;
+      t.setAttribute('aria-label','Letter '+ch+' (tap to place in answer)');
+      t.dataset.pi=String(i);
+      t.addEventListener('click', function(){ placeInFinal(ch); });
+      // drag support (desktop)
+      t.setAttribute('draggable','true');
+      t.addEventListener('dragstart', function(e){ e.dataTransfer.setData('text/plain', ch); });
+      el.pool.appendChild(t);
+    });
+  }
+  function shuffleArr(arr){
+    for(var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp; }
+    return arr;
+  }
+  // tap a pool tile -> drop letter into the next empty (unlocked) final box
+  function placeInFinal(ch){
+    var s=game.state(); if(s.finished) return;
+    var boxes=Array.prototype.slice.call(el.boxesC.querySelectorAll('.lbox'));
+    for(var i=0;i<boxes.length;i++){
+      if(boxes[i].classList.contains('locked')) continue;
+      if(!boxes[i].value){ boxes[i].value=ch; typed.c[i]=ch; if(boxes[i+1]) boxes[i+1].focus(); return; }
+    }
+  }
+
+  document.getElementById('shuffle-btn').addEventListener('click', function(){
+    if(game){ game.shuffle(); } // free; UI owns order
+    poolOrder=shuffleArr(poolOrder); renderPool();
+  });
+
+  // allow dropping onto final boxes
+  el.boxesC.addEventListener('dragover', function(e){ if(e.target.classList.contains('lbox') && !e.target.classList.contains('locked')) e.preventDefault(); });
+  el.boxesC.addEventListener('drop', function(e){
+    if(!e.target.classList.contains('lbox')||e.target.classList.contains('locked')) return;
+    e.preventDefault();
+    var ch=(e.dataTransfer.getData('text/plain')||'').toUpperCase();
+    if(ch){ e.target.value=ch; typed.c[+e.target.dataset.idx]=ch; }
+  });
+
+  /* =====================================================================
+     Scoring action wiring  (UI -> AnagramScoring)
+     ===================================================================== */
+  function doCheck(which){
+    if(!game) return;
+    var s=game.state(); if(s.finished) return;
+    var word=collect(which);
+    var res=game.checkSource(which, word);   // -0.5
+    var fb = which==='a'?el.fbA:el.fbB;
+    if(res.correct){
+      fb.textContent='✓ Correct'; fb.className='feedback ok';
+      lockSourceCorrect(which);
+    } else {
+      fb.textContent='✗ Not quite'; fb.className='feedback no';
+    }
+    render();
+  }
+  function doRevealLetter(which){
+    if(!game) return; if(game.state().finished) return;
+    var res=game.revealSourceLetter(which);   // -1
+    if(res && res.index>=0){ setBox(which, res.index, res.letter, true); }
+    render();
+  }
+  function doRevealWord(which){
+    if(!game) return; if(game.state().finished) return;
+    var res=game.revealSourceWord(which);      // -4 cap
+    var w=(res && res.word)?res.word:collectAnswer(which);
+    for(var i=0;i<w.length;i++){ setBox(which, i, w[i], true); }
+    var fb = which==='a'?el.fbA:el.fbB; fb.textContent='Revealed'; fb.className='feedback';
+    render();
+  }
+  function doRevealFinal(){
+    if(!game) return; if(game.state().finished) return;
+    var res=game.revealFinalLetter();          // -1.5
+    if(res && res.index>=0){ setBoxC(res.index, res.letter, true); }
+    render();
+  }
+  function doSubmit(){
+    if(!game) return; if(game.state().finished) return;
+    var word=collect('c');
+    if(word.length < puzzle.c.word.length){ shakeC(); return; }
+    var res=game.guessFinal(word);             // -1 if wrong
+    if(res.correct){
+      el.fbC.textContent='✓ Solved!'; el.fbC.className='feedback ok';
+      markCorrectC(); _solvedFlag=true;
+      render(); finishGame();
+    } else {
+      el.fbC.textContent='✗ Wrong (-1)'; el.fbC.className='feedback no';
+      shakeC();
+      render();
+      if(res.finished){ finishGame(); }
+    }
+  }
+  function doGiveUp(){
+    if(!game) return; if(game.state().finished) return;
+    if(!confirm('Give up? Your score for today becomes 0.')) return;
+    game.giveUp();                             // -> 0, finished
+    render(); finishGame();
+  }
+
+  // buttons
+  document.querySelectorAll('[data-check]').forEach(function(b){ b.addEventListener('click', function(){ doCheck(b.dataset.check); }); });
+  document.querySelectorAll('[data-revletter]').forEach(function(b){ b.addEventListener('click', function(){ doRevealLetter(b.dataset.revletter); }); });
+  document.querySelectorAll('[data-revword]').forEach(function(b){ b.addEventListener('click', function(){ doRevealWord(b.dataset.revword); }); });
+  document.querySelector('[data-revfinal]').addEventListener('click', doRevealFinal);
+  document.getElementById('submit-btn').addEventListener('click', doSubmit);
+  document.getElementById('giveup-btn').addEventListener('click', doGiveUp);
+
+  /* ---- box helpers ---- */
+  function collect(which){
+    var container = which==='a'?el.boxesA:(which==='b'?el.boxesB:el.boxesC);
+    var boxes=container.querySelectorAll('.lbox');
+    var out=''; for(var i=0;i<boxes.length;i++){ out+=(boxes[i].value||''); }
+    return out.toUpperCase();
+  }
+  function collectAnswer(which){ return (puzzle[which].word||'').toUpperCase(); }
+  function setBox(which, idx, ch, lock){
+    var container = which==='a'?el.boxesA:el.boxesB;
+    var box=container.querySelectorAll('.lbox')[idx];
+    if(!box) return;
+    box.value=ch; typed[which][idx]=ch;
+    if(lock){ box.classList.add('locked'); box.readOnly=true; }
+  }
+  function setBoxC(idx, ch, lock){
+    var box=el.boxesC.querySelectorAll('.lbox')[idx];
+    if(!box) return;
+    box.value=ch; typed.c[idx]=ch;
+    if(lock){ box.classList.add('locked'); box.readOnly=true; }
+  }
+  function lockSourceCorrect(which){
+    var container = which==='a'?el.boxesA:el.boxesB;
+    var boxes=container.querySelectorAll('.lbox');
+    for(var i=0;i<boxes.length;i++){ boxes[i].classList.add('correct'); boxes[i].readOnly=true; }
+  }
+  function markCorrectC(){
+    var boxes=el.boxesC.querySelectorAll('.lbox');
+    for(var i=0;i<boxes.length;i++){ boxes[i].classList.add('correct'); boxes[i].readOnly=true; }
+  }
+  function shakeC(){
+    el.boxesC.classList.remove('shake'); void el.boxesC.offsetWidth; el.boxesC.classList.add('shake');
+    var boxes=el.boxesC.querySelectorAll('.lbox');
+    boxes.forEach(function(b){ if(!b.classList.contains('locked')){ b.classList.remove('flashbad'); void b.offsetWidth; b.classList.add('flashbad'); } });
+  }
+
+  /* ---- render score + enable/disable ---- */
+  function render(){
+    if(!game) return;
+    var s=game.state();
+    el.scorePill.textContent = s.score.toFixed(1)+' / '+ (s.maxScore||20);
+    var fin=s.finished;
+    document.querySelectorAll('#game-area .btn').forEach(function(b){
+      if(b.id==='shuffle-btn') return; // shuffle always allowed until finished? keep enabled
+      b.disabled = fin;
+    });
+    document.getElementById('shuffle-btn').disabled=false;
+    if(fin){ el.gameArea.classList.add('finished'); }
+  }
+
+  /* =====================================================================
+     End screen + countdown
+     ===================================================================== */
+  function finishGame(){
+    var s=game.state();
+    el.gameArea.classList.add('hidden');
+    el.endScreen.classList.remove('hidden');
+    el.endScore.textContent = s.score.toFixed(1)+' / '+(s.maxScore||20);
+    // Prefer scoring's own `won` flag if it exposes one; else use our local flag.
+    var solved = (typeof s.won==='boolean') ? s.won : (s.score>0 && lastGuessSolved());
+    el.endVerdict.textContent = solved ? '🎉 Solved!' : (s.score===0 ? 'Gave up' : 'Finished');
+    el.endReveal.innerHTML='';
+    [['A',puzzle.a],['B',puzzle.b],['C',puzzle.c]].forEach(function(pair){
+      var row=document.createElement('div'); row.className='reveal-row';
+      row.innerHTML='<div class="w">'+esc(pair[1].word.toUpperCase())+'</div><div class="d">'+esc(pair[1].clue)+'</div>';
+      el.endReveal.appendChild(row);
+    });
+    startCountdown();
+  }
+  var _solvedFlag=false;
+  function lastGuessSolved(){ return _solvedFlag; }
+
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  function startCountdown(){
+    if(countdownTimer) clearInterval(countdownTimer);
+    function tick(){
+      var now=new Date();
+      var tomorrow=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
+      var ms=tomorrow.getTime()-now.getTime();
+      if(ms<0) ms=0;
+      var h=Math.floor(ms/3600000), m=Math.floor((ms%3600000)/60000), sec=Math.floor((ms%60000)/1000);
+      el.countdown.textContent = pad(h)+':'+pad(m)+':'+pad(sec);
+      if(ms<=0){ clearInterval(countdownTimer); /* new day: reload today */ location.reload(); }
+    }
+    tick(); countdownTimer=setInterval(tick,1000);
+  }
+  function pad(n){ return (n<10?'0':'')+n; }
+
+  /* ---- Share ---- */
+  document.getElementById('share-btn').addEventListener('click', function(){
+    var text = (game && game.shareText) ? game.shareText() : ('Anagram Daily #'+currentIndex);
+    if(navigator.share){
+      navigator.share({ text:text }).catch(function(err){
+        if(err && err.name==='AbortError') return; // user cancelled: swallow
+        copyShare(text);
+      });
+    } else {
+      copyShare(text);
+    }
+  });
+  function copyShare(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast('Copied to clipboard!'); },
+        function(){ fallbackCopy(text); });
+    } else { fallbackCopy(text); }
+  }
+  function fallbackCopy(text){
+    try{
+      var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      toast('Copied to clipboard!');
+    }catch(e){ toast('Copy failed'); }
+  }
+
+  /* =====================================================================
+     Calendar archive
+     ===================================================================== */
+  var calYear, calMonth; // month view being shown
+  var calModal=document.getElementById('calendar-modal');
+  function openCalendar(){
+    var d=localMidnight(new Date());
+    calYear=d.getFullYear(); calMonth=d.getMonth();
+    renderCalendar(); calModal.classList.add('open');
+  }
+  function closeCalendar(){ calModal.classList.remove('open'); }
+  document.getElementById('calendar-btn').addEventListener('click', openCalendar);
+  document.getElementById('archive-btn2').addEventListener('click', openCalendar);
+  document.getElementById('cal-close').addEventListener('click', closeCalendar);
+  calModal.addEventListener('click', function(e){ if(e.target===calModal) closeCalendar(); });
+  document.getElementById('cal-prev').addEventListener('click', function(){ calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); });
+  document.getElementById('cal-next').addEventListener('click', function(){ calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCalendar(); });
+
+  function dayStatus(idx){
+    try{
+      var raw=localStorage.getItem('anagram_day'+idx);
+      if(!raw) return null;
+      var st=JSON.parse(raw);
+      if(!st) return null;
+      if(st.finished){
+        var sc = (st.result && typeof st.result.score==='number') ? st.result.score : st.score;
+        var won = (st._internal && typeof st._internal.won==='boolean') ? st._internal.won : (sc>0);
+        return { finished:true, solved:won, score:sc };
+      }
+      return { finished:false, played:true };
+    }catch(e){ return null; }
+  }
+
+  function renderCalendar(){
+    var dow=document.getElementById('cal-dow'); dow.innerHTML='';
+    ['S','M','T','W','T','F','S'].forEach(function(d){ var c=document.createElement('div'); c.className='cal-dow'; c.textContent=d; dow.appendChild(c); });
+    document.getElementById('cal-title').textContent =
+      new Date(calYear,calMonth,1).toLocaleString('en-US',{month:'long',year:'numeric'});
+    var grid=document.getElementById('cal-grid'); grid.innerHTML='';
+    var first=new Date(calYear,calMonth,1);
+    var startDow=first.getDay();
+    var daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+    for(var b=0;b<startDow;b++){ grid.appendChild(document.createElement('div')); }
+    for(var dnum=1;dnum<=daysInMonth;dnum++){
+      var cellDate=new Date(calYear,calMonth,dnum);
+      var idx=dayIndexFor(cellDate);
+      var cell=document.createElement('button');
+      cell.type='button'; cell.className='cal-day';
+      cell.innerHTML='<span class="dnum">'+dnum+'</span>';
+      if(idx>TODAY_INDEX || idx<MIN_DAY || idx>MAX_DAY){
+        cell.classList.add('future'); cell.disabled=true;
+      } else {
+        if(idx===TODAY_INDEX) cell.classList.add('today');
+        if(idx===currentIndex) cell.classList.add('current');
+        var st=dayStatus(idx);
+        if(st){
+          if(st.finished){ cell.classList.add(st.solved?'solved':'played'); cell.innerHTML+='<span class="dmark">'+(st.solved?('✓ '+ (typeof st.score==='number'?st.score.toFixed(1):'')):'—')+'</span>'; }
+          else if(st.played){ cell.classList.add('played'); cell.innerHTML+='<span class="dmark">○</span>'; }
+        }
+        (function(theIdx){ cell.addEventListener('click', function(){ closeCalendar(); switchToDay(theIdx); }); })(idx);
+      }
+      grid.appendChild(cell);
+    }
+  }
+
+  function switchToDay(idx){
+    // reset end screen / game area visibility
+    el.endScreen.classList.add('hidden');
+    el.gameArea.classList.remove('hidden','finished');
+    if(countdownTimer) clearInterval(countdownTimer);
+    _solvedFlag=false;
+    loadDay(idx);
+    // If already finished on load, show end screen
+    if(game && game.state().finished){
+      // restore locked/typed display for revealed C etc, then show end
+      restoreFinishedView();
+      finishGame();
+    }
+    window.scrollTo(0,0);
+  }
+
+  // when a day was already finished previously, reflect known letters
+  function restoreFinishedView(){
+    var s=game.state();
+    // reveal all locked letters we know from scoring
+    ['a','b'].forEach(function(w){
+      (s.revealed[w]||[]).forEach(function(i){ setBox(w,i,puzzle[w].word.toUpperCase()[i],true); });
+    });
+    (s.revealed.c||[]).forEach(function(i){ setBoxC(i, puzzle.c.word.toUpperCase()[i], true); });
+    // Use scoring's `won` if present; else approximate solved as finished & score>0.
+    if(typeof s.won==='boolean'){ _solvedFlag=s.won; }
+    else if(s.finished && s.score>0){ _solvedFlag=true; }
+  }
+
+  /* =====================================================================
+     Boot
+     ===================================================================== */
+  initTheme();
+  loadDay(TODAY_INDEX);
+  // If today was already finished, show end screen
+  if(game && game.state().finished){
+    restoreFinishedView();
+    finishGame();
+  }
+
+  // dev note banner if fallbacks active
+  if(window.__ANAGRAM_FALLBACK_PUZZLES || window.__ANAGRAM_FALLBACK_SCORING){
+    console.warn('[Anagram Daily] Using FALLBACK stubs:',
+      { puzzles:!!window.__ANAGRAM_FALLBACK_PUZZLES, scoring:!!window.__ANAGRAM_FALLBACK_SCORING });
+  }
+})();
+</script>
+</body>
+</html>
