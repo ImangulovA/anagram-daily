@@ -177,6 +177,19 @@
   /* Hidden final-word clue (revealed for -4) */
   .clue-text.clue-hidden{color:var(--muted);font-style:italic;font-weight:500;}
 
+  /* Global stats box on the end screen */
+  .stats-box{margin:14px 0 4px;text-align:left;}
+  .stats-box .st-head{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;text-align:center;}
+  .stats-nums{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-bottom:12px;}
+  .stats-nums .stat{text-align:center;}
+  .stats-nums .stat b{display:block;font-size:20px;font-weight:800;}
+  .stats-nums .stat span{font-family:var(--font-mono);font-size:11px;color:var(--muted);}
+  .hist{display:flex;align-items:flex-end;gap:3px;height:70px;justify-content:center;}
+  .hist .bar{width:12px;background:var(--muted);border:2px solid var(--line);border-bottom:none;border-radius:4px 4px 0 0;min-height:3px;opacity:.55;position:relative;}
+  .hist .bar.you{background:var(--accent);opacity:1;}
+  .hist-axis{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:4px;}
+  .stats-note{font-family:var(--font-mono);font-size:11px;color:var(--muted);text-align:center;margin-top:6px;}
+
   /* ---------- Final answer ---------- */
   .final-card{border-color:var(--accent);}
   .shake{animation:shake .4s;}
@@ -315,6 +328,7 @@
     <h2 style="color:var(--ink);font-size:14px;">Result</h2>
     <div class="big" id="end-score">0.0 / 20</div>
     <div class="verdict" id="end-verdict"></div>
+    <div class="stats-box" id="stats-box" hidden></div>
     <div class="reveal-list" id="end-reveal"></div>
     <div class="row-actions" style="justify-content:center;">
       <button class="btn primary" id="share-btn">&#128257; Share</button>
@@ -465,6 +479,9 @@
 (function(){
   "use strict";
   var HUB="https://imangulova.github.io/games/";
+  // Global-stats Worker (Cloudflare). Empty string disables all networking.
+  var STATS_API="https://anagram-stats.ru-catfishing.workers.dev";
+  var STATS_GAME="anagram-daily";
   var ANCHOR = new Date(2026, 6, 5); // local midnight 2026-07-05 (month 6 = July)
 
   /* ---- Day index (DST-safe, local date parts) ---- */
@@ -583,6 +600,7 @@
     buildBoxes('c', puzzle.c.word.length);
     buildPool();
     el.fbA.textContent=''; el.fbB.textContent=''; el.fbC.textContent='';
+    var sb=document.getElementById('stats-box'); if(sb){ sb.hidden=true; sb.innerHTML=''; }
 
     render();
   }
@@ -896,6 +914,7 @@
     var rc=document.getElementById('revclue-btn');
     if(rc) rc.disabled = fin || s.clueRevealed;
     if(fin){ el.gameArea.classList.add('finished'); }
+    syncBeacons();
   }
 
   /* =====================================================================
@@ -916,6 +935,10 @@
       el.endReveal.appendChild(row);
     });
     startCountdown();
+    syncBeacons();          // ensure finish is recorded before we ask for aggregates
+    // Fetch now, then refresh shortly after so the just-posted finish is counted.
+    loadDayStats(currentIndex);
+    setTimeout(function(){ loadDayStats(currentIndex); }, 1600);
   }
   var _solvedFlag=false;
   function lastGuessSolved(){ return _solvedFlag; }
@@ -1055,6 +1078,93 @@
     // Use scoring's `won` if present; else approximate solved as finished & score>0.
     if(typeof s.won==='boolean'){ _solvedFlag=s.won; }
     else if(s.finished && s.score>0){ _solvedFlag=true; }
+  }
+
+  /* =====================================================================
+     Global stats (Cloudflare Worker) — start/finish beacons + aggregates.
+     All network calls are best-effort and never block the game.
+     ===================================================================== */
+  function clientId(){
+    var k='anagram_client', id;
+    try{ id=localStorage.getItem(k); }catch(e){}
+    if(!id){
+      id = 'c'+Date.now().toString(36)+Math.random().toString(36).slice(2,10);
+      try{ localStorage.setItem(k, id); }catch(e){}
+    }
+    return id;
+  }
+  function postStat(kind, idx, score){
+    if(!STATS_API) return;
+    var body={ game:STATS_GAME, day:idx, clientId:clientId() };
+    if(kind==='finish') body.score=score;
+    try{
+      // text/plain keeps this a CORS "simple request" (no preflight).
+      fetch(STATS_API+'/'+kind, { method:'POST', body:JSON.stringify(body),
+        headers:{'Content-Type':'text/plain'}, keepalive:true }).catch(function(){});
+    }catch(e){}
+  }
+  function beaconOnce(kind, idx, score){
+    var flag='ag_b_'+kind+'_'+idx;
+    try{ if(localStorage.getItem(flag)) return; }catch(e){}
+    postStat(kind, idx, score);
+    try{ localStorage.setItem(flag,'1'); }catch(e){}
+  }
+  // Fire start once the day has been genuinely started, and finish once it's
+  // done — idempotent client-side (flags) and server-side (dedup). Called after
+  // every render and on boot, so restored/finished days get backfilled too.
+  function syncBeacons(){
+    var idx=currentIndex, raw;
+    try{ raw=localStorage.getItem('anagram_day'+idx); }catch(e){}
+    if(!raw) return;
+    var rec; try{ rec=JSON.parse(raw); }catch(e){ return; }
+    if(rec.started) beaconOnce('start', idx, null);
+    if(rec.finished){
+      var sc=(rec.result && typeof rec.result.score==='number') ? rec.result.score : rec.score;
+      beaconOnce('finish', idx, sc);
+    }
+  }
+  function loadDayStats(idx){
+    if(!STATS_API){ return; }
+    fetch(STATS_API+'/agg?game='+encodeURIComponent(STATS_GAME)+'&days='+idx)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var a = d && d.agg && d.agg[idx];
+        if(a) renderStats(a);
+      })
+      .catch(function(){});
+  }
+  function fmtScore(n){ return (typeof n==='number') ? (Number.isInteger(n)?String(n):n.toFixed(1)) : '—'; }
+  function renderStats(a){
+    var box=document.getElementById('stats-box');
+    if(!box || !a || !a.finished){ return; }
+    var mine = game ? game.state().score : null;
+    var parts=[];
+    parts.push('<div class="st-head">Today across all players</div>');
+    parts.push('<div class="stats-nums">'+
+      '<div class="stat"><b>'+(a.started||0)+'</b><span>started</span></div>'+
+      '<div class="stat"><b>'+(a.finished||0)+'</b><span>finished</span></div>'+
+      '<div class="stat"><b>'+fmtScore(a.avgScore)+'</b><span>avg</span></div>'+
+      '<div class="stat"><b>'+fmtScore(a.modeScore)+'</b><span>most common</span></div>'+
+    '</div>');
+    // Histogram: 0..20 in 0.5 steps (41 buckets).
+    if(a.hist && a.hist.length){
+      var counts={}; var maxN=1;
+      a.hist.forEach(function(h){ var key=Math.round(h.score*2); counts[key]=(counts[key]||0)+h.n; if(counts[key]>maxN)maxN=counts[key]; });
+      var mineKey = (mine!=null) ? Math.round(mine*2) : -1;
+      var bars='';
+      for(var k=0;k<=40;k++){
+        var n=counts[k]||0;
+        var h=Math.round((n/maxN)*66)+ (n>0?4:0);
+        var cls='bar'+(k===mineKey?' you':'');
+        var title=(k/2)+' pts · '+n+' player'+(n===1?'':'s');
+        bars+='<div class="'+cls+'" style="height:'+h+'px" title="'+title+'"></div>';
+      }
+      parts.push('<div class="hist">'+bars+'</div>');
+      parts.push('<div class="hist-axis"><span>0</span><span>10</span><span>20</span></div>');
+      if(mine!=null) parts.push('<div class="stats-note">The gold bar is your score ('+fmtScore(mine)+'/20).</div>');
+    }
+    box.innerHTML=parts.join('');
+    box.hidden=false;
   }
 
   /* =====================================================================
