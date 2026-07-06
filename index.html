@@ -141,8 +141,26 @@
   .feedback.no{color:var(--bad);}
 
   /* ---------- Letter pool ---------- */
-  .pool-wrap{margin-bottom:6px;}
+  /* Top row: two clues + circular pool side by side */
+  .top-row{display:grid;grid-template-columns:1fr 1fr minmax(240px,auto);gap:18px;align-items:start;margin-bottom:18px;}
+  .top-row .card{margin-bottom:0;}
+  .pool-wrap{display:flex;flex-direction:column;align-items:center;}
+  .pool-wrap h2{align-self:flex-start;}
+  @media (max-width:820px){
+    .top-row{grid-template-columns:1fr 1fr;}
+    .pool-wrap{grid-column:1 / -1;}
+  }
+  @media (max-width:560px){ .top-row{grid-template-columns:1fr;} }
+
+  /* Flat pool (fallback) */
   .pool{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;min-height:48px;}
+  /* Circular pool: tiles positioned around a ring by JS */
+  .pool.circle{position:relative;width:224px;height:224px;margin:6px auto;flex-wrap:nowrap;}
+  .pool.circle .tile{position:absolute;width:40px;height:46px;transition:left .18s ease,top .18s ease,transform .1s ease;}
+  .pool-empty{max-width:200px;font-family:var(--font-mono);font-size:12px;color:var(--muted);text-align:center;line-height:1.4;}
+  .pool.circle .pool-empty{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+  @media (max-width:560px){ .pool.circle{width:200px;height:200px;} }
+
   .tile{
     width:42px;height:48px;
     border:2px solid var(--line);border-radius:8px;
@@ -155,6 +173,9 @@
   .tile:active{cursor:grabbing;transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line);}
   .tile.used{opacity:.28;}
   @media (max-width:480px){ .tile{width:34px;height:40px;font-size:17px;} }
+
+  /* Hidden final-word clue (revealed for -4) */
+  .clue-text.clue-hidden{color:var(--muted);font-style:italic;font-weight:500;}
 
   /* ---------- Final answer ---------- */
   .final-card{border-color:var(--accent);}
@@ -236,6 +257,8 @@
 
   <!-- Game area -->
   <div id="game-area">
+   <!-- Top row: the two clues + the (circular) letter pool, side by side -->
+   <div class="top-row">
     <!-- Source A -->
     <section class="card src-card" id="card-a" aria-labelledby="lbl-a">
       <h2 id="lbl-a">Clue 1 (Word A)</h2>
@@ -262,14 +285,15 @@
       </div>
     </section>
 
-    <!-- Letter pool -->
+    <!-- Letter pool (circular) -->
     <section class="card pool-wrap" aria-labelledby="lbl-pool">
-      <h2 id="lbl-pool">Letter pool (A + B) &mdash; anagram of the answer</h2>
-      <div class="pool" id="pool" role="group" aria-label="Combined letter pool"></div>
-      <div class="row-actions">
+      <h2 id="lbl-pool">Letter pool</h2>
+      <div class="pool circle" id="pool" role="group" aria-label="Combined letter pool"></div>
+      <div class="row-actions" style="justify-content:center;">
         <button class="btn" id="shuffle-btn">&#128256; Shuffle <span class="cost">free</span></button>
       </div>
     </section>
+   </div><!-- /.top-row -->
 
     <!-- Final answer -->
     <section class="card final-card" aria-labelledby="lbl-c">
@@ -278,6 +302,7 @@
       <div class="boxes" id="boxes-c" role="group" aria-label="Letters for the final answer"></div>
       <div class="row-actions">
         <button class="btn primary" id="submit-btn">Submit <span class="cost">-1 if wrong</span></button>
+        <button class="btn" id="revclue-btn">Reveal clue <span class="cost">-4</span></button>
         <button class="btn" data-revfinal>Reveal a letter <span class="cost">-1.5</span></button>
         <button class="btn ghost" id="giveup-btn">Give up <span class="cost">&rarr; 0</span></button>
         <span class="feedback" id="fb-c" aria-live="polite"></span>
@@ -368,6 +393,7 @@
         function state(){
           return { score:disp(), maxScore:20, finished:st.finished,
                    revealed:{a:st.revealed.a.slice(),b:st.revealed.b.slice(),c:st.revealed.c.slice()},
+                   clueRevealed:!!st.clueRevealed,
                    guesses:st.guesses, checks:st.checks };
         }
         return {
@@ -402,6 +428,11 @@
             if(idx<0) return { letter:null, index:-1, score:disp() };
             rev.push(idx); st.score-=1.5; clamp(); save();
             return { letter:w[idx], index:idx, score:disp() };
+          },
+          revealFinalClue:function(){
+            if(st.finished||st.clueRevealed) return { revealed:!!st.clueRevealed, score:disp() };
+            st.clueRevealed=true; st.score-=4; clamp(); save();
+            return { revealed:true, score:disp() };
           },
           guessFinal:function(typed){
             if(st.finished) return { correct:false, score:disp(), finished:true };
@@ -543,7 +574,7 @@
     el.diffLabel.textContent = 'Difficulty '+difficultyStars(puzzle.difficulty);
     el.clueA.textContent = puzzle.a.clue;
     el.clueB.textContent = puzzle.b.clue;
-    el.clueC.textContent = puzzle.c.clue;
+    updateClueC();
 
     buildBoxes('a', puzzle.a.word.length);
     buildBoxes('b', puzzle.b.word.length);
@@ -583,6 +614,7 @@
       var v=(inp.value||'').toUpperCase().replace(/[^A-Z]/g,'');
       inp.value=v.slice(-1);
       typed[which][i]=inp.value;
+      if(which==='a'||which==='b'){ refreshPool(); }
       if(inp.value){ focusSibling(inp, +1); }
       clearFeedback(which);
     });
@@ -591,7 +623,9 @@
       if(e.key==='Backspace'){
         if(!inp.value){ e.preventDefault(); var p=focusSibling(inp,-1); if(p){ p.value=''; typed[p.dataset.which][+p.dataset.idx]=''; } }
         else { typed[which][i]=''; }
-      } else if(e.key==='ArrowLeft'){ e.preventDefault(); focusSibling(inp,-1); }
+        if(which==='a'||which==='b'){ setTimeout(refreshPool,0); }
+      } else if(e.key==='Tab'){ e.preventDefault(); focusAcross(inp, e.shiftKey?-1:+1); }
+      else if(e.key==='ArrowLeft'){ e.preventDefault(); focusSibling(inp,-1); }
       else if(e.key==='ArrowRight'){ e.preventDefault(); focusSibling(inp,+1); }
       else if(e.key==='Enter'){
         if(which==='c'){ doSubmit(); }
@@ -615,19 +649,56 @@
     return null;
   }
 
+  // Tab across ALL boxes (A -> B -> C), skipping locked/readonly (revealed/correct).
+  function focusAcross(inp, dir){
+    var all=Array.prototype.slice.call(el.gameArea.querySelectorAll('.lbox'));
+    var cur=all.indexOf(inp);
+    var j=cur+dir;
+    while(j>=0 && j<all.length){
+      if(!all[j].classList.contains('locked') && !all[j].readOnly){ all[j].focus(); all[j].select(); return all[j]; }
+      j+=dir;
+    }
+    return null;
+  }
+
   function clearFeedback(which){
     var fb = which==='a'?el.fbA:(which==='b'?el.fbB:el.fbC);
     fb.textContent=''; fb.className='feedback';
   }
 
-  /* ---- Letter pool ---- */
-  function buildPool(){
-    var combined = (puzzle.a.word + puzzle.b.word).toUpperCase().split('');
-    poolOrder = shuffleArr(combined.slice());
+  /* ---- Letter pool (built ONLY from what the user has entered in A + B) ---- */
+  function currentPoolLetters(){
+    var arr=[];
+    for(var i=0;i<(typed.a||[]).length;i++){ if(typed.a[i]) arr.push(typed.a[i]); }
+    for(var j=0;j<(typed.b||[]).length;j++){ if(typed.b[j]) arr.push(typed.b[j]); }
+    return arr;
+  }
+  function buildPool(){ poolOrder=[]; refreshPool(); }
+  // Reconcile poolOrder with the current A+B letters, preserving existing
+  // order (so typing/removing a letter doesn't undo a shuffle).
+  function refreshPool(){
+    var target=currentPoolLetters();
+    var need={}; target.forEach(function(c){ need[c]=(need[c]||0)+1; });
+    var kept=[], seen={};
+    poolOrder.forEach(function(c){
+      if((seen[c]||0) < (need[c]||0)){ kept.push(c); seen[c]=(seen[c]||0)+1; }
+    });
+    Object.keys(need).forEach(function(c){
+      var missing=need[c]-(seen[c]||0);
+      for(var k=0;k<missing;k++) kept.push(c);
+    });
+    poolOrder=kept;
     renderPool();
   }
   function renderPool(){
     el.pool.innerHTML='';
+    if(!poolOrder.length){
+      var hint=document.createElement('span'); hint.className='pool-empty';
+      hint.textContent='Solve the two clues above — your letters appear here to anagram into the answer.';
+      el.pool.appendChild(hint);
+      return;
+    }
+    var tiles=[];
     poolOrder.forEach(function(ch, i){
       var t=document.createElement('button');
       t.type='button'; t.className='tile'; t.textContent=ch;
@@ -638,7 +709,23 @@
       t.setAttribute('draggable','true');
       t.addEventListener('dragstart', function(e){ e.dataTransfer.setData('text/plain', ch); });
       el.pool.appendChild(t);
+      tiles.push(t);
     });
+    if(el.pool.classList.contains('circle')) layoutCircle(tiles);
+  }
+  // Arrange tiles evenly around a ring inside the (square) pool container.
+  function layoutCircle(tiles){
+    var n=tiles.length; if(!n) return;
+    var size=el.pool.clientWidth || 224;
+    var tw=tiles[0].offsetWidth || 40, th=tiles[0].offsetHeight || 46;
+    var cx=size/2, cy=size/2;
+    // Radius grows a bit with count; single tile sits in the centre.
+    var R = n===1 ? 0 : Math.min(cx - tw/2 - 2, 26 + n*6);
+    for(var i=0;i<n;i++){
+      var ang=(-90 + i*(360/n)) * Math.PI/180;
+      tiles[i].style.left=(cx + R*Math.cos(ang) - tw/2)+'px';
+      tiles[i].style.top =(cy + R*Math.sin(ang) - th/2)+'px';
+    }
   }
   function shuffleArr(arr){
     for(var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp; }
@@ -689,6 +776,7 @@
     if(!game) return; if(game.state().finished) return;
     var res=game.revealSourceLetter(which);   // -1
     if(res && res.index>=0){ setBox(which, res.index, res.letter, true); }
+    refreshPool();
     render();
   }
   function doRevealWord(which){
@@ -696,6 +784,7 @@
     var res=game.revealSourceWord(which);      // -4 cap
     var w=(res && res.word)?res.word:collectAnswer(which);
     for(var i=0;i<w.length;i++){ setBox(which, i, w[i], true); }
+    refreshPool();
     var fb = which==='a'?el.fbA:el.fbB; fb.textContent='Revealed'; fb.className='feedback';
     render();
   }
@@ -704,6 +793,24 @@
     var res=game.revealFinalLetter();          // -1.5
     if(res && res.index>=0){ setBoxC(res.index, res.letter, true); }
     render();
+  }
+  function doRevealFinalClue(){
+    if(!game) return; if(game.state().finished) return;
+    if(game.state().clueRevealed) return;
+    game.revealFinalClue();                    // -4
+    updateClueC();
+    render();
+  }
+  // Show/hide the final word's clue based on scoring state (hidden until paid).
+  function updateClueC(){
+    var revealed = game && game.state().clueRevealed;
+    if(revealed){
+      el.clueC.textContent = puzzle.c.clue;
+      el.clueC.classList.remove('clue-hidden');
+    } else {
+      el.clueC.textContent = '🔒 Clue hidden — reveal for -4';
+      el.clueC.classList.add('clue-hidden');
+    }
   }
   function doSubmit(){
     if(!game) return; if(game.state().finished) return;
@@ -733,6 +840,7 @@
   document.querySelectorAll('[data-revletter]').forEach(function(b){ b.addEventListener('click', function(){ doRevealLetter(b.dataset.revletter); }); });
   document.querySelectorAll('[data-revword]').forEach(function(b){ b.addEventListener('click', function(){ doRevealWord(b.dataset.revword); }); });
   document.querySelector('[data-revfinal]').addEventListener('click', doRevealFinal);
+  document.getElementById('revclue-btn').addEventListener('click', doRevealFinalClue);
   document.getElementById('submit-btn').addEventListener('click', doSubmit);
   document.getElementById('giveup-btn').addEventListener('click', doGiveUp);
 
@@ -783,6 +891,8 @@
       b.disabled = fin;
     });
     document.getElementById('shuffle-btn').disabled=false;
+    var rc=document.getElementById('revclue-btn');
+    if(rc) rc.disabled = fin || s.clueRevealed;
     if(fin){ el.gameArea.classList.add('finished'); }
   }
 

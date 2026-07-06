@@ -28,6 +28,7 @@
   var COST_SOURCE_WORD_CAP = 4;
   var COST_FINAL_LETTER = 1.5;
   var COST_WRONG_FINAL = 1;
+  var COST_FINAL_CLUE = 4; // reveal the final word's clue/definition (once)
   var KEY_PREFIX = 'anagram_day';
 
   // ---- Small helpers --------------------------------------------------------
@@ -103,6 +104,8 @@
       fullReveal: { a: false, b: false },
       // Final word C letter reveals (bool array by index).
       revealedFinal: [],
+      // Whether the final word's clue/definition has been revealed (costs 4, once).
+      clueRevealed: false,
       guesses: 0, // wrong final guesses
       checks: 0 // source-word checks (a + b combined count)
     };
@@ -139,6 +142,7 @@
       st.fullReveal.a = !!(ins.fullReveal && ins.fullReveal.a);
       st.fullReveal.b = !!(ins.fullReveal && ins.fullReveal.b);
       st.revealedFinal = Array.isArray(ins.revealedFinal) ? ins.revealedFinal.slice() : [];
+      st.clueRevealed = !!ins.clueRevealed;
     })();
 
     // ---- Persistence -------------------------------------------------------
@@ -178,7 +182,8 @@
           revealedLetters: st.revealedLetters,
           spentOn: st.spentOn,
           fullReveal: st.fullReveal,
-          revealedFinal: st.revealedFinal
+          revealedFinal: st.revealedFinal,
+          clueRevealed: st.clueRevealed
         }
       };
       try {
@@ -206,6 +211,7 @@
         finished: st.finished,
         won: st.won,
         revealed: revealedSummary(),
+        clueRevealed: st.clueRevealed,
         guesses: st.guesses,
         checks: st.checks
       };
@@ -320,6 +326,19 @@
       return { letter: word.charAt(idx), index: idx, score: displayScore(st.score) };
     }
 
+    // Reveal the final word's clue/definition. Costs 4, once. The clue text
+    // lives in the UI (this module only knows answer words); the UI shows it
+    // when state().clueRevealed is true.
+    function revealFinalClue() {
+      if (st.finished) return { revealed: st.clueRevealed, score: displayScore(st.score) };
+      touchStarted();
+      if (st.clueRevealed) return { revealed: true, score: displayScore(st.score) };
+      st.clueRevealed = true;
+      charge(COST_FINAL_CLUE);
+      persist();
+      return { revealed: true, score: displayScore(st.score) };
+    }
+
     function guessFinal(typedWord) {
       if (st.finished) {
         return { correct: st.won, score: displayScore(st.score), finished: true };
@@ -390,6 +409,7 @@
         srcLetterHints > 0 ||
         fullSrcWords > 0 ||
         finalHints > 0 ||
+        st.clueRevealed ||
         s.guesses > 0;
 
       if (!usedAny) {
@@ -399,6 +419,7 @@
       var marks = [];
       if (fullSrcWords > 0) marks.push(repeat('🟨', fullSrcWords));
       if (srcLetterHints > 0) marks.push(repeat('🔤', srcLetterHints));
+      if (st.clueRevealed) marks.push('💡');
       if (finalHints > 0) marks.push(repeat('🎯', finalHints));
       if (s.checks > 0) marks.push(repeat('🔍', s.checks));
       if (s.guesses > 0) marks.push(repeat('❌', s.guesses));
@@ -420,6 +441,7 @@
       revealSourceLetter: revealSourceLetter,
       revealSourceWord: revealSourceWord,
       revealFinalLetter: revealFinalLetter,
+      revealFinalClue: revealFinalClue,
       guessFinal: guessFinal,
       giveUp: giveUp,
       shareText: shareText,
@@ -755,6 +777,27 @@ if (typeof require !== 'undefined' && typeof module !== 'undefined' && require.m
       ok('live' in rec, 'record has live');
       ok(rec.result && rec.result.max === 20, 'record result.max 20');
       eq(rec.live, true, 'live true while in progress');
+    })();
+
+    // 10) Reveal final clue: -4, once, persisted, in state + share.
+    (function () {
+      var store = mockStore();
+      var g = AnagramScoring.create({ dayIndex: 30, puzzle: PUZZLE, storage: store });
+      eq(g.state().clueRevealed, false, 'clue hidden by default');
+      var r = g.revealFinalClue();
+      eq(r.revealed, true, 'revealFinalClue -> revealed');
+      eq(g.state().score, 16, 'reveal final clue costs 4');
+      eq(g.state().clueRevealed, true, 'state.clueRevealed true');
+      g.revealFinalClue();
+      eq(g.state().score, 16, 'second clue reveal is free');
+      // Survives rehydration.
+      var g2 = AnagramScoring.create({ dayIndex: 30, puzzle: PUZZLE, storage: store });
+      eq(g2.state().clueRevealed, true, 'clueRevealed rehydrated');
+      eq(g2.state().score, 16, 'score rehydrated after clue reveal');
+      // Counts as help in share (won but not clean).
+      g2.guessFinal('astronomer');
+      ok(g2.shareText().indexOf('💡') !== -1, 'share shows clue-reveal mark');
+      ok(g2.shareText().indexOf('⭐ clean solve') === -1, 'clue reveal is not a clean solve');
     })();
 
     console.log('\n' + passed + ' passed, ' + failed + ' failed');
