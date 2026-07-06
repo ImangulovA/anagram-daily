@@ -123,6 +123,12 @@
   .lbox.correct{background:var(--good);color:#08210f;}
   @media (max-width:480px){ .lbox{width:30px;height:38px;font-size:16px;} }
 
+  /* Clue 1 & 2 boxes ALWAYS stay on a single row: the boxes shrink to fit the
+     (now larger) card width so long source words never wrap. */
+  .src-card .boxes{flex-wrap:nowrap;gap:5px;justify-content:flex-start;}
+  .src-card .lbox{flex:1 1 0;min-width:0;width:auto;max-width:52px;}
+  @media (max-width:480px){ .src-card .lbox{width:auto;} }
+
   .row-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
   .btn{
     border:2px solid var(--line);border-radius:8px;
@@ -141,8 +147,9 @@
   .feedback.no{color:var(--bad);}
 
   /* ---------- Letter pool ---------- */
-  /* Top row: two clues + circular pool side by side */
-  .top-row{display:grid;grid-template-columns:1fr 1fr minmax(240px,auto);gap:18px;align-items:start;margin-bottom:18px;}
+  /* Top row: two (big) clue cards + a much narrower circular pool beside them.
+     Clue cards get 2fr each; the pool column is ~half their width (1fr). */
+  .top-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,2fr) minmax(140px,1fr);gap:16px;align-items:start;margin-bottom:18px;}
   .top-row .card{margin-bottom:0;}
   .pool-wrap{display:flex;flex-direction:column;align-items:center;}
   .pool-wrap h2{align-self:flex-start;}
@@ -154,12 +161,12 @@
 
   /* Flat pool (fallback) */
   .pool{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;min-height:48px;}
-  /* Circular pool: tiles positioned around a ring by JS */
-  .pool.circle{position:relative;width:224px;height:224px;margin:6px auto;flex-wrap:nowrap;}
+  /* Circular pool: fills its (narrow) column; tiles positioned + sized by JS */
+  .pool.circle{position:relative;width:100%;max-width:200px;aspect-ratio:1;height:auto;margin:6px auto;flex-wrap:nowrap;}
   .pool.circle .tile{position:absolute;width:40px;height:46px;transition:left .18s ease,top .18s ease,transform .1s ease;}
   .pool-empty{max-width:200px;font-family:var(--font-mono);font-size:12px;color:var(--muted);text-align:center;line-height:1.4;}
-  .pool.circle .pool-empty{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
-  @media (max-width:560px){ .pool.circle{width:200px;height:200px;} }
+  .pool.circle .pool-empty{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;}
+  @media (max-width:820px){ .pool.circle{max-width:220px;} }
 
   .tile{
     width:42px;height:48px;
@@ -202,6 +209,14 @@
   }
   .flashbad{animation:flashbad .5s;}
   @keyframes flashbad{0%{background:var(--bad);}100%{background:var(--box);}}
+
+  /* ---------- Landing / home screen ---------- */
+  .landing{text-align:center;}
+  .landing h2{color:var(--ink);font-size:22px;font-weight:900;margin:2px 0 6px;}
+  .landing-meta{font-family:var(--font-mono);font-size:13px;color:var(--muted);margin:0 0 14px;}
+  .landing-rules{font-size:15px;line-height:1.5;max-width:440px;margin:0 auto 18px;color:var(--ink);}
+  .landing .btn.primary{font-size:17px;padding:12px 26px;}
+  .landing-result{font-family:var(--font-mono);font-weight:800;font-size:16px;margin-top:14px;}
 
   /* ---------- End screen ---------- */
   .end{text-align:center;}
@@ -266,6 +281,18 @@
   <div class="sub">
     <span id="puzzle-label">Puzzle #0 &middot; 2026-07-05</span>
     <span id="difficulty-label"></span>
+  </div>
+
+  <!-- Landing / home screen (matches the other daily games; lets a solved day
+       be reloaded cleanly instead of jumping straight into a broken board) -->
+  <div id="landing" class="card landing hidden">
+    <h2><span class="accent" style="background:var(--accent);padding:0 6px;border:2px solid var(--line);border-radius:6px;">Anagram</span> Daily</h2>
+    <p class="landing-meta" id="landing-meta"></p>
+    <p class="landing-rules">Solve the two clues, then rearrange all of their letters to spell a third, longer word. You start with <b>20 points</b>; every hint costs points.</p>
+    <div class="row-actions" style="justify-content:center;">
+      <button class="btn primary" id="play-btn">Play &#9656;</button>
+    </div>
+    <div class="landing-result hidden" id="landing-result"></div>
   </div>
 
   <!-- Game area -->
@@ -565,6 +592,10 @@
     fbB:document.getElementById('fb-b'),
     fbC:document.getElementById('fb-c'),
     gameArea:document.getElementById('game-area'),
+    landing:document.getElementById('landing'),
+    landingMeta:document.getElementById('landing-meta'),
+    landingResult:document.getElementById('landing-result'),
+    playBtn:document.getElementById('play-btn'),
     endScreen:document.getElementById('end-screen'),
     endScore:document.getElementById('end-score'),
     endVerdict:document.getElementById('end-verdict'),
@@ -734,19 +765,41 @@
     if(el.pool.classList.contains('circle')) layoutCircle(tiles);
   }
   // Arrange tiles evenly around a ring inside the (square) pool container.
+  // Tile SIZE adapts to the pool width + tile count so the (now narrow) pool
+  // never overlaps its letters, even for long final words.
   function layoutCircle(tiles){
     var n=tiles.length; if(!n) return;
-    var size=el.pool.clientWidth || 224;
-    var tw=tiles[0].offsetWidth || 40, th=tiles[0].offsetHeight || 46;
+    var size=el.pool.clientWidth || el.pool.offsetWidth || 180;
+    if(!size) size=180;
+    // Pick the largest tile size that still fits n tiles around the ring.
+    var ts=44;
+    for(ts=44; ts>=20; ts-=2){
+      if(n===1) break;
+      var Rtest=size/2 - ts/2 - 2;
+      if(Rtest<=0) continue;
+      var chord=2*Rtest*Math.sin(Math.PI/n); // gap between adjacent tile centers
+      if(chord >= ts*0.92) break;            // enough room, stop shrinking
+    }
+    var th=Math.round(ts*1.14);
     var cx=size/2, cy=size/2;
-    // Radius grows a bit with count; single tile sits in the centre.
-    var R = n===1 ? 0 : Math.min(cx - tw/2 - 2, 26 + n*6);
+    var R = n===1 ? 0 : Math.max(0, size/2 - ts/2 - 2);
     for(var i=0;i<n;i++){
+      var t=tiles[i];
+      t.style.width=ts+'px'; t.style.height=th+'px';
+      t.style.fontSize=Math.max(12, Math.round(ts*0.5))+'px';
       var ang=(-90 + i*(360/n)) * Math.PI/180;
-      tiles[i].style.left=(cx + R*Math.cos(ang) - tw/2)+'px';
-      tiles[i].style.top =(cy + R*Math.sin(ang) - th/2)+'px';
+      t.style.left=(cx + R*Math.cos(ang) - ts/2)+'px';
+      t.style.top =(cy + R*Math.sin(ang) - th/2)+'px';
     }
   }
+  // Re-layout the ring when the viewport (and thus the pool width) changes.
+  var _poolResizeTimer=null;
+  window.addEventListener('resize', function(){
+    clearTimeout(_poolResizeTimer);
+    _poolResizeTimer=setTimeout(function(){
+      if(el.pool.classList.contains('circle') && poolOrder.length) renderPool();
+    }, 120);
+  });
   function shuffleArr(arr){
     for(var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp; }
     return arr;
@@ -1054,17 +1107,13 @@
   function switchToDay(idx){
     // reset end screen / game area visibility
     el.endScreen.classList.add('hidden');
-    el.gameArea.classList.remove('hidden','finished');
+    el.gameArea.classList.remove('finished');
     if(countdownTimer) clearInterval(countdownTimer);
     _solvedFlag=false;
     loadDay(idx);
-    // If already finished on load, show end screen
-    if(game && game.state().finished){
-      // restore locked/typed display for revealed C etc, then show end
-      restoreFinishedView();
-      finishGame();
-    }
-    window.scrollTo(0,0);
+    // Always land on the home screen for the chosen day (Play / Continue /
+    // Watch results). Reloading a solved day is now stable.
+    showLanding();
   }
 
   // when a day was already finished previously, reflect known letters
@@ -1079,6 +1128,61 @@
     if(typeof s.won==='boolean'){ _solvedFlag=s.won; }
     else if(s.finished && s.score>0){ _solvedFlag=true; }
   }
+
+  /* =====================================================================
+     Landing / home screen
+     Every day now opens on a landing card with a single primary button:
+       * fresh day       -> "Play"
+       * started, unfinished -> "Continue"
+       * finished        -> "Watch results"
+     This mirrors the sibling games and, crucially, means reloading a solved
+     day lands on a stable home screen instead of jumping into a broken board.
+     ===================================================================== */
+  function landingActivity(s){
+    if(!s) return false;
+    if(s.checks>0 || s.guesses>0) return true;
+    var r=s.revealed||{};
+    return !!((r.a&&r.a.length)||(r.b&&r.b.length)||(r.c&&r.c.length)||s.clueRevealed);
+  }
+  function showLanding(){
+    if(!puzzle) return;
+    var s=game?game.state():null;
+    el.landing.classList.remove('hidden');
+    el.gameArea.classList.add('hidden');
+    el.endScreen.classList.add('hidden');
+    el.landingMeta.textContent = 'Puzzle #'+currentIndex+' · '+(puzzle.date||'')+
+      ' · Difficulty '+difficultyStars(puzzle.difficulty);
+    if(s && s.finished){
+      el.playBtn.innerHTML='Watch results ▸';
+      el.landingResult.classList.remove('hidden');
+      el.landingResult.textContent='You scored '+s.score.toFixed(1)+' / '+(s.maxScore||20);
+    } else {
+      el.playBtn.innerHTML=(landingActivity(s)?'Continue':'Play')+' ▸';
+      el.landingResult.classList.add('hidden');
+      el.landingResult.textContent='';
+    }
+    window.scrollTo(0,0);
+  }
+  function startFromLanding(){
+    if(!game) return;
+    if(game.state().finished){
+      // Reflect known letters, then reveal the end screen.
+      restoreFinishedView();
+      el.landing.classList.add('hidden');
+      finishGame();
+    } else {
+      el.landing.classList.add('hidden');
+      el.endScreen.classList.add('hidden');
+      el.gameArea.classList.remove('hidden');
+      // The pool may have been laid out while hidden (width 0); re-render now
+      // that the game area is visible so the ring is sized correctly.
+      renderPool();
+      // focus the first empty, unlocked source box for quick typing
+      var first=el.gameArea.querySelector('.lbox:not(.locked)');
+      if(first) first.focus();
+    }
+  }
+  el.playBtn.addEventListener('click', startFromLanding);
 
   /* =====================================================================
      Global stats (Cloudflare Worker) — start/finish beacons + aggregates.
@@ -1146,8 +1250,11 @@
       '<div class="stat"><b>'+fmtScore(a.avgScore)+'</b><span>avg</span></div>'+
       '<div class="stat"><b>'+fmtScore(a.modeScore)+'</b><span>most common</span></div>'+
     '</div>');
-    // Histogram: 0..20 in 0.5 steps (41 buckets).
-    if(a.hist && a.hist.length){
+    // Histogram: 0..20 in 0.5 steps (41 buckets). Only shown once enough
+    // players have finished today (a lone bar or two reveals nothing useful
+    // and can de-anonymize a small field), so require 10+ finishers.
+    var finishedCount = a.finished||0;
+    if(a.hist && a.hist.length && finishedCount >= 10){
       var counts={}; var maxN=1;
       a.hist.forEach(function(h){ var key=Math.round(h.score*2); counts[key]=(counts[key]||0)+h.n; if(counts[key]>maxN)maxN=counts[key]; });
       var mineKey = (mine!=null) ? Math.round(mine*2) : -1;
@@ -1162,6 +1269,8 @@
       parts.push('<div class="hist">'+bars+'</div>');
       parts.push('<div class="hist-axis"><span>0</span><span>10</span><span>20</span></div>');
       if(mine!=null) parts.push('<div class="stats-note">The gold bar is your score ('+fmtScore(mine)+'/20).</div>');
+    } else if(a.hist && a.hist.length){
+      parts.push('<div class="stats-note">Score distribution appears once 10+ players have finished today.</div>');
     }
     box.innerHTML=parts.join('');
     box.hidden=false;
@@ -1172,11 +1281,10 @@
      ===================================================================== */
   initTheme();
   loadDay(TODAY_INDEX);
-  // If today was already finished, show end screen
-  if(game && game.state().finished){
-    restoreFinishedView();
-    finishGame();
-  }
+  // Open on the landing/home screen. The button reads Play / Continue / Watch
+  // results depending on today's saved state, so a reload of a solved day is
+  // stable instead of crashing straight into a finished board.
+  showLanding();
   // Deep-link: the games-hub "Archive" button links here with #archive.
   function maybeOpenArchive(){ if(location.hash==='#archive') openCalendar(); }
   maybeOpenArchive();

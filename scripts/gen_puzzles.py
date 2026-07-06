@@ -400,6 +400,107 @@ def is_circular_clue(word, clue):
 
 
 # ----------------------------------------------------------------------------
+# Cognate / same-root detection
+# ----------------------------------------------------------------------------
+# The three answer words (A, B, C) must not be etymologically related / share a
+# root. GREAT + SET -> GREATEST is the classic offender: GREATEST is just GREAT
+# with a superlative suffix, so B and C are the same root. Stemmers (Porter /
+# Snowball) do NOT reduce "greatest" -> "great", so we use an explicit,
+# deterministic, offline morphology check instead.
+#
+# Inflectional + common derivational suffixes. Single-letter 'd' is deliberately
+# EXCLUDED (it would flag unrelated pairs like CAR/CARD); 'ed' still covers past
+# tense. Silent-e drop, y->i, and final-consonant doubling are handled below.
+_INFLECTION_SUFFIXES = frozenset({
+    "s", "es", "ies", "ied", "ed", "ing", "ings",
+    "er", "ers", "est", "or", "ors",
+    "ly", "y", "al", "ial", "ic", "ical", "ive", "ivity",
+    "ion", "ions", "tion", "sion", "ation", "ations",
+    "ness", "ment", "ments", "ful", "less", "able", "ible",
+    "ity", "ty", "ance", "ence", "ancy", "ency",
+    "ish", "en", "ens", "ened", "ist", "ists", "ism",
+    "ize", "ise", "ized", "ised", "izing", "ising",
+    "age", "ery", "ary", "ory", "ous", "eous", "ious",
+})
+
+
+def _common_prefix_len(x, y):
+    n = min(len(x), len(y))
+    i = 0
+    while i < n and x[i] == y[i]:
+        i += 1
+    return i
+
+
+def _is_suffixed_form(short, long_):
+    """True if ``long_`` looks like ``short`` + a known suffix, allowing the
+    usual English spelling tweaks (silent-e drop, y->i, consonant doubling)."""
+    if len(short) < 3:
+        return False
+    # 1. plain concatenation:  great + est -> greatest
+    if long_.startswith(short):
+        rem = long_[len(short):]
+        if rem in _INFLECTION_SUFFIXES:
+            return True
+        # doubled final consonant:  run + n + ing -> running
+        if rem[:1] == short[-1:] and rem[1:] in _INFLECTION_SUFFIXES:
+            return True
+    # 2. silent-e drop:  make -> mak + ing -> making
+    if short.endswith("e") and long_.startswith(short[:-1]):
+        rem = long_[len(short) - 1:]
+        if rem in _INFLECTION_SUFFIXES:
+            return True
+    # 3. y -> i:  happy -> happi + est -> happiest
+    if short.endswith("y") and long_.startswith(short[:-1] + "i"):
+        rem = long_[len(short):]
+        if rem in _INFLECTION_SUFFIXES:
+            return True
+    return False
+
+
+def _agg_stem(word):
+    """Strip ONE longest inflectional/derivational suffix (base kept >= 3)."""
+    w = word.lower()
+    for suf in sorted(_INFLECTION_SUFFIXES, key=len, reverse=True):
+        if w.endswith(suf) and len(w) - len(suf) >= 3:
+            return w[:-len(suf)]
+    return w
+
+
+def are_cognate(w1, w2):
+    """Heuristic: True if two words share a root / are etymologically related
+    (an inflection or derivation of a common stem).
+
+    Deterministic and offline. Tuned to catch same-root pairs like
+    GREAT/GREATEST, NATION/NATIONAL, PLAY/PLAYER, HISTORY/HISTORIC while leaving
+    unrelated look-alikes (STAR/START, CAR/CARD) untouched.
+    """
+    a, b = w1.lower(), w2.lower()
+    if a == b:
+        return True
+    short, long_ = (a, b) if len(a) <= len(b) else (b, a)
+    # 1. One word is an inflected / derived form of the other.
+    if _is_suffixed_form(short, long_):
+        return True
+    # 2. Same aggressive stem AND a solid shared prefix (the prefix guards
+    #    against accidental stem collisions between unrelated words).
+    if _agg_stem(a) == _agg_stem(b) and _common_prefix_len(a, b) >= 3:
+        return True
+    # 3. A long shared prefix (>= 5) implies a shared root family
+    #    (HISTORY/HISTORIC); STAR/START share only 4 and are left alone.
+    if _common_prefix_len(a, b) >= 5:
+        return True
+    return False
+
+
+def triple_has_cognates(a_word, b_word, c_word):
+    """True if ANY pair among the three answer words is cognate/same-root."""
+    return (are_cognate(a_word, b_word)
+            or are_cognate(a_word, c_word)
+            or are_cognate(b_word, c_word))
+
+
+# ----------------------------------------------------------------------------
 # Anagram engine
 # ----------------------------------------------------------------------------
 def build_index(defs):
@@ -495,6 +596,11 @@ def find_splits(defs, groups):
             # Drop triples whose source clues are circular (cheap guard).
             if is_circular_clue(a_word, defs[a_word]["def"]) or \
                     is_circular_clue(b_word, defs[b_word]["def"]):
+                continue
+
+            # Drop triples whose answers are cognate / share a root
+            # (e.g. GREAT + SET -> GREATEST). Answers must be unrelated words.
+            if triple_has_cognates(a_word, b_word, c_word):
                 continue
 
             c_freq = c_meta["freq"]

@@ -43,6 +43,13 @@ try:
 except Exception:
     GEN_FIRST_DAY = None
 
+# Same-root / cognate gate: answers (A, B, C) must be etymologically unrelated.
+try:
+    sys.path.insert(0, SCRIPT_DIR)
+    from gen_puzzles import are_cognate as _are_cognate  # noqa: E402
+except Exception:
+    _are_cognate = None
+
 
 def _load_effective_defs():
     """Load words_defs.json if present, else the embedded starter dictionary
@@ -155,6 +162,15 @@ def main():
         if sorted(a_word + b_word) != sorted(c_word):
             fail(f"{ctx}: multiset invariant broken: "
                  f"sorted('{a_word}'+'{b_word}') != sorted('{c_word}')")
+
+        # ---- answers must NOT be cognate / share a root -------------------
+        if _are_cognate is not None:
+            for x, y, lbl in ((a_word, b_word, "A/B"),
+                              (a_word, c_word, "A/C"),
+                              (b_word, c_word, "B/C")):
+                if _are_cognate(x, y):
+                    fail(f"{ctx}: {lbl} answers '{x}' & '{y}' are cognate / "
+                         f"share a root (answers must be unrelated words)")
 
         # ---- words exist in dictionary ------------------------------------
         for label, w in (("a", a_word), ("b", b_word), ("c", c_word)):
