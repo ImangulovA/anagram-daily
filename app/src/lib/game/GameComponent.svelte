@@ -172,45 +172,43 @@
     poolOrder = kept;
   }
 
-  // Pure layout: pack the (circular) tiles onto CONCENTRIC RINGS so they never
-  // overlap, choosing the largest tile size that still fits the (narrow) pool.
-  // Circular tiles => non-overlap is exactly center-distance >= diameter, which
-  // chord + radial spacing guarantee.
+  // Pure layout: pack the (circular) tiles onto CONCENTRIC ELLIPSE rings inside a
+  // PORTRAIT pool (taller than wide, so more letters fit and the ring looks a bit
+  // bigger). Tiles are spaced by equal ARC LENGTH per ring; circular tiles => no
+  // overlap when center-spacing >= diameter, which the arc spacing + a safety
+  // margin guarantee. ASPECT must match the CSS `.pool { aspect-ratio }`.
+  const POOL_ASPECT = 1.25; // height / width  (CSS aspect-ratio: 4 / 5)
+  const RING_SAFE = 1.14; // capacity safety margin (curvature at ellipse ends)
   let placements = $derived(computePlacements(poolOrder, poolW));
   function computePlacements(order, size) {
     const n = order.length;
     if (!n || !size) return [];
+    const h = size * POOL_ASPECT;
     const gap = 6;
     let chosen = null;
-    for (let ts = 46; ts >= 12; ts -= 2) {
-      const rings = packRings(n, size, ts, gap, false);
+    for (let ts = 48; ts >= 12; ts -= 2) {
+      const rings = packEllipse(n, size, h, ts, gap, false);
       if (rings) {
         chosen = { ts, rings };
         break;
       }
     }
-    if (!chosen) chosen = { ts: 12, rings: packRings(n, size, 12, gap, true) };
+    if (!chosen) chosen = { ts: 12, rings: packEllipse(n, size, h, 12, gap, true) };
     const { ts, rings } = chosen;
     const cx = size / 2;
-    const cy = size / 2;
+    const cy = h / 2;
     const out = [];
     let idx = 0;
     rings.forEach((ring, ri) => {
-      const c = ring.count;
-      const offset = ri * (Math.PI / Math.max(1, c)); // stagger rings a touch
-      for (let k = 0; k < c && idx < n; k++) {
-        let x = cx;
-        let y = cy;
-        if (ring.R > 0) {
-          const ang = -Math.PI / 2 + offset + (k * (2 * Math.PI)) / c;
-          x = cx + ring.R * Math.cos(ang);
-          y = cy + ring.R * Math.sin(ang);
-        }
+      const phase = (ri * 0.5) / Math.max(1, ring.count); // stagger rings a touch
+      const pts = ellipsePoints(ring.Rx, ring.Ry, ring.count, phase, cx, cy);
+      for (const p of pts) {
+        if (idx >= n) break;
         out.push({
           ch: order[idx],
           i: idx,
-          left: x - ts / 2,
-          top: y - ts / 2,
+          left: p.x - ts / 2,
+          top: p.y - ts / 2,
           w: ts,
           font: Math.max(11, Math.round(ts * 0.52))
         });
@@ -220,29 +218,67 @@
     return out;
   }
 
-  // Angular capacity of one ring: how many tiles of diameter (dia) fit with
-  // center spacing >= dia, via the chord formula 2R·sin(π/k) >= dia.
-  function ringCap(R, dia) {
-    if (R <= 0) return 1;
-    const s = dia / (2 * R);
-    if (s >= 1) return 1;
-    return Math.max(1, Math.floor(Math.PI / Math.asin(s)));
+  // Ramanujan ellipse-perimeter approximation.
+  function ellipsePerim(a, b) {
+    if (a <= 0 && b <= 0) return 0;
+    return Math.PI * (3 * (a + b) - Math.sqrt((3 * a + b) * (a + 3 * b)));
   }
 
-  // Distribute n circular tiles (diameter dia) across concentric rings. Returns
-  // [{ R, count }] outer-first, or null if it can't fit at this size (unless
-  // `force`). A center tile is only used when the innermost ring is >= a full
-  // spacing away, so it never collides with an inner ring.
-  function packRings(n, size, dia, gap, force) {
-    const cell = dia + gap;
-    const maxR = size / 2 - dia / 2 - 2;
-    if (n === 1) return [{ R: 0, count: 1 }];
-    const radii = [];
-    for (let R = maxR; R >= cell * 0.6; R -= cell) radii.push(R);
-    const innermost = radii.length ? radii[radii.length - 1] : 0;
-    const useCenter = radii.length === 0 || innermost >= cell;
-    const slots = radii.map((R) => ({ R, cap: ringCap(R, cell) }));
-    if (useCenter) slots.push({ R: 0, cap: 1 });
+  // Points spaced by EQUAL ARC LENGTH around an ellipse (uniform gaps even where
+  // the curve is flatter). Numerically integrates the arc, then samples.
+  function ellipsePoints(Rx, Ry, count, phase, cx, cy) {
+    if ((Rx <= 0 && Ry <= 0) || count <= 0) return count > 0 ? [{ x: cx, y: cy }] : [];
+    const N = 240;
+    const cum = [0];
+    let px = cx + Rx;
+    let py = cy;
+    for (let k = 1; k <= N; k++) {
+      const a = (2 * Math.PI * k) / N;
+      const x = cx + Rx * Math.cos(a);
+      const y = cy + Ry * Math.sin(a);
+      cum.push(cum[k - 1] + Math.hypot(x - px, y - py));
+      px = x;
+      py = y;
+    }
+    const total = cum[N] || 1;
+    const pts = [];
+    for (let j = 0; j < count; j++) {
+      let target = (j / count + phase) * total;
+      target = ((target % total) + total) % total;
+      let k = 1;
+      while (k < N && cum[k] < target) k++;
+      const seg = cum[k] - cum[k - 1] || 1;
+      const t = (target - cum[k - 1]) / seg;
+      const a = (2 * Math.PI * (k - 1 + t)) / N;
+      pts.push({ x: cx + Rx * Math.cos(a), y: cy + Ry * Math.sin(a) });
+    }
+    return pts;
+  }
+
+  // Distribute n circular tiles (diameter ts) across concentric ellipse rings in
+  // a w×h box. Returns [{ Rx, Ry, count }] outer-first, or null if it can't fit
+  // (unless `force`). Ring capacity = perimeter / (spacing × safety margin).
+  function packEllipse(n, w, h, ts, gap, force) {
+    const cell = ts + gap;
+    const capCell = cell * RING_SAFE;
+    const maxRx = w / 2 - ts / 2 - 2;
+    const maxRy = h / 2 - ts / 2 - 2;
+    if (n === 1) return [{ Rx: 0, Ry: 0, count: 1 }];
+    const geom = [];
+    let Rx = maxRx;
+    let Ry = maxRy;
+    while (Rx >= cell * 0.6 && Ry >= cell * 0.6) {
+      geom.push({ Rx, Ry });
+      Rx -= cell;
+      Ry -= cell;
+    }
+    const inner = geom.length ? geom[geom.length - 1] : null;
+    const useCenter = !inner || (inner.Rx >= cell && inner.Ry >= cell);
+    const slots = geom.map((g) => ({
+      ...g,
+      cap: Math.max(1, Math.floor(ellipsePerim(g.Rx, g.Ry) / capCell))
+    }));
+    if (useCenter) slots.push({ Rx: 0, Ry: 0, cap: 1 });
     const total = slots.reduce((s, x) => s + x.cap, 0);
     if (total < n && !force) return null;
     const rings = [];
@@ -250,11 +286,11 @@
     for (const slot of slots) {
       if (remaining <= 0) break;
       const take = Math.min(slot.cap, remaining);
-      rings.push({ R: slot.R, count: take });
+      rings.push({ Rx: slot.Rx, Ry: slot.Ry, count: take });
       remaining -= take;
     }
     if (remaining > 0) {
-      if (force) rings.push({ R: 0, count: remaining });
+      if (force) rings.push({ Rx: 0, Ry: 0, count: remaining });
       else return null;
     }
     return rings;
@@ -740,7 +776,7 @@
   /* Bigger clue cards + a much narrower letter pool (2fr 2fr 1fr). */
   .top-row {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(120px, 1fr);
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.7fr) minmax(140px, 1.15fr);
     gap: 14px;
     align-items: start;
   }
@@ -823,16 +859,18 @@
   }
 
   /* Narrow circular pool; tiles positioned + sized by JS. */
+  /* Portrait pool: taller than wide (aspect-ratio 4/5 => height = width*1.25),
+     so the letter ring is bigger and fits more. Must match POOL_ASPECT in JS. */
   .pool {
     position: relative;
     width: 100%;
-    max-width: 190px;
-    aspect-ratio: 1;
+    max-width: 210px;
+    aspect-ratio: 4 / 5;
     margin: 6px auto 10px;
   }
   @media (max-width: 760px) {
     .pool {
-      max-width: 220px;
+      max-width: 240px;
     }
   }
   .pool-empty {
