@@ -5,6 +5,7 @@
   import { onMount } from 'svelte';
   import { base } from '$app/paths';
   import { GAME } from '$lib/game/index.js';
+  import AnimatedLogo from '$lib/AnimatedLogo.svelte';
 
   let { children } = $props();
   let theme = $state('light');
@@ -25,7 +26,7 @@
 <svelte:head><title>{GAME.title}</title></svelte:head>
 
 <header>
-  <a class="brand" href="{base}/">{GAME.title}</a>
+  <AnimatedLogo />
   <nav>
     <a class="hub" href="https://imangulova.github.io/games/">◂ All games</a>
     <a href="{base}/archive">Archive</a>
@@ -107,12 +108,6 @@
     max-width: 720px;
     margin: 0 auto;
     padding: 18px 16px 0;
-  }
-  .brand {
-    font-weight: 800;
-    font-size: 20px;
-    color: var(--ink);
-    text-decoration: none;
   }
   nav {
     display: flex;
