@@ -51,6 +51,10 @@
   let rootEl;
   let startedOnce = false;
 
+  // Win animation: letters fly from the sources and weave into the answer.
+  let flyers = $state([]);
+  let flying = $state(false);
+
   const typedOf = (w) => (w === 'a' ? typedA : w === 'b' ? typedB : typedC);
   const lockedOf = (w) => (w === 'a' ? lockedA : w === 'b' ? lockedB : lockedC);
 
@@ -70,6 +74,12 @@
           lockedC[i] = true;
         }
       });
+      // A finished snapshot that reached the play view (e.g. the win animation
+      // was interrupted before the platform recorded the finish) — finalize now
+      // so the end screen shows instead of a stuck solved board.
+      if (engine.state().finished) {
+        setTimeout(() => onfinish?.(engine.result()), 0);
+      }
     }
     reconcilePool();
 
@@ -426,12 +436,65 @@
     if (res.correct) {
       for (let i = 0; i < wordLen.c; i++) lockedC[i] = true;
       fbC = '✓ Solved!';
-      finish();
+      refresh(); // finished=true locally (disables buttons) — but stay mounted
+      onprogress?.(engine.snapshot()); // persist the finished snapshot
+      const anim = celebrate();
+      const wait = anim ? 1300 + wordLen.c * 55 : 0;
+      // Keep the component mounted until the letters land, THEN hand off to the
+      // platform (which switches to the end screen and unmounts us).
+      setTimeout(() => {
+        flying = false;
+        flyers = [];
+        onfinish?.(engine.result());
+      }, wait);
     } else {
       fbC = '✗ Wrong (-1)';
       triggerShake();
       commit();
     }
+  }
+
+  const prefersReduced = () =>
+    typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Spawn flying letters: each answer letter starts at a source cell (A/B boxes,
+  // else the pool tiles) and arcs — with a sideways sway + spin — into its final
+  // box. Returns false if animation is skipped (reduced motion / no boxes).
+  function celebrate() {
+    if (prefersReduced() || !rootEl) return false;
+    const cEls = boxes('c');
+    if (!cEls.length) return false;
+    const HALF = 17; // flyer is 34px; translate targets its top-left
+    const pt = (r) => ({ x: r.left + r.width / 2 - HALF, y: r.top + r.height / 2 - HALF });
+    const srcEls = [...boxes('a'), ...boxes('b')].filter((e) => e.value);
+    const poolEls = Array.from(rootEl.querySelectorAll('.tile'));
+    const src = srcEls.length ? srcEls : poolEls;
+    const srcPts = src.map((e) => pt(e.getBoundingClientRect()));
+    const answer = engine.answers.c;
+    const list = [];
+    for (let i = 0; i < cEls.length; i++) {
+      const end = pt(cEls[i].getBoundingClientRect());
+      const start = srcPts.length
+        ? srcPts[i % srcPts.length]
+        : { x: (typeof window !== 'undefined' ? window.innerWidth / 2 : 160) - HALF, y: -40 };
+      const sway = Math.random() * 160 - 80;
+      const peak = 50 + Math.random() * 90;
+      list.push({
+        ch: answer.charAt(i),
+        key: i,
+        x0: start.x,
+        y0: start.y,
+        x1: end.x,
+        y1: end.y,
+        mx: (start.x + end.x) / 2 + sway,
+        my: (start.y + end.y) / 2 - peak,
+        rot: (Math.random() * 720 - 360) | 0,
+        delay: i * 55
+      });
+    }
+    flyers = list;
+    flying = true;
+    return true;
   }
   function triggerShake() {
     shakeC = false;
@@ -611,6 +674,18 @@
       </div>
     {/if}
   </section>
+
+  {#if flying}
+    <div class="celebrate-layer" aria-hidden="true">
+      {#each flyers as f (f.key)}
+        <span
+          class="flyer"
+          style="--x0:{f.x0}px;--y0:{f.y0}px;--x1:{f.x1}px;--y1:{f.y1}px;--mx:{f.mx}px;--my:{f.my}px;--rot:{f.rot}deg;animation-delay:{f.delay}ms"
+          >{f.ch}</span
+        >
+      {/each}
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -846,6 +921,61 @@
   .fb.no {
     color: var(--bad);
   }
+  /* --- Win animation: letters flying into the answer --- */
+  .celebrate-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  .flyer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-weight: 800;
+    font-size: 18px;
+    color: #111;
+    background: var(--accent);
+    border: var(--border);
+    border-radius: 50%;
+    box-shadow: 3px 3px 0 var(--ink);
+    opacity: 0;
+    transform: translate(var(--x0), var(--y0));
+    animation: fly 1.15s cubic-bezier(0.5, -0.2, 0.2, 1) forwards;
+    will-change: transform, opacity;
+  }
+  @keyframes fly {
+    0% {
+      opacity: 0;
+      transform: translate(var(--x0), var(--y0)) scale(0.5) rotate(0deg);
+    }
+    14% {
+      opacity: 1;
+      transform: translate(var(--x0), var(--y0)) scale(1.25)
+        rotate(calc(var(--rot) * 0.15));
+    }
+    55% {
+      opacity: 1;
+      transform: translate(var(--mx), var(--my)) scale(1.1) rotate(var(--rot));
+    }
+    100% {
+      opacity: 1;
+      transform: translate(var(--x1), var(--y1)) scale(1) rotate(0deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flyer {
+      animation: none;
+      display: none;
+    }
+  }
+
   .shake {
     animation: shake 0.4s;
   }
