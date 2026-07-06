@@ -249,6 +249,7 @@
           {showPuzzle ? 'Hide puzzle' : 'View puzzle'}
         </button>
         <a class="ghost" href="{base}/stats">All stats →</a>
+        <a class="ghost" href="{base}/archive">Archive →</a>
       </div>
       {#if shared}<p class="copied">{shared}</p>{/if}
 
