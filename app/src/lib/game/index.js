@@ -53,16 +53,17 @@ export const GAME = {
   },
 
   // Two-line, spoiler-free share:
-  //   <url> #<day> -- <score>/<max> <celebration emoji>
-  //   <hint-tally emojis>
+  //   <url>
+  //   #<day> -- <score>/<max> <celebration emoji> <hint-tally emojis>
   // `result.marks` is the emoji summary precomputed at finish time by the engine
   // (⭐ clean solve / 💀 gave up / 🟨🔤💡🎯🔍❌ hint tally).
   shareLine(result, dayIdx, url) {
     const s = trimNum(result?.score);
     const max = result?.max ?? MAX_SCORE;
     const emoji = this.resultEmoji(result?.score);
-    const scoreLine = `${url} #${dayIdx} -- ${s}/${max}${emoji ? ` ${emoji}` : ''}`;
-    const marks = result?.marks ? `\n${result.marks}` : '';
-    return `${scoreLine}${marks}`;
+    const parts = [`#${dayIdx} -- ${s}/${max}`];
+    if (emoji) parts.push(emoji);
+    if (result?.marks) parts.push(result.marks);
+    return `${url}\n${parts.join(' ')}`;
   }
 };
