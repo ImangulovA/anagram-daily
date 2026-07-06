@@ -532,18 +532,25 @@ def source_is_substring_of_final(a_word, b_word, c_word):
     return a_word.upper() in cu or b_word.upper() in cu
 
 
-# Final (C) words to exclude entirely. Populated from the SEMANTIC (AI) audit of
-# same-root / compound / etymologically-related answers that the mechanical
-# heuristics above can't catch (e.g. irregular derivations, loan compounds).
-# Dropping a flagged C makes regeneration pick a clean alternative for that day.
-BLOCKED_FINAL_WORDS = {
-    "SOMEBODY",    # SOME + BODY (compound); reported day -33
+def _triple_key(a_word, b_word, c_word):
+    """Order-independent key for one A+B->C triple (sources interchangeable)."""
+    return frozenset((a_word.upper(), b_word.upper(), c_word.upper()))
+
+
+# Specific TRIPLES to exclude, populated from the SEMANTIC (AI) audit of same-
+# root / compound / etymologically-related answers the mechanical heuristics
+# above can't catch. We block the exact (A, B, C) combination -- NOT the answer
+# word itself -- so a word like SOMEBODY can still appear via a different, clean
+# anagram split. Dropping only the bad triple lets regeneration pick the next
+# valid split for that C (or a different C).
+BLOCKED_TRIPLES = {
+    _triple_key("SOME", "BODY", "SOMEBODY"),      # compound; reported day -33
     # --- Flagged by the semantic (AI) audit, 2026-07-06 ---
-    "FORGOTTEN",   # FORGET + N -> FORGOTTEN is the past participle of FORGET
-    "SEPARATE",    # APART / SEPARATE share the Latin pars/separare root
-    "ENTRANCE",    # ENTER / ENTRANCE (noun derivation of the verb enter)
-    "MONETARY",    # MONEY / MONETARY both from Latin moneta
-    "CHARTERED",   # CARD / CHARTERED both from Latin charta (paper)
+    _triple_key("NOT", "FORGET", "FORGOTTEN"),    # FORGOTTEN = past part. of FORGET
+    _triple_key("SEE", "APART", "SEPARATE"),      # APART / SEPARATE share pars/separare
+    _triple_key("ENTER", "CAN", "ENTRANCE"),      # ENTRANCE = noun of ENTER
+    _triple_key("MONEY", "ART", "MONETARY"),      # both from Latin moneta
+    _triple_key("THERE", "CARD", "CHARTERED"),    # both from Latin charta
 }
 
 
@@ -593,10 +600,6 @@ def find_splits(defs, groups):
         if clen < MIN_C_LEN:
             continue
         if c_meta["freq"] < MIN_C_FREQ:
-            continue
-        # Skip final words flagged by the semantic (AI) audit as related to their
-        # sources / compounds.
-        if c_word in BLOCKED_FINAL_WORDS:
             continue
         # Skip final words whose clue is circular / self-referential.
         if is_circular_clue(c_word, c_meta["def"]):
@@ -657,6 +660,11 @@ def find_splits(defs, groups):
             # Drop triples where a source word is embedded in the final word
             # (e.g. SOME + BODY -> SOMEBODY, GET in TOGETHER).
             if source_is_substring_of_final(a_word, b_word, c_word):
+                continue
+
+            # Drop exact triples flagged by the semantic (AI) audit. Blocking the
+            # triple (not the C word) lets C reappear via a different clean split.
+            if _triple_key(a_word, b_word, c_word) in BLOCKED_TRIPLES:
                 continue
 
             c_freq = c_meta["freq"]
