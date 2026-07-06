@@ -3,5 +3,10 @@
 __pycache__/
 *.pyc
 
+# SvelteKit app build artifacts (CI runs npm install + build)
+app/node_modules/
+app/build/
+app/.svelte-kit/
+
 # OS junk
 .DS_Store
