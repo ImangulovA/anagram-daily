@@ -41,15 +41,28 @@ export const GAME = {
     return result && typeof result.score === 'number' ? result.score : null;
   },
 
+  // Big celebratory emoji, keyed to how well you scored (out of 20). Shared by
+  // the end screen and the Share text so they always match.
+  //   0.5–10 → 👍   10–15 → 🎊   15–20 → 🐗🤯   (0 / gave up → nothing)
+  resultEmoji(score) {
+    if (typeof score !== 'number' || Number.isNaN(score)) return '';
+    if (score >= 15) return '🐗🤯';
+    if (score >= 10) return '🎊';
+    if (score >= 0.5) return '👍';
+    return '';
+  },
+
   // Two-line, spoiler-free share:
-  //   <url> #<day> -- <score>/<max>
-  //   <emojis>
+  //   <url> #<day> -- <score>/<max> <celebration emoji>
+  //   <hint-tally emojis>
   // `result.marks` is the emoji summary precomputed at finish time by the engine
   // (⭐ clean solve / 💀 gave up / 🟨🔤💡🎯🔍❌ hint tally).
   shareLine(result, dayIdx, url) {
     const s = trimNum(result?.score);
     const max = result?.max ?? MAX_SCORE;
+    const emoji = this.resultEmoji(result?.score);
+    const scoreLine = `${url} #${dayIdx} -- ${s}/${max}${emoji ? ` ${emoji}` : ''}`;
     const marks = result?.marks ? `\n${result.marks}` : '';
-    return `${url} #${dayIdx} -- ${s}/${max}${marks}`;
+    return `${scoreLine}${marks}`;
   }
 };

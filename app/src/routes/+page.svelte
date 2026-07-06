@@ -162,15 +162,6 @@
       return { emoji, label, n };
     }).filter((row) => row.n > 0);
   }
-  // Big celebratory emoji, keyed to how well you scored (out of 20).
-  function resultEmoji(score) {
-    if (typeof score !== 'number' || Number.isNaN(score)) return '';
-    if (score >= 15) return '🐗🤯'.repeat(3);
-    if (score >= 10) return '🎊';
-    if (score >= 0.5) return '👍';
-    return ''; // gave up / 0 points → nothing
-  }
-
   // Which mark's tooltip is open (tap to toggle on mobile; also shows on hover).
   let activeMark = $state(-1);
   function toggleMark(e, i) {
@@ -241,11 +232,11 @@
   {#if view === 'end'}
     <div class="card end">
       <h1>{record.result?.won ? '🎉 Solved!' : 'Gave up'}</h1>
-      {#if resultEmoji(record.result?.score)}
-        <div class="celebrate">{resultEmoji(record.result.score)}</div>
-      {/if}
       <div class="bigscore">
         {trimNum(record.result?.score)} <span>/ {record.result?.max ?? 20}</span>
+        {#if GAME.resultEmoji(record.result?.score)}
+          <span class="celebrate">{GAME.resultEmoji(record.result.score)}</span>
+        {/if}
       </div>
 
       {#if markLegend().length}
@@ -412,9 +403,9 @@
     text-decoration: underline;
   }
   .celebrate {
-    font-size: 34px;
-    line-height: 1.1;
-    margin: 2px 0 6px;
+    font-size: 24px;
+    margin-left: 6px;
+    vertical-align: middle;
   }
   .bigscore {
     font-family: var(--mono);
