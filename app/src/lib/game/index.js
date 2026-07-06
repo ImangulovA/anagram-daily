@@ -41,12 +41,13 @@ export const GAME = {
     return result && typeof result.score === 'number' ? result.score : null;
   },
 
-  // Rich, spoiler-free share block. `result.marks` is precomputed at finish
-  // time (clean solve / gave up / hint summary) by the scoring engine.
+  // Single-line, spoiler-free share: "<url> #<day> -- <score>/<max> // <emojis>".
+  // `result.marks` is the emoji summary precomputed at finish time by the engine
+  // (⭐ clean solve / 💀 gave up / 🟨🔤💡🎯🔍❌ hint tally).
   shareLine(result, dayIdx, url) {
     const s = trimNum(result?.score);
     const max = result?.max ?? MAX_SCORE;
-    const head = `${GAME.title} #${dayIdx} — ${s}/${max}`;
-    return [head, result?.marks || '', url].filter(Boolean).join('\n');
+    const marks = result?.marks ? ` // ${result.marks}` : '';
+    return `${url} #${dayIdx} -- ${s}/${max}${marks}`;
   }
 };

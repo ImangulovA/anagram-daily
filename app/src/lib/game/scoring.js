@@ -248,8 +248,8 @@ export function createEngine(puzzle, saved) {
   // --- share marks (second line of the share block) ------------------------
   function marks() {
     const s = state();
-    if (!s.finished) return '⏳ in progress';
-    if (!s.won) return '💀 gave up';
+    if (!s.finished) return '⏳';
+    if (!s.won) return '💀';
     let srcLetterHints = 0;
     let fullSrcWords = 0;
     ['a', 'b'].forEach((x) => {
@@ -268,7 +268,7 @@ export function createEngine(puzzle, saved) {
       finalHints > 0 ||
       st.clueRevealed ||
       s.guesses > 0;
-    if (!usedAny) return '⭐ clean solve';
+    if (!usedAny) return '⭐';
     const rep = (str, n) => str.repeat(n);
     const out = [];
     if (fullSrcWords > 0) out.push(rep('🟨', fullSrcWords));
