@@ -141,6 +141,42 @@
     const url = `${location.origin}${base}/`;
     return GAME.shareLine(record.result, dayIdx, url);
   }
+
+  // End-screen emoji recap: the same marks that go into the share block, decoded
+  // into a small legend (the hint/check emojis aren't self-explanatory).
+  const MARK_LEGEND = [
+    ['⭐', 'Clean solve, no help'],
+    ['💀', 'Gave up'],
+    ['🟨', 'Source word revealed'],
+    ['🔤', 'Source letter hint'],
+    ['💡', 'Clue revealed'],
+    ['🎯', 'Answer letter hint'],
+    ['🔍', 'Check used'],
+    ['❌', 'Wrong guess']
+  ];
+  function markLegend() {
+    const marks = record?.result?.marks || '';
+    const chars = [...marks];
+    return MARK_LEGEND.map(([emoji, label]) => {
+      const n = chars.filter((c) => c === emoji).length;
+      return { emoji, label, n };
+    }).filter((row) => row.n > 0);
+  }
+  // Big celebratory emoji, keyed to how well you scored (out of 20).
+  function resultEmoji(score) {
+    if (typeof score !== 'number' || Number.isNaN(score)) return '';
+    if (score >= 15) return '🐗🤯'.repeat(3);
+    if (score >= 10) return '🎊';
+    if (score >= 0.5) return '👍';
+    return ''; // gave up / 0 points → nothing
+  }
+
+  // Which mark's tooltip is open (tap to toggle on mobile; also shows on hover).
+  let activeMark = $state(-1);
+  function toggleMark(e, i) {
+    e.stopPropagation();
+    activeMark = activeMark === i ? -1 : i;
+  }
   let shared = $state('');
   let showPuzzle = $state(false); // end screen: preview the solved puzzle
   async function share() {
@@ -163,6 +199,8 @@
     }
   }
 </script>
+
+<svelte:window onclick={() => (activeMark = -1)} />
 
 {#if view === 'loading'}
   <p class="status">Loading…</p>
@@ -203,9 +241,36 @@
   {#if view === 'end'}
     <div class="card end">
       <h1>{record.result?.won ? '🎉 Solved!' : 'Gave up'}</h1>
+      {#if resultEmoji(record.result?.score)}
+        <div class="celebrate">{resultEmoji(record.result.score)}</div>
+      {/if}
       <div class="bigscore">
         {trimNum(record.result?.score)} <span>/ {record.result?.max ?? 20}</span>
       </div>
+
+      {#if markLegend().length}
+        <div class="marks">
+          {#each markLegend() as row, i}
+            <span
+              class="mark"
+              class:open={activeMark === i}
+              role="button"
+              tabindex="0"
+              aria-label="{row.label}{row.n > 1 ? ` ×${row.n}` : ''}"
+              onclick={(e) => toggleMark(e, i)}
+              onkeydown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  toggleMark(e, i);
+                }
+              }}
+            >
+              <span class="mark-emoji">{row.emoji.repeat(row.n)}</span>
+              <span class="tip">{row.label}{row.n > 1 ? ` ×${row.n}` : ''}</span>
+            </span>
+          {/each}
+        </div>
+      {/if}
 
       <div class="reveal">
         {#each [['1', puzzle.a], ['2', puzzle.b], ['★', puzzle.c]] as pair}
@@ -346,6 +411,11 @@
   .ghost:hover {
     text-decoration: underline;
   }
+  .celebrate {
+    font-size: 34px;
+    line-height: 1.1;
+    margin: 2px 0 6px;
+  }
   .bigscore {
     font-family: var(--mono);
     font-size: 44px;
@@ -355,6 +425,62 @@
   .bigscore span {
     font-size: 22px;
     color: var(--muted);
+  }
+  .marks {
+    font-size: 26px;
+    margin: 0 0 12px;
+    line-height: 1.2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+  .mark {
+    position: relative;
+    cursor: help;
+    border-radius: 8px;
+    padding: 2px 4px;
+  }
+  .mark:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .mark-emoji {
+    letter-spacing: 2px;
+  }
+  .tip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--ink);
+    color: var(--surface);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    white-space: nowrap;
+    padding: 5px 9px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.12s ease,
+      transform 0.12s ease;
+    z-index: 5;
+  }
+  .tip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--ink);
+  }
+  .mark:hover .tip,
+  .mark.open .tip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
   .reveal {
     text-align: left;
