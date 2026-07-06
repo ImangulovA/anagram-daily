@@ -472,7 +472,9 @@
   function dayIndexFor(date){
     var todayMid = localMidnight(date).getTime();
     var anchorMid = localMidnight(ANCHOR).getTime();
-    return Math.floor((todayMid - anchorMid)/86400000);
+    // Round (not floor) so a 23h/25h DST day still maps to the right index —
+    // matches the games-hub day math exactly.
+    return Math.round((todayMid - anchorMid)/86400000);
   }
   var TODAY_INDEX = dayIndexFor(new Date());
   /* ---- Available puzzle-day bounds (supports historical negative days) ---- */
@@ -1065,6 +1067,10 @@
     restoreFinishedView();
     finishGame();
   }
+  // Deep-link: the games-hub "Archive" button links here with #archive.
+  function maybeOpenArchive(){ if(location.hash==='#archive') openCalendar(); }
+  maybeOpenArchive();
+  window.addEventListener('hashchange', maybeOpenArchive);
 
   // dev note banner if fallbacks active
   if(window.__ANAGRAM_FALLBACK_PUZZLES || window.__ANAGRAM_FALLBACK_SCORING){
