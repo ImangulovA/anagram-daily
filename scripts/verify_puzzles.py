@@ -172,6 +172,12 @@ def main():
                     fail(f"{ctx}: {lbl} answers '{x}' & '{y}' are cognate / "
                          f"share a root (answers must be unrelated words)")
 
+        # ---- neither source may be a SUBSTRING of the final word ----------
+        if a_word.upper() in c_word.upper():
+            fail(f"{ctx}: source A '{a_word}' is a substring of C '{c_word}'")
+        if b_word.upper() in c_word.upper():
+            fail(f"{ctx}: source B '{b_word}' is a substring of C '{c_word}'")
+
         # ---- words exist in dictionary ------------------------------------
         for label, w in (("a", a_word), ("b", b_word), ("c", c_word)):
             if w not in defs:

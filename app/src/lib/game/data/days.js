@@ -23,125 +23,6 @@ export const DAYS = [
   {
     "day": -33,
     "date": "2026-06-02",
-    "difficulty": 1,
-    "a": {
-      "word": "SOME",
-      "clue": "quantifier"
-    },
-    "b": {
-      "word": "BODY",
-      "clue": "the entire structure of an organism"
-    },
-    "c": {
-      "word": "SOMEBODY",
-      "clue": "a human being"
-    }
-  },
-  {
-    "day": -32,
-    "date": "2026-06-03",
-    "difficulty": 2,
-    "a": {
-      "word": "ENERGY",
-      "clue": "a thermodynamic quantity equivalent to the capacity of a physical system to do work"
-    },
-    "b": {
-      "word": "ALL",
-      "clue": "quantifier"
-    },
-    "c": {
-      "word": "GENERALLY",
-      "clue": "usually"
-    }
-  },
-  {
-    "day": -31,
-    "date": "2026-06-04",
-    "difficulty": 1,
-    "a": {
-      "word": "OTHER",
-      "clue": "not the same one or ones already mentioned or implied"
-    },
-    "b": {
-      "word": "FREE",
-      "clue": "able to act at will"
-    },
-    "c": {
-      "word": "THEREFORE",
-      "clue": "from that fact or reason or as a result"
-    }
-  },
-  {
-    "day": -30,
-    "date": "2026-06-05",
-    "difficulty": 4,
-    "a": {
-      "word": "GROUND",
-      "clue": "the solid part of the earth's surface"
-    },
-    "b": {
-      "word": "BACK",
-      "clue": "in or to or toward a former location"
-    },
-    "c": {
-      "word": "BACKGROUND",
-      "clue": "a person's social heritage: previous experience or training"
-    }
-  },
-  {
-    "day": -29,
-    "date": "2026-06-06",
-    "difficulty": 4,
-    "a": {
-      "word": "RIDE",
-      "clue": "sit and travel on the back of animal, usually while controlling its motions"
-    },
-    "b": {
-      "word": "SECOND",
-      "clue": "coming next after the first in position in space or time or degree or magnitude"
-    },
-    "c": {
-      "word": "CONSIDERED",
-      "clue": "carefully weighed"
-    }
-  },
-  {
-    "day": -28,
-    "date": "2026-06-07",
-    "difficulty": 1,
-    "a": {
-      "word": "MORE",
-      "clue": "used to form the comparative of some adjectives and adverbs"
-    },
-    "b": {
-      "word": "FIND",
-      "clue": "come upon, as if by accident"
-    },
-    "c": {
-      "word": "INFORMED",
-      "clue": "having much knowledge or education"
-    }
-  },
-  {
-    "day": -27,
-    "date": "2026-06-08",
-    "difficulty": 1,
-    "a": {
-      "word": "TIME",
-      "clue": "an instance or single occasion for some event"
-    },
-    "b": {
-      "word": "LIFE",
-      "clue": "a characteristic state or mode of living"
-    },
-    "c": {
-      "word": "LIFETIME",
-      "clue": "the period during which something is functional"
-    }
-  },
-  {
-    "day": -26,
-    "date": "2026-06-09",
     "difficulty": 2,
     "a": {
       "word": "ONE",
@@ -157,59 +38,59 @@ export const DAYS = [
     }
   },
   {
-    "day": -25,
-    "date": "2026-06-10",
+    "day": -32,
+    "date": "2026-06-03",
+    "difficulty": 1,
+    "a": {
+      "word": "OTHER",
+      "clue": "not the same one or ones already mentioned or implied"
+    },
+    "b": {
+      "word": "FREE",
+      "clue": "able to act at will"
+    },
+    "c": {
+      "word": "THEREFORE",
+      "clue": "from that fact or reason or as a result"
+    }
+  },
+  {
+    "day": -31,
+    "date": "2026-06-04",
+    "difficulty": 1,
+    "a": {
+      "word": "MORE",
+      "clue": "used to form the comparative of some adjectives and adverbs"
+    },
+    "b": {
+      "word": "PARTY",
+      "clue": "an organization to gain political power"
+    },
+    "c": {
+      "word": "TEMPORARY",
+      "clue": "not permanent"
+    }
+  },
+  {
+    "day": -30,
+    "date": "2026-06-05",
     "difficulty": 4,
     "a": {
-      "word": "STRIP",
-      "clue": "a relatively long narrow piece of something"
+      "word": "RIDE",
+      "clue": "sit and travel on the back of animal, usually while controlling its motions"
     },
     "b": {
-      "word": "NEED",
-      "clue": "require as useful, just, or proper"
+      "word": "SECOND",
+      "clue": "coming next after the first in position in space or time or degree or magnitude"
     },
     "c": {
-      "word": "PRESIDENT",
-      "clue": "an executive officer of a firm or corporation"
+      "word": "CONSIDERED",
+      "clue": "carefully weighed"
     }
   },
   {
-    "day": -24,
-    "date": "2026-06-11",
-    "difficulty": 3,
-    "a": {
-      "word": "TOP",
-      "clue": "the upper part of anything"
-    },
-    "b": {
-      "word": "MARTIN",
-      "clue": "any of various swallows with squarish or slightly forked tail and long pointed wings"
-    },
-    "c": {
-      "word": "IMPORTANT",
-      "clue": "of great significance or value"
-    }
-  },
-  {
-    "day": -23,
-    "date": "2026-06-12",
-    "difficulty": 5,
-    "a": {
-      "word": "OUT",
-      "clue": "away from home"
-    },
-    "b": {
-      "word": "STANDING",
-      "clue": "social or financial or professional status or reputation"
-    },
-    "c": {
-      "word": "OUTSTANDING",
-      "clue": "distinguished from others in excellence"
-    }
-  },
-  {
-    "day": -22,
-    "date": "2026-06-13",
+    "day": -29,
+    "date": "2026-06-06",
     "difficulty": 4,
     "a": {
       "word": "TOUR",
@@ -225,42 +106,25 @@ export const DAYS = [
     }
   },
   {
-    "day": -21,
-    "date": "2026-06-14",
+    "day": -28,
+    "date": "2026-06-07",
     "difficulty": 1,
     "a": {
-      "word": "OVER",
-      "clue": "at or to a point across intervening space etc."
+      "word": "OUT",
+      "clue": "away from home"
     },
     "b": {
-      "word": "MORE",
-      "clue": "used to form the comparative of some adjectives and adverbs"
+      "word": "HANDS",
+      "clue": "guardianship over"
     },
     "c": {
-      "word": "MOREOVER",
-      "clue": "in addition"
+      "word": "THOUSAND",
+      "clue": "the cardinal number that is the product of 10 and 100"
     }
   },
   {
-    "day": -20,
-    "date": "2026-06-15",
-    "difficulty": 1,
-    "a": {
-      "word": "SOME",
-      "clue": "quantifier"
-    },
-    "b": {
-      "word": "TIME",
-      "clue": "an instance or single occasion for some event"
-    },
-    "c": {
-      "word": "SOMETIME",
-      "clue": "at some indefinite or unstated time"
-    }
-  },
-  {
-    "day": -19,
-    "date": "2026-06-16",
+    "day": -27,
+    "date": "2026-06-08",
     "difficulty": 1,
     "a": {
       "word": "FIVE",
@@ -276,8 +140,42 @@ export const DAYS = [
     }
   },
   {
-    "day": -18,
-    "date": "2026-06-17",
+    "day": -26,
+    "date": "2026-06-09",
+    "difficulty": 1,
+    "a": {
+      "word": "NEED",
+      "clue": "require as useful, just, or proper"
+    },
+    "b": {
+      "word": "VICE",
+      "clue": "moral weakness"
+    },
+    "c": {
+      "word": "EVIDENCE",
+      "clue": "your basis for belief or disbelief"
+    }
+  },
+  {
+    "day": -25,
+    "date": "2026-06-10",
+    "difficulty": 3,
+    "a": {
+      "word": "TOP",
+      "clue": "the upper part of anything"
+    },
+    "b": {
+      "word": "MARTIN",
+      "clue": "any of various swallows with squarish or slightly forked tail and long pointed wings"
+    },
+    "c": {
+      "word": "IMPORTANT",
+      "clue": "of great significance or value"
+    }
+  },
+  {
+    "day": -24,
+    "date": "2026-06-11",
     "difficulty": 3,
     "a": {
       "word": "DESIRE",
@@ -290,6 +188,108 @@ export const DAYS = [
     "c": {
       "word": "INCREASED",
       "clue": "made greater in size or amount or degree"
+    }
+  },
+  {
+    "day": -23,
+    "date": "2026-06-12",
+    "difficulty": 3,
+    "a": {
+      "word": "PERSON",
+      "clue": "a human being"
+    },
+    "b": {
+      "word": "SIDE",
+      "clue": "a place within a region identified relative to a center or reference location"
+    },
+    "c": {
+      "word": "DEPRESSION",
+      "clue": "a mental state characterized by a pessimistic sense of inadequacy and a despondent lack of activity"
+    }
+  },
+  {
+    "day": -22,
+    "date": "2026-06-13",
+    "difficulty": 4,
+    "a": {
+      "word": "COUNTRY",
+      "clue": "a politically organized body of people under a single government"
+    },
+    "b": {
+      "word": "MADE",
+      "clue": "produced by a manufacturing process"
+    },
+    "c": {
+      "word": "DOCUMENTARY",
+      "clue": "a film or TV program presenting the facts about a person or event"
+    }
+  },
+  {
+    "day": -21,
+    "date": "2026-06-14",
+    "difficulty": 1,
+    "a": {
+      "word": "SUN",
+      "clue": "the star that is the source of light and heat for the planets in the solar system"
+    },
+    "b": {
+      "word": "OTHER",
+      "clue": "not the same one or ones already mentioned or implied"
+    },
+    "c": {
+      "word": "SOUTHERN",
+      "clue": "in or characteristic of a region of the United States south of the Mason-Dixon line"
+    }
+  },
+  {
+    "day": -20,
+    "date": "2026-06-15",
+    "difficulty": 1,
+    "a": {
+      "word": "GET",
+      "clue": "come into the possession of something concrete or abstract"
+    },
+    "b": {
+      "word": "RATES",
+      "clue": "a local tax on property"
+    },
+    "c": {
+      "word": "GREATEST",
+      "clue": "highest in quality"
+    }
+  },
+  {
+    "day": -19,
+    "date": "2026-06-16",
+    "difficulty": 1,
+    "a": {
+      "word": "LOVE",
+      "clue": "have a great affection or liking for"
+    },
+    "b": {
+      "word": "NICE",
+      "clue": "pleasant or pleasing or agreeable in nature or appearance"
+    },
+    "c": {
+      "word": "VIOLENCE",
+      "clue": "an act of aggression"
+    }
+  },
+  {
+    "day": -18,
+    "date": "2026-06-17",
+    "difficulty": 3,
+    "a": {
+      "word": "STRIP",
+      "clue": "a relatively long narrow piece of something"
+    },
+    "b": {
+      "word": "NEED",
+      "clue": "require as useful, just, or proper"
+    },
+    "c": {
+      "word": "PRESIDENT",
+      "clue": "an executive officer of a firm or corporation"
     }
   },
   {
@@ -312,142 +312,6 @@ export const DAYS = [
   {
     "day": -16,
     "date": "2026-06-19",
-    "difficulty": 3,
-    "a": {
-      "word": "PERSON",
-      "clue": "a human being"
-    },
-    "b": {
-      "word": "SIDE",
-      "clue": "a place within a region identified relative to a center or reference location"
-    },
-    "c": {
-      "word": "DEPRESSION",
-      "clue": "a mental state characterized by a pessimistic sense of inadequacy and a despondent lack of activity"
-    }
-  },
-  {
-    "day": -15,
-    "date": "2026-06-20",
-    "difficulty": 4,
-    "a": {
-      "word": "COUNTRY",
-      "clue": "a politically organized body of people under a single government"
-    },
-    "b": {
-      "word": "MADE",
-      "clue": "produced by a manufacturing process"
-    },
-    "c": {
-      "word": "DOCUMENTARY",
-      "clue": "a film or TV program presenting the facts about a person or event"
-    }
-  },
-  {
-    "day": -14,
-    "date": "2026-06-21",
-    "difficulty": 1,
-    "a": {
-      "word": "OUT",
-      "clue": "away from home"
-    },
-    "b": {
-      "word": "HANDS",
-      "clue": "guardianship over"
-    },
-    "c": {
-      "word": "THOUSAND",
-      "clue": "the cardinal number that is the product of 10 and 100"
-    }
-  },
-  {
-    "day": -13,
-    "date": "2026-06-22",
-    "difficulty": 1,
-    "a": {
-      "word": "SUN",
-      "clue": "the star that is the source of light and heat for the planets in the solar system"
-    },
-    "b": {
-      "word": "OTHER",
-      "clue": "not the same one or ones already mentioned or implied"
-    },
-    "c": {
-      "word": "SOUTHERN",
-      "clue": "in or characteristic of a region of the United States south of the Mason-Dixon line"
-    }
-  },
-  {
-    "day": -12,
-    "date": "2026-06-23",
-    "difficulty": 2,
-    "a": {
-      "word": "NEED",
-      "clue": "require as useful, just, or proper"
-    },
-    "b": {
-      "word": "VICE",
-      "clue": "moral weakness"
-    },
-    "c": {
-      "word": "EVIDENCE",
-      "clue": "your basis for belief or disbelief"
-    }
-  },
-  {
-    "day": -11,
-    "date": "2026-06-24",
-    "difficulty": 2,
-    "a": {
-      "word": "MORE",
-      "clue": "used to form the comparative of some adjectives and adverbs"
-    },
-    "b": {
-      "word": "PARTY",
-      "clue": "an organization to gain political power"
-    },
-    "c": {
-      "word": "TEMPORARY",
-      "clue": "not permanent"
-    }
-  },
-  {
-    "day": -10,
-    "date": "2026-06-25",
-    "difficulty": 3,
-    "a": {
-      "word": "NOT",
-      "clue": "negation of a word or group of words"
-    },
-    "b": {
-      "word": "FORGET",
-      "clue": "dismiss from the mind"
-    },
-    "c": {
-      "word": "FORGOTTEN",
-      "clue": "not noticed inadvertently"
-    }
-  },
-  {
-    "day": -9,
-    "date": "2026-06-26",
-    "difficulty": 4,
-    "a": {
-      "word": "GIRL",
-      "clue": "a young woman"
-    },
-    "b": {
-      "word": "FRIEND",
-      "clue": "a person you know well and regard with affection and trust"
-    },
-    "c": {
-      "word": "GIRLFRIEND",
-      "clue": "a girl or young woman with whom a man is romantically involved"
-    }
-  },
-  {
-    "day": -8,
-    "date": "2026-06-27",
     "difficulty": 4,
     "a": {
       "word": "INCOME",
@@ -463,93 +327,8 @@ export const DAYS = [
     }
   },
   {
-    "day": -7,
-    "date": "2026-06-28",
-    "difficulty": 1,
-    "a": {
-      "word": "GET",
-      "clue": "come into the possession of something concrete or abstract"
-    },
-    "b": {
-      "word": "RATES",
-      "clue": "a local tax on property"
-    },
-    "c": {
-      "word": "GREATEST",
-      "clue": "highest in quality"
-    }
-  },
-  {
-    "day": -6,
-    "date": "2026-06-29",
-    "difficulty": 1,
-    "a": {
-      "word": "LOVE",
-      "clue": "have a great affection or liking for"
-    },
-    "b": {
-      "word": "NICE",
-      "clue": "pleasant or pleasing or agreeable in nature or appearance"
-    },
-    "c": {
-      "word": "VIOLENCE",
-      "clue": "an act of aggression"
-    }
-  },
-  {
-    "day": -5,
-    "date": "2026-06-30",
-    "difficulty": 1,
-    "a": {
-      "word": "EIGHT",
-      "clue": "being one more than seven"
-    },
-    "b": {
-      "word": "ARE",
-      "clue": "have the quality of being"
-    },
-    "c": {
-      "word": "HERITAGE",
-      "clue": "practices that are handed down from the past by tradition"
-    }
-  },
-  {
-    "day": -4,
-    "date": "2026-07-01",
-    "difficulty": 2,
-    "a": {
-      "word": "CITY",
-      "clue": "a large and densely populated urban area"
-    },
-    "b": {
-      "word": "LEARN",
-      "clue": "gain knowledge or skills"
-    },
-    "c": {
-      "word": "CERTAINLY",
-      "clue": "definitely or positively"
-    }
-  },
-  {
-    "day": -3,
-    "date": "2026-07-02",
-    "difficulty": 2,
-    "a": {
-      "word": "WHILE",
-      "clue": "a period of indeterminate length marked by some action or condition"
-    },
-    "b": {
-      "word": "NAME",
-      "clue": "a language unit by which a person or thing is known"
-    },
-    "c": {
-      "word": "MEANWHILE",
-      "clue": "at the same time but in another place"
-    }
-  },
-  {
-    "day": -2,
-    "date": "2026-07-03",
+    "day": -15,
+    "date": "2026-06-20",
     "difficulty": 5,
     "a": {
       "word": "TURNED",
@@ -565,42 +344,25 @@ export const DAYS = [
     }
   },
   {
-    "day": -1,
-    "date": "2026-07-04",
-    "difficulty": 5,
-    "a": {
-      "word": "TIME",
-      "clue": "an instance or single occasion for some event"
-    },
-    "b": {
-      "word": "CURRENT",
-      "clue": "occurring in or belonging to the present time"
-    },
-    "c": {
-      "word": "RECRUITMENT",
-      "clue": "the act of getting recruits"
-    }
-  },
-  {
-    "day": 0,
-    "date": "2026-07-05",
+    "day": -14,
+    "date": "2026-06-21",
     "difficulty": 1,
     "a": {
-      "word": "OTHER",
-      "clue": "not the same one or ones already mentioned or implied"
+      "word": "EIGHT",
+      "clue": "being one more than seven"
     },
     "b": {
-      "word": "GET",
-      "clue": "come into the possession of something concrete or abstract"
+      "word": "ARE",
+      "clue": "have the quality of being"
     },
     "c": {
-      "word": "TOGETHER",
-      "clue": "in contact with each other or in proximity"
+      "word": "HERITAGE",
+      "clue": "practices that are handed down from the past by tradition"
     }
   },
   {
-    "day": 1,
-    "date": "2026-07-06",
+    "day": -13,
+    "date": "2026-06-22",
     "difficulty": 1,
     "a": {
       "word": "MIGHT",
@@ -616,26 +378,264 @@ export const DAYS = [
     }
   },
   {
+    "day": -12,
+    "date": "2026-06-23",
+    "difficulty": 1,
+    "a": {
+      "word": "SHOW",
+      "clue": "give an exhibition of to an interested audience"
+    },
+    "b": {
+      "word": "TEAM",
+      "clue": "a cooperative unit"
+    },
+    "c": {
+      "word": "SOMEWHAT",
+      "clue": "to a small degree or extent"
+    }
+  },
+  {
+    "day": -11,
+    "date": "2026-06-24",
+    "difficulty": 2,
+    "a": {
+      "word": "CITY",
+      "clue": "a large and densely populated urban area"
+    },
+    "b": {
+      "word": "LEARN",
+      "clue": "gain knowledge or skills"
+    },
+    "c": {
+      "word": "CERTAINLY",
+      "clue": "definitely or positively"
+    }
+  },
+  {
+    "day": -10,
+    "date": "2026-06-25",
+    "difficulty": 2,
+    "a": {
+      "word": "SCREEN",
+      "clue": "a white or silvered surface where pictures can be projected for viewing"
+    },
+    "b": {
+      "word": "SAY",
+      "clue": "express in words"
+    },
+    "c": {
+      "word": "NECESSARY",
+      "clue": "absolutely essential"
+    }
+  },
+  {
+    "day": -9,
+    "date": "2026-06-26",
+    "difficulty": 4,
+    "a": {
+      "word": "TIME",
+      "clue": "an instance or single occasion for some event"
+    },
+    "b": {
+      "word": "CURRENT",
+      "clue": "occurring in or belonging to the present time"
+    },
+    "c": {
+      "word": "RECRUITMENT",
+      "clue": "the act of getting recruits"
+    }
+  },
+  {
+    "day": -8,
+    "date": "2026-06-27",
+    "difficulty": 4,
+    "a": {
+      "word": "PARTY",
+      "clue": "an organization to gain political power"
+    },
+    "b": {
+      "word": "PLANE",
+      "clue": "an aircraft that has a fixed wing and is powered by propellers or jets"
+    },
+    "c": {
+      "word": "APPARENTLY",
+      "clue": "from appearances alone"
+    }
+  },
+  {
+    "day": -7,
+    "date": "2026-06-28",
+    "difficulty": 1,
+    "a": {
+      "word": "CENT",
+      "clue": "a fractional monetary unit of several countries"
+    },
+    "b": {
+      "word": "SAID",
+      "clue": "being the one previously mentioned or spoken of"
+    },
+    "c": {
+      "word": "DISTANCE",
+      "clue": "the property created by the space between two objects or points"
+    }
+  },
+  {
+    "day": -6,
+    "date": "2026-06-29",
+    "difficulty": 1,
+    "a": {
+      "word": "ARE",
+      "clue": "have the quality of being"
+    },
+    "b": {
+      "word": "GRAND",
+      "clue": "of behavior that is impressive and ambitious in scale or scope"
+    },
+    "c": {
+      "word": "ARRANGED",
+      "clue": "disposed or placed in a particular kind of order"
+    }
+  },
+  {
+    "day": -5,
+    "date": "2026-06-30",
+    "difficulty": 1,
+    "a": {
+      "word": "NEXT",
+      "clue": "nearest in space or position"
+    },
+    "b": {
+      "word": "REAL",
+      "clue": "being or occurring in fact or actuality"
+    },
+    "c": {
+      "word": "EXTERNAL",
+      "clue": "happening or arising or located outside or beyond some limits or especially surface"
+    }
+  },
+  {
+    "day": -4,
+    "date": "2026-07-01",
+    "difficulty": 2,
+    "a": {
+      "word": "GREEN",
+      "clue": "of the color between blue and yellow in the color spectrum"
+    },
+    "b": {
+      "word": "TEAM",
+      "clue": "a cooperative unit"
+    },
+    "c": {
+      "word": "AGREEMENT",
+      "clue": "the statement of an exchange of promises"
+    }
+  },
+  {
+    "day": -3,
+    "date": "2026-07-02",
+    "difficulty": 2,
+    "a": {
+      "word": "TEN",
+      "clue": "being one more than nine"
+    },
+    "b": {
+      "word": "MATTER",
+      "clue": "a vaguely specified concern"
+    },
+    "c": {
+      "word": "TREATMENT",
+      "clue": "care provided to improve a situation"
+    }
+  },
+  {
+    "day": -2,
+    "date": "2026-07-03",
+    "difficulty": 4,
+    "a": {
+      "word": "SOME",
+      "clue": "quantifier"
+    },
+    "b": {
+      "word": "TURNED",
+      "clue": "moved around an axis or center"
+    },
+    "c": {
+      "word": "TREMENDOUS",
+      "clue": "extraordinarily large in size or extent or amount or power or degree"
+    }
+  },
+  {
+    "day": -1,
+    "date": "2026-07-04",
+    "difficulty": 5,
+    "a": {
+      "word": "ROUND",
+      "clue": "having a circular shape"
+    },
+    "b": {
+      "word": "TOPIC",
+      "clue": "the subject matter of a conversation or discussion"
+    },
+    "c": {
+      "word": "PRODUCTION",
+      "clue": "the act or process of producing something"
+    }
+  },
+  {
+    "day": 0,
+    "date": "2026-07-05",
+    "difficulty": 1,
+    "a": {
+      "word": "MORE",
+      "clue": "used to form the comparative of some adjectives and adverbs"
+    },
+    "b": {
+      "word": "FIND",
+      "clue": "come upon, as if by accident"
+    },
+    "c": {
+      "word": "INFORMED",
+      "clue": "having much knowledge or education"
+    }
+  },
+  {
+    "day": 1,
+    "date": "2026-07-06",
+    "difficulty": 1,
+    "a": {
+      "word": "TURN",
+      "clue": "change orientation or direction, also in the abstract sense"
+    },
+    "b": {
+      "word": "GAME",
+      "clue": "a contest with rules to determine a winner"
+    },
+    "c": {
+      "word": "ARGUMENT",
+      "clue": "a fact or assertion offered as evidence that something is true"
+    }
+  },
+  {
     "day": 2,
     "date": "2026-07-07",
     "difficulty": 1,
     "a": {
-      "word": "OVER",
-      "clue": "at or to a point across intervening space etc."
+      "word": "SCENE",
+      "clue": "the place where some action occurs"
     },
     "b": {
-      "word": "COME",
-      "clue": "move toward, travel toward something or somebody or approach something or somebody"
+      "word": "AIR",
+      "clue": "a mixture of gases required for breathing"
     },
     "c": {
-      "word": "OVERCOME",
-      "clue": "win a victory over"
+      "word": "INCREASE",
+      "clue": "become bigger or greater in amount"
     }
   },
   {
     "day": 3,
     "date": "2026-07-08",
-    "difficulty": 4,
+    "difficulty": 3,
     "a": {
       "word": "MINING",
       "clue": "the act of extracting ores or coal etc from the earth"
@@ -652,244 +652,6 @@ export const DAYS = [
   {
     "day": 4,
     "date": "2026-07-09",
-    "difficulty": 3,
-    "a": {
-      "word": "GREEN",
-      "clue": "of the color between blue and yellow in the color spectrum"
-    },
-    "b": {
-      "word": "TEAM",
-      "clue": "a cooperative unit"
-    },
-    "c": {
-      "word": "AGREEMENT",
-      "clue": "the statement of an exchange of promises"
-    }
-  },
-  {
-    "day": 5,
-    "date": "2026-07-10",
-    "difficulty": 5,
-    "a": {
-      "word": "PARTY",
-      "clue": "an organization to gain political power"
-    },
-    "b": {
-      "word": "PLANE",
-      "clue": "an aircraft that has a fixed wing and is powered by propellers or jets"
-    },
-    "c": {
-      "word": "APPARENTLY",
-      "clue": "from appearances alone"
-    }
-  },
-  {
-    "day": 6,
-    "date": "2026-07-11",
-    "difficulty": 4,
-    "a": {
-      "word": "SOME",
-      "clue": "quantifier"
-    },
-    "b": {
-      "word": "TURNED",
-      "clue": "moved around an axis or center"
-    },
-    "c": {
-      "word": "TREMENDOUS",
-      "clue": "extraordinarily large in size or extent or amount or power or degree"
-    }
-  },
-  {
-    "day": 7,
-    "date": "2026-07-12",
-    "difficulty": 2,
-    "a": {
-      "word": "SEE",
-      "clue": "perceive by sight or have the power to perceive by sight"
-    },
-    "b": {
-      "word": "APART",
-      "clue": "separated or at a distance in place or position or time"
-    },
-    "c": {
-      "word": "SEPARATE",
-      "clue": "independent"
-    }
-  },
-  {
-    "day": 8,
-    "date": "2026-07-13",
-    "difficulty": 1,
-    "a": {
-      "word": "PRICE",
-      "clue": "the property of having material worth"
-    },
-    "b": {
-      "word": "ACT",
-      "clue": "a legal document codifying the result of deliberations of a committee or society or legislative body"
-    },
-    "c": {
-      "word": "PRACTICE",
-      "clue": "a customary way of operation or behavior"
-    }
-  },
-  {
-    "day": 9,
-    "date": "2026-07-14",
-    "difficulty": 2,
-    "a": {
-      "word": "CENT",
-      "clue": "a fractional monetary unit of several countries"
-    },
-    "b": {
-      "word": "SAID",
-      "clue": "being the one previously mentioned or spoken of"
-    },
-    "c": {
-      "word": "DISTANCE",
-      "clue": "the property created by the space between two objects or points"
-    }
-  },
-  {
-    "day": 10,
-    "date": "2026-07-15",
-    "difficulty": 3,
-    "a": {
-      "word": "SCREEN",
-      "clue": "a white or silvered surface where pictures can be projected for viewing"
-    },
-    "b": {
-      "word": "SAY",
-      "clue": "express in words"
-    },
-    "c": {
-      "word": "NECESSARY",
-      "clue": "absolutely essential"
-    }
-  },
-  {
-    "day": 11,
-    "date": "2026-07-16",
-    "difficulty": 1,
-    "a": {
-      "word": "THING",
-      "clue": "a special situation"
-    },
-    "b": {
-      "word": "OVER",
-      "clue": "at or to a point across intervening space etc."
-    },
-    "c": {
-      "word": "OVERNIGHT",
-      "clue": "lasting, open, or operating through the whole night"
-    }
-  },
-  {
-    "day": 12,
-    "date": "2026-07-17",
-    "difficulty": 5,
-    "a": {
-      "word": "ROUND",
-      "clue": "having a circular shape"
-    },
-    "b": {
-      "word": "TOPIC",
-      "clue": "the subject matter of a conversation or discussion"
-    },
-    "c": {
-      "word": "PRODUCTION",
-      "clue": "the act or process of producing something"
-    }
-  },
-  {
-    "day": 13,
-    "date": "2026-07-18",
-    "difficulty": 5,
-    "a": {
-      "word": "IMPLANT",
-      "clue": "fix or set securely or deeply"
-    },
-    "b": {
-      "word": "ARE",
-      "clue": "have the quality of being"
-    },
-    "c": {
-      "word": "PARLIAMENT",
-      "clue": "a legislative assembly in certain countries"
-    }
-  },
-  {
-    "day": 14,
-    "date": "2026-07-19",
-    "difficulty": 1,
-    "a": {
-      "word": "SHOW",
-      "clue": "give an exhibition of to an interested audience"
-    },
-    "b": {
-      "word": "TEAM",
-      "clue": "a cooperative unit"
-    },
-    "c": {
-      "word": "SOMEWHAT",
-      "clue": "to a small degree or extent"
-    }
-  },
-  {
-    "day": 15,
-    "date": "2026-07-20",
-    "difficulty": 1,
-    "a": {
-      "word": "OUT",
-      "clue": "away from home"
-    },
-    "b": {
-      "word": "RIGHT",
-      "clue": "an abstract idea of that which is due to a person or governmental body by law or tradition or nature"
-    },
-    "c": {
-      "word": "OUTRIGHT",
-      "clue": "without restrictions or stipulations or further payments"
-    }
-  },
-  {
-    "day": 16,
-    "date": "2026-07-21",
-    "difficulty": 1,
-    "a": {
-      "word": "NEXT",
-      "clue": "nearest in space or position"
-    },
-    "b": {
-      "word": "REAL",
-      "clue": "being or occurring in fact or actuality"
-    },
-    "c": {
-      "word": "EXTERNAL",
-      "clue": "happening or arising or located outside or beyond some limits or especially surface"
-    }
-  },
-  {
-    "day": 17,
-    "date": "2026-07-22",
-    "difficulty": 3,
-    "a": {
-      "word": "TEN",
-      "clue": "being one more than nine"
-    },
-    "b": {
-      "word": "MATTER",
-      "clue": "a vaguely specified concern"
-    },
-    "c": {
-      "word": "TREATMENT",
-      "clue": "care provided to improve a situation"
-    }
-  },
-  {
-    "day": 18,
-    "date": "2026-07-23",
     "difficulty": 4,
     "a": {
       "word": "NOT",
@@ -905,25 +667,8 @@ export const DAYS = [
     }
   },
   {
-    "day": 19,
-    "date": "2026-07-24",
-    "difficulty": 5,
-    "a": {
-      "word": "LATER",
-      "clue": "happening at a time subsequent to a reference time"
-    },
-    "b": {
-      "word": "NATIVE",
-      "clue": "characteristic of or existing by virtue of geographic origin"
-    },
-    "c": {
-      "word": "ALTERNATIVE",
-      "clue": "one of a number of things from which only one can be chosen"
-    }
-  },
-  {
-    "day": 20,
-    "date": "2026-07-25",
+    "day": 5,
+    "date": "2026-07-10",
     "difficulty": 5,
     "a": {
       "word": "SILLY",
@@ -939,93 +684,8 @@ export const DAYS = [
     }
   },
   {
-    "day": 21,
-    "date": "2026-07-26",
-    "difficulty": 1,
-    "a": {
-      "word": "WILL",
-      "clue": "the capability of conscious choice and decision and intention"
-    },
-    "b": {
-      "word": "GOOD",
-      "clue": "having desirable or positive qualities especially those suitable for a thing specified"
-    },
-    "c": {
-      "word": "GOODWILL",
-      "clue": "a disposition to kindness and compassion"
-    }
-  },
-  {
-    "day": 22,
-    "date": "2026-07-27",
-    "difficulty": 1,
-    "a": {
-      "word": "TURN",
-      "clue": "change orientation or direction, also in the abstract sense"
-    },
-    "b": {
-      "word": "GAME",
-      "clue": "a contest with rules to determine a winner"
-    },
-    "c": {
-      "word": "ARGUMENT",
-      "clue": "a fact or assertion offered as evidence that something is true"
-    }
-  },
-  {
-    "day": 23,
-    "date": "2026-07-28",
-    "difficulty": 1,
-    "a": {
-      "word": "SURE",
-      "clue": "having or feeling no doubt or uncertainty"
-    },
-    "b": {
-      "word": "MADE",
-      "clue": "produced by a manufacturing process"
-    },
-    "c": {
-      "word": "MEASURED",
-      "clue": "unhurried and with care and dignity"
-    }
-  },
-  {
-    "day": 24,
-    "date": "2026-07-29",
-    "difficulty": 2,
-    "a": {
-      "word": "RIGHT",
-      "clue": "an abstract idea of that which is due to a person or governmental body by law or tradition or nature"
-    },
-    "b": {
-      "word": "NAME",
-      "clue": "a language unit by which a person or thing is known"
-    },
-    "c": {
-      "word": "NIGHTMARE",
-      "clue": "a terrifying or deeply upsetting dream"
-    }
-  },
-  {
-    "day": 25,
-    "date": "2026-07-30",
-    "difficulty": 1,
-    "a": {
-      "word": "LONG",
-      "clue": "primarily temporal sense"
-    },
-    "b": {
-      "word": "BEING",
-      "clue": "the state or fact of existing"
-    },
-    "c": {
-      "word": "BELONGING",
-      "clue": "happiness felt in a secure relationship"
-    }
-  },
-  {
-    "day": 26,
-    "date": "2026-07-31",
+    "day": 6,
+    "date": "2026-07-11",
     "difficulty": 5,
     "a": {
       "word": "SOVIET",
@@ -1041,42 +701,25 @@ export const DAYS = [
     }
   },
   {
-    "day": 27,
-    "date": "2026-08-01",
-    "difficulty": 4,
-    "a": {
-      "word": "STAR",
-      "clue": "a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior"
-    },
-    "b": {
-      "word": "NATURE",
-      "clue": "the essential qualities or characteristics by which something is recognized"
-    },
-    "c": {
-      "word": "RESTAURANT",
-      "clue": "a building where people go to eat"
-    }
-  },
-  {
-    "day": 28,
-    "date": "2026-08-02",
+    "day": 7,
+    "date": "2026-07-12",
     "difficulty": 1,
     "a": {
-      "word": "SCENE",
-      "clue": "the place where some action occurs"
+      "word": "MORE",
+      "clue": "used to form the comparative of some adjectives and adverbs"
     },
     "b": {
-      "word": "AIR",
-      "clue": "a mixture of gases required for breathing"
+      "word": "DATE",
+      "clue": "the specified day of the month"
     },
     "c": {
-      "word": "INCREASE",
-      "clue": "become bigger or greater in amount"
+      "word": "MODERATE",
+      "clue": "being within reasonable or average limits"
     }
   },
   {
-    "day": 29,
-    "date": "2026-08-03",
+    "day": 8,
+    "date": "2026-07-13",
     "difficulty": 1,
     "a": {
       "word": "GET",
@@ -1092,43 +735,43 @@ export const DAYS = [
     }
   },
   {
-    "day": 30,
-    "date": "2026-08-04",
+    "day": 9,
+    "date": "2026-07-14",
     "difficulty": 1,
     "a": {
-      "word": "COME",
-      "clue": "move toward, travel toward something or somebody or approach something or somebody"
+      "word": "TIME",
+      "clue": "an instance or single occasion for some event"
     },
     "b": {
-      "word": "BACK",
-      "clue": "in or to or toward a former location"
+      "word": "READ",
+      "clue": "interpret something that is written or printed"
     },
     "c": {
-      "word": "COMEBACK",
-      "clue": "a quick reply to a question or remark"
+      "word": "DIAMETER",
+      "clue": "the length of a straight line passing through the center of a circle and connecting two points on the circumference"
     }
   },
   {
-    "day": 31,
-    "date": "2026-08-05",
-    "difficulty": 4,
+    "day": 10,
+    "date": "2026-07-15",
+    "difficulty": 1,
     "a": {
-      "word": "NEW",
-      "clue": "not of long duration"
+      "word": "RIGHT",
+      "clue": "an abstract idea of that which is due to a person or governmental body by law or tradition or nature"
     },
     "b": {
-      "word": "PAPERS",
-      "clue": "writing that provides information"
+      "word": "NAME",
+      "clue": "a language unit by which a person or thing is known"
     },
     "c": {
-      "word": "NEWSPAPER",
-      "clue": "a daily or weekly publication on folded sheets"
+      "word": "NIGHTMARE",
+      "clue": "a terrifying or deeply upsetting dream"
     }
   },
   {
-    "day": 32,
-    "date": "2026-08-06",
-    "difficulty": 4,
+    "day": 11,
+    "date": "2026-07-16",
+    "difficulty": 3,
     "a": {
       "word": "CHART",
       "clue": "a visual display of information"
@@ -1143,8 +786,25 @@ export const DAYS = [
     }
   },
   {
-    "day": 33,
-    "date": "2026-08-07",
+    "day": 12,
+    "date": "2026-07-17",
+    "difficulty": 4,
+    "a": {
+      "word": "STAR",
+      "clue": "a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior"
+    },
+    "b": {
+      "word": "NATURE",
+      "clue": "the essential qualities or characteristics by which something is recognized"
+    },
+    "c": {
+      "word": "RESTAURANT",
+      "clue": "a building where people go to eat"
+    }
+  },
+  {
+    "day": 13,
+    "date": "2026-07-18",
     "difficulty": 5,
     "a": {
       "word": "INSIDE",
@@ -1160,43 +820,9 @@ export const DAYS = [
     }
   },
   {
-    "day": 34,
-    "date": "2026-08-08",
-    "difficulty": 5,
-    "a": {
-      "word": "COOL",
-      "clue": "neither warm nor very cold"
-    },
-    "b": {
-      "word": "CLIENT",
-      "clue": "a person who seeks the advice of a lawyer"
-    },
-    "c": {
-      "word": "COLLECTION",
-      "clue": "several things grouped together or considered as a whole"
-    }
-  },
-  {
-    "day": 35,
-    "date": "2026-08-09",
-    "difficulty": 2,
-    "a": {
-      "word": "ENTER",
-      "clue": "to come or go into"
-    },
-    "b": {
-      "word": "CAN",
-      "clue": "airtight sealed metal container for food or drink or paint etc."
-    },
-    "c": {
-      "word": "ENTRANCE",
-      "clue": "something that provides access"
-    }
-  },
-  {
-    "day": 36,
-    "date": "2026-08-10",
-    "difficulty": 2,
+    "day": 14,
+    "date": "2026-07-19",
+    "difficulty": 1,
     "a": {
       "word": "NOT",
       "clue": "negation of a word or group of words"
@@ -1211,8 +837,8 @@ export const DAYS = [
     }
   },
   {
-    "day": 37,
-    "date": "2026-08-11",
+    "day": 15,
+    "date": "2026-07-20",
     "difficulty": 1,
     "a": {
       "word": "REST",
@@ -1228,9 +854,26 @@ export const DAYS = [
     }
   },
   {
-    "day": 38,
-    "date": "2026-08-12",
-    "difficulty": 4,
+    "day": 16,
+    "date": "2026-07-21",
+    "difficulty": 3,
+    "a": {
+      "word": "HERE",
+      "clue": "in or at this place"
+    },
+    "b": {
+      "word": "SCAR",
+      "clue": "a mark left by the healing of injured tissue"
+    },
+    "c": {
+      "word": "RESEARCH",
+      "clue": "systematic investigation to establish facts"
+    }
+  },
+  {
+    "day": 17,
+    "date": "2026-07-22",
+    "difficulty": 3,
     "a": {
       "word": "FLOW",
       "clue": "the motion characteristic of fluids"
@@ -1245,8 +888,8 @@ export const DAYS = [
     }
   },
   {
-    "day": 39,
-    "date": "2026-08-13",
+    "day": 18,
+    "date": "2026-07-23",
     "difficulty": 2,
     "a": {
       "word": "NICE",
@@ -1262,59 +905,42 @@ export const DAYS = [
     }
   },
   {
-    "day": 40,
-    "date": "2026-08-14",
+    "day": 19,
+    "date": "2026-07-24",
     "difficulty": 5,
     "a": {
-      "word": "NAME",
-      "clue": "a language unit by which a person or thing is known"
+      "word": "TIME",
+      "clue": "an instance or single occasion for some event"
     },
     "b": {
-      "word": "ANCIENT",
-      "clue": "very old"
+      "word": "ACCORD",
+      "clue": "go together"
     },
     "c": {
-      "word": "MAINTENANCE",
-      "clue": "activity involved in maintaining something in good working order"
+      "word": "DEMOCRATIC",
+      "clue": "characterized by or advocating or based upon the principles of democracy or social equality"
     }
   },
   {
-    "day": 41,
-    "date": "2026-08-15",
-    "difficulty": 4,
+    "day": 20,
+    "date": "2026-07-25",
+    "difficulty": 5,
     "a": {
-      "word": "TERM",
-      "clue": "a word or expression used for some particular thing"
+      "word": "COOL",
+      "clue": "neither warm nor very cold"
     },
     "b": {
-      "word": "ENTIRE",
-      "clue": "constituting the full quantity or extent"
+      "word": "CLIENT",
+      "clue": "a person who seeks the advice of a lawyer"
     },
     "c": {
-      "word": "RETIREMENT",
-      "clue": "the state of being retired from one's business or occupation"
+      "word": "COLLECTION",
+      "clue": "several things grouped together or considered as a whole"
     }
   },
   {
-    "day": 42,
-    "date": "2026-08-16",
-    "difficulty": 4,
-    "a": {
-      "word": "HERE",
-      "clue": "in or at this place"
-    },
-    "b": {
-      "word": "SCAR",
-      "clue": "a mark left by the healing of injured tissue"
-    },
-    "c": {
-      "word": "RESEARCH",
-      "clue": "systematic investigation to establish facts"
-    }
-  },
-  {
-    "day": 43,
-    "date": "2026-08-17",
+    "day": 21,
+    "date": "2026-07-26",
     "difficulty": 1,
     "a": {
       "word": "ONE",
@@ -1330,93 +956,25 @@ export const DAYS = [
     }
   },
   {
-    "day": 44,
-    "date": "2026-08-18",
+    "day": 22,
+    "date": "2026-07-27",
     "difficulty": 1,
     "a": {
-      "word": "JUST",
-      "clue": "and nothing more"
+      "word": "EIGHT",
+      "clue": "being one more than seven"
     },
     "b": {
-      "word": "DEAD",
-      "clue": "no longer having or seeming to have or expecting to have life"
+      "word": "CAN",
+      "clue": "airtight sealed metal container for food or drink or paint etc."
     },
     "c": {
-      "word": "ADJUSTED",
-      "clue": "altered to accommodate to certain requirements or bring into a proper relation"
+      "word": "CHEATING",
+      "clue": "violating accepted standards or rules"
     }
   },
   {
-    "day": 45,
-    "date": "2026-08-19",
-    "difficulty": 3,
-    "a": {
-      "word": "MIND",
-      "clue": "that which is responsible for one's thoughts and feelings"
-    },
-    "b": {
-      "word": "FORCE",
-      "clue": "to cause to do through pressure or necessity, by physical, moral or intellectual means :"
-    },
-    "c": {
-      "word": "CONFIRMED",
-      "clue": "of persons"
-    }
-  },
-  {
-    "day": 46,
-    "date": "2026-08-20",
-    "difficulty": 3,
-    "a": {
-      "word": "TILL",
-      "clue": "a strongbox for holding cash"
-    },
-    "b": {
-      "word": "EARLY",
-      "clue": "at or near the beginning of a period of time or course of events or before the usual or expected time"
-    },
-    "c": {
-      "word": "LITERALLY",
-      "clue": "without exaggeration"
-    }
-  },
-  {
-    "day": 47,
-    "date": "2026-08-21",
-    "difficulty": 4,
-    "a": {
-      "word": "HOPE",
-      "clue": "expect and wish"
-    },
-    "b": {
-      "word": "MASTER",
-      "clue": "an artist of consummate skill"
-    },
-    "c": {
-      "word": "ATMOSPHERE",
-      "clue": "a particular environment or surrounding influence"
-    }
-  },
-  {
-    "day": 48,
-    "date": "2026-08-22",
-    "difficulty": 4,
-    "a": {
-      "word": "SON",
-      "clue": "a male human offspring"
-    },
-    "b": {
-      "word": "COUNCIL",
-      "clue": "a body serving in an administrative capacity"
-    },
-    "c": {
-      "word": "CONCLUSION",
-      "clue": "a position or opinion or judgment reached after consideration"
-    }
-  },
-  {
-    "day": 49,
-    "date": "2026-08-23",
+    "day": 23,
+    "date": "2026-07-28",
     "difficulty": 1,
     "a": {
       "word": "MOM",
@@ -1432,9 +990,77 @@ export const DAYS = [
     }
   },
   {
-    "day": 50,
-    "date": "2026-08-24",
+    "day": 24,
+    "date": "2026-07-29",
+    "difficulty": 5,
+    "a": {
+      "word": "NOT",
+      "clue": "negation of a word or group of words"
+    },
+    "b": {
+      "word": "INDUCE",
+      "clue": "cause to arise"
+    },
+    "c": {
+      "word": "CONTINUED",
+      "clue": "without stop or interruption"
+    }
+  },
+  {
+    "day": 25,
+    "date": "2026-07-30",
     "difficulty": 2,
+    "a": {
+      "word": "MIND",
+      "clue": "that which is responsible for one's thoughts and feelings"
+    },
+    "b": {
+      "word": "FORCE",
+      "clue": "to cause to do through pressure or necessity, by physical, moral or intellectual means :"
+    },
+    "c": {
+      "word": "CONFIRMED",
+      "clue": "of persons"
+    }
+  },
+  {
+    "day": 26,
+    "date": "2026-07-31",
+    "difficulty": 5,
+    "a": {
+      "word": "NAME",
+      "clue": "a language unit by which a person or thing is known"
+    },
+    "b": {
+      "word": "ANCIENT",
+      "clue": "very old"
+    },
+    "c": {
+      "word": "MAINTENANCE",
+      "clue": "activity involved in maintaining something in good working order"
+    }
+  },
+  {
+    "day": 27,
+    "date": "2026-08-01",
+    "difficulty": 4,
+    "a": {
+      "word": "TERM",
+      "clue": "a word or expression used for some particular thing"
+    },
+    "b": {
+      "word": "ENTIRE",
+      "clue": "constituting the full quantity or extent"
+    },
+    "c": {
+      "word": "RETIREMENT",
+      "clue": "the state of being retired from one's business or occupation"
+    }
+  },
+  {
+    "day": 28,
+    "date": "2026-08-02",
+    "difficulty": 1,
     "a": {
       "word": "ONE",
       "clue": "used of a single unit or thing"
@@ -1449,8 +1075,8 @@ export const DAYS = [
     }
   },
   {
-    "day": 51,
-    "date": "2026-08-25",
+    "day": 29,
+    "date": "2026-08-03",
     "difficulty": 1,
     "a": {
       "word": "TELL",
@@ -1466,93 +1092,8 @@ export const DAYS = [
     }
   },
   {
-    "day": 52,
-    "date": "2026-08-26",
-    "difficulty": 2,
-    "a": {
-      "word": "ROOM",
-      "clue": "an area within a building enclosed by walls and floor and ceiling"
-    },
-    "b": {
-      "word": "POINT",
-      "clue": "a geometric element that has position but no extension"
-    },
-    "c": {
-      "word": "PROMOTION",
-      "clue": "a message issued in behalf of some product or cause or idea or person or institution"
-    }
-  },
-  {
-    "day": 53,
-    "date": "2026-08-27",
-    "difficulty": 3,
-    "a": {
-      "word": "LINE",
-      "clue": "a formation of people or things one beside another"
-    },
-    "b": {
-      "word": "CATCH",
-      "clue": "discover or come upon accidentally, suddenly, or unexpectedly"
-    },
-    "c": {
-      "word": "TECHNICAL",
-      "clue": "of or relating to technique or proficiency in a practical skill"
-    }
-  },
-  {
-    "day": 54,
-    "date": "2026-08-28",
-    "difficulty": 5,
-    "a": {
-      "word": "HERE",
-      "clue": "in or at this place"
-    },
-    "b": {
-      "word": "ATTEND",
-      "clue": "be present at , etc."
-    },
-    "c": {
-      "word": "THREATENED",
-      "clue": "likely in the near future to become endangered"
-    }
-  },
-  {
-    "day": 55,
-    "date": "2026-08-29",
-    "difficulty": 4,
-    "a": {
-      "word": "HOTEL",
-      "clue": "a building where travelers can pay for lodging and meals and other services"
-    },
-    "b": {
-      "word": "GREAT",
-      "clue": "relatively large in size or number or extent"
-    },
-    "c": {
-      "word": "ALTOGETHER",
-      "clue": "to a complete degree or to the full or entire extent"
-    }
-  },
-  {
-    "day": 56,
-    "date": "2026-08-30",
-    "difficulty": 1,
-    "a": {
-      "word": "TOWN",
-      "clue": "an urban area with a fixed boundary that is smaller than a city"
-    },
-    "b": {
-      "word": "DOWN",
-      "clue": "spatially or metaphorically from a higher to a lower level or position"
-    },
-    "c": {
-      "word": "DOWNTOWN",
-      "clue": "of or located in the lower part of a town, or in the business center"
-    }
-  },
-  {
-    "day": 57,
-    "date": "2026-08-31",
+    "day": 30,
+    "date": "2026-08-04",
     "difficulty": 1,
     "a": {
       "word": "TRY",
@@ -1568,9 +1109,94 @@ export const DAYS = [
     }
   },
   {
-    "day": 58,
-    "date": "2026-09-01",
+    "day": 31,
+    "date": "2026-08-05",
+    "difficulty": 3,
+    "a": {
+      "word": "TILL",
+      "clue": "a strongbox for holding cash"
+    },
+    "b": {
+      "word": "EARLY",
+      "clue": "at or near the beginning of a period of time or course of events or before the usual or expected time"
+    },
+    "c": {
+      "word": "LITERALLY",
+      "clue": "without exaggeration"
+    }
+  },
+  {
+    "day": 32,
+    "date": "2026-08-06",
     "difficulty": 2,
+    "a": {
+      "word": "ROOM",
+      "clue": "an area within a building enclosed by walls and floor and ceiling"
+    },
+    "b": {
+      "word": "POINT",
+      "clue": "a geometric element that has position but no extension"
+    },
+    "c": {
+      "word": "PROMOTION",
+      "clue": "a message issued in behalf of some product or cause or idea or person or institution"
+    }
+  },
+  {
+    "day": 33,
+    "date": "2026-08-07",
+    "difficulty": 4,
+    "a": {
+      "word": "HOPE",
+      "clue": "expect and wish"
+    },
+    "b": {
+      "word": "MASTER",
+      "clue": "an artist of consummate skill"
+    },
+    "c": {
+      "word": "ATMOSPHERE",
+      "clue": "a particular environment or surrounding influence"
+    }
+  },
+  {
+    "day": 34,
+    "date": "2026-08-08",
+    "difficulty": 5,
+    "a": {
+      "word": "HERE",
+      "clue": "in or at this place"
+    },
+    "b": {
+      "word": "ATTEND",
+      "clue": "be present at , etc."
+    },
+    "c": {
+      "word": "THREATENED",
+      "clue": "likely in the near future to become endangered"
+    }
+  },
+  {
+    "day": 35,
+    "date": "2026-08-09",
+    "difficulty": 1,
+    "a": {
+      "word": "BEST",
+      "clue": "having the most positive qualities"
+    },
+    "b": {
+      "word": "NAME",
+      "clue": "a language unit by which a person or thing is known"
+    },
+    "c": {
+      "word": "BASEMENT",
+      "clue": "the lowermost portion of a structure partly or wholly below ground level"
+    }
+  },
+  {
+    "day": 36,
+    "date": "2026-08-10",
+    "difficulty": 1,
     "a": {
       "word": "PRO",
       "clue": "in favor of"
@@ -1585,94 +1211,9 @@ export const DAYS = [
     }
   },
   {
-    "day": 59,
-    "date": "2026-09-02",
-    "difficulty": 4,
-    "a": {
-      "word": "DONE",
-      "clue": "having finished or arrived at completion"
-    },
-    "b": {
-      "word": "SUGAR",
-      "clue": "a white crystalline carbohydrate used as a sweetener and preservative"
-    },
-    "c": {
-      "word": "DANGEROUS",
-      "clue": "involving or causing danger or risk"
-    }
-  },
-  {
-    "day": 60,
-    "date": "2026-09-03",
-    "difficulty": 3,
-    "a": {
-      "word": "STYLE",
-      "clue": "how something is done or how it happens"
-    },
-    "b": {
-      "word": "LIFE",
-      "clue": "a characteristic state or mode of living"
-    },
-    "c": {
-      "word": "LIFESTYLE",
-      "clue": "a manner of living that reflects the person's values and attitudes"
-    }
-  },
-  {
-    "day": 61,
-    "date": "2026-09-04",
-    "difficulty": 5,
-    "a": {
-      "word": "PIECE",
-      "clue": "a separate part of a whole"
-    },
-    "b": {
-      "word": "APART",
-      "clue": "separated or at a distance in place or position or time"
-    },
-    "c": {
-      "word": "APPRECIATE",
-      "clue": "recognize with gratitude"
-    }
-  },
-  {
-    "day": 62,
-    "date": "2026-09-05",
-    "difficulty": 5,
-    "a": {
-      "word": "JUNIOR",
-      "clue": "younger"
-    },
-    "b": {
-      "word": "LAST",
-      "clue": "immediately past"
-    },
-    "c": {
-      "word": "JOURNALIST",
-      "clue": "a writer for newspapers and magazines"
-    }
-  },
-  {
-    "day": 63,
-    "date": "2026-09-06",
-    "difficulty": 3,
-    "a": {
-      "word": "INK",
-      "clue": "a liquid used for printing or writing or drawing"
-    },
-    "b": {
-      "word": "THING",
-      "clue": "a special situation"
-    },
-    "c": {
-      "word": "THINKING",
-      "clue": "the process of using your mind to consider something carefully"
-    }
-  },
-  {
-    "day": 64,
-    "date": "2026-09-07",
-    "difficulty": 2,
+    "day": 37,
+    "date": "2026-08-11",
+    "difficulty": 1,
     "a": {
       "word": "AIR",
       "clue": "a mixture of gases required for breathing"
@@ -1687,8 +1228,76 @@ export const DAYS = [
     }
   },
   {
-    "day": 65,
-    "date": "2026-09-08",
+    "day": 38,
+    "date": "2026-08-12",
+    "difficulty": 3,
+    "a": {
+      "word": "LINE",
+      "clue": "a formation of people or things one beside another"
+    },
+    "b": {
+      "word": "CATCH",
+      "clue": "discover or come upon accidentally, suddenly, or unexpectedly"
+    },
+    "c": {
+      "word": "TECHNICAL",
+      "clue": "of or relating to technique or proficiency in a practical skill"
+    }
+  },
+  {
+    "day": 39,
+    "date": "2026-08-13",
+    "difficulty": 3,
+    "a": {
+      "word": "DONE",
+      "clue": "having finished or arrived at completion"
+    },
+    "b": {
+      "word": "SUGAR",
+      "clue": "a white crystalline carbohydrate used as a sweetener and preservative"
+    },
+    "c": {
+      "word": "DANGEROUS",
+      "clue": "involving or causing danger or risk"
+    }
+  },
+  {
+    "day": 40,
+    "date": "2026-08-14",
+    "difficulty": 4,
+    "a": {
+      "word": "SON",
+      "clue": "a male human offspring"
+    },
+    "b": {
+      "word": "COUNCIL",
+      "clue": "a body serving in an administrative capacity"
+    },
+    "c": {
+      "word": "CONCLUSION",
+      "clue": "a position or opinion or judgment reached after consideration"
+    }
+  },
+  {
+    "day": 41,
+    "date": "2026-08-15",
+    "difficulty": 4,
+    "a": {
+      "word": "HOTEL",
+      "clue": "a building where travelers can pay for lodging and meals and other services"
+    },
+    "b": {
+      "word": "GREAT",
+      "clue": "relatively large in size or number or extent"
+    },
+    "c": {
+      "word": "ALTOGETHER",
+      "clue": "to a complete degree or to the full or entire extent"
+    }
+  },
+  {
+    "day": 42,
+    "date": "2026-08-16",
     "difficulty": 1,
     "a": {
       "word": "SURE",
@@ -1704,94 +1313,9 @@ export const DAYS = [
     }
   },
   {
-    "day": 66,
-    "date": "2026-09-09",
-    "difficulty": 3,
-    "a": {
-      "word": "FRIEND",
-      "clue": "a person you know well and regard with affection and trust"
-    },
-    "b": {
-      "word": "BOY",
-      "clue": "a youthful male person"
-    },
-    "c": {
-      "word": "BOYFRIEND",
-      "clue": "a man who is the lover of a girl or young woman"
-    }
-  },
-  {
-    "day": 67,
-    "date": "2026-09-10",
-    "difficulty": 2,
-    "a": {
-      "word": "LIGHT",
-      "clue": "electromagnetic radiation that can produce a visual sensation"
-    },
-    "b": {
-      "word": "HIGH",
-      "clue": "greater than normal in degree or intensity or amount"
-    },
-    "c": {
-      "word": "HIGHLIGHT",
-      "clue": "move into the foreground to make more visible or prominent"
-    }
-  },
-  {
-    "day": 68,
-    "date": "2026-09-11",
-    "difficulty": 5,
-    "a": {
-      "word": "PORTION",
-      "clue": "something determined in relation to something that includes it"
-    },
-    "b": {
-      "word": "SEA",
-      "clue": "a division of an ocean or a large body of salt water partially enclosed by land"
-    },
-    "c": {
-      "word": "OPERATIONS",
-      "clue": "financial transactions at a brokerage"
-    }
-  },
-  {
-    "day": 69,
-    "date": "2026-09-12",
-    "difficulty": 5,
-    "a": {
-      "word": "TRUE",
-      "clue": "consistent with fact or reality"
-    },
-    "b": {
-      "word": "RETAIL",
-      "clue": "the selling of goods to consumers"
-    },
-    "c": {
-      "word": "LITERATURE",
-      "clue": "creative writing of recognized artistic value"
-    }
-  },
-  {
-    "day": 70,
-    "date": "2026-09-13",
-    "difficulty": 2,
-    "a": {
-      "word": "VERY",
-      "clue": "used as intensifiers"
-    },
-    "b": {
-      "word": "CORE",
-      "clue": "a small group of indispensable persons or things"
-    },
-    "c": {
-      "word": "RECOVERY",
-      "clue": "return to an original state"
-    }
-  },
-  {
-    "day": 71,
-    "date": "2026-09-14",
-    "difficulty": 2,
+    "day": 43,
+    "date": "2026-08-17",
+    "difficulty": 1,
     "a": {
       "word": "RING",
       "clue": "sound loudly and sonorously"
@@ -1806,9 +1330,9 @@ export const DAYS = [
     }
   },
   {
-    "day": 72,
-    "date": "2026-09-15",
-    "difficulty": 2,
+    "day": 44,
+    "date": "2026-08-18",
+    "difficulty": 1,
     "a": {
       "word": "DRUG",
       "clue": "a substance that is used as a medicine or narcotic"
@@ -1823,8 +1347,8 @@ export const DAYS = [
     }
   },
   {
-    "day": 73,
-    "date": "2026-09-16",
+    "day": 45,
+    "date": "2026-08-19",
     "difficulty": 2,
     "a": {
       "word": "FIVE",
@@ -1840,76 +1364,59 @@ export const DAYS = [
     }
   },
   {
-    "day": 74,
-    "date": "2026-09-17",
-    "difficulty": 1,
+    "day": 46,
+    "date": "2026-08-20",
+    "difficulty": 4,
     "a": {
-      "word": "WELL",
-      "clue": "in a good or proper or satisfactory manner or to a high standard"
+      "word": "GET",
+      "clue": "come into the possession of something concrete or abstract"
     },
     "b": {
-      "word": "BEING",
-      "clue": "the state or fact of existing"
+      "word": "RACIST",
+      "clue": "a person with a prejudiced belief that one race is superior to others"
     },
     "c": {
-      "word": "WELLBEING",
-      "clue": "a contented state of being happy and healthy and prosperous"
+      "word": "STRATEGIC",
+      "clue": "relating to or concerned with strategy"
     }
   },
   {
-    "day": 75,
-    "date": "2026-09-18",
+    "day": 47,
+    "date": "2026-08-21",
+    "difficulty": 4,
+    "a": {
+      "word": "PIECE",
+      "clue": "a separate part of a whole"
+    },
+    "b": {
+      "word": "APART",
+      "clue": "separated or at a distance in place or position or time"
+    },
+    "c": {
+      "word": "APPRECIATE",
+      "clue": "recognize with gratitude"
+    }
+  },
+  {
+    "day": 48,
+    "date": "2026-08-22",
     "difficulty": 5,
     "a": {
-      "word": "DRESS",
-      "clue": "a one-piece garment for a woman"
+      "word": "JUNIOR",
+      "clue": "younger"
     },
     "b": {
-      "word": "LARGE",
-      "clue": "above average in size or number or quantity or magnitude or extent"
+      "word": "LAST",
+      "clue": "immediately past"
     },
     "c": {
-      "word": "REGARDLESS",
-      "clue": "in spite of everything"
+      "word": "JOURNALIST",
+      "clue": "a writer for newspapers and magazines"
     }
   },
   {
-    "day": 76,
-    "date": "2026-09-19",
-    "difficulty": 5,
-    "a": {
-      "word": "NEXT",
-      "clue": "nearest in space or position"
-    },
-    "b": {
-      "word": "EMPIRE",
-      "clue": "the domain ruled by an emperor or empress"
-    },
-    "c": {
-      "word": "EXPERIMENT",
-      "clue": "the act of conducting a controlled test or investigation"
-    }
-  },
-  {
-    "day": 77,
-    "date": "2026-09-20",
-    "difficulty": 2,
-    "a": {
-      "word": "FOOT",
-      "clue": "the part of the leg of a human being below the ankle joint"
-    },
-    "b": {
-      "word": "BALL",
-      "clue": "round object that is hit or thrown or kicked in games"
-    },
-    "c": {
-      "word": "FOOTBALL",
-      "clue": "any of various games played with a ball in which two teams try to kick or carry or propel the ball into each other's…"
-    }
-  },
-  {
-    "day": 78,
-    "date": "2026-09-21",
+    "day": 49,
+    "date": "2026-08-23",
     "difficulty": 2,
     "a": {
       "word": "RENT",
@@ -1925,9 +1432,9 @@ export const DAYS = [
     }
   },
   {
-    "day": 79,
-    "date": "2026-09-22",
-    "difficulty": 2,
+    "day": 50,
+    "date": "2026-08-24",
+    "difficulty": 1,
     "a": {
       "word": "VOTE",
       "clue": "express one's preference for a candidate or for a measure or resolution"
@@ -1942,110 +1449,8 @@ export const DAYS = [
     }
   },
   {
-    "day": 80,
-    "date": "2026-09-23",
-    "difficulty": 3,
-    "a": {
-      "word": "LITTLE",
-      "clue": "limited or below average in number or quantity or magnitude or extent"
-    },
-    "b": {
-      "word": "SEA",
-      "clue": "a division of an ocean or a large body of salt water partially enclosed by land"
-    },
-    "c": {
-      "word": "SATELLITE",
-      "clue": "man-made equipment that orbits around the earth or the moon"
-    }
-  },
-  {
-    "day": 81,
-    "date": "2026-09-24",
-    "difficulty": 3,
-    "a": {
-      "word": "USED",
-      "clue": "employed in accomplishing something"
-    },
-    "b": {
-      "word": "SPEND",
-      "clue": "pass time in a specific way"
-    },
-    "c": {
-      "word": "SUSPENDED",
-      "clue": "supported or kept from sinking or falling by buoyancy and without apparent attachment"
-    }
-  },
-  {
-    "day": 82,
-    "date": "2026-09-25",
-    "difficulty": 5,
-    "a": {
-      "word": "MANNER",
-      "clue": "how something is done or how it happens"
-    },
-    "b": {
-      "word": "GREAT",
-      "clue": "relatively large in size or number or extent"
-    },
-    "c": {
-      "word": "ARRANGEMENT",
-      "clue": "the thing arranged or agreed to"
-    }
-  },
-  {
-    "day": 83,
-    "date": "2026-09-26",
-    "difficulty": 5,
-    "a": {
-      "word": "ALSO",
-      "clue": "in addition"
-    },
-    "b": {
-      "word": "NEARBY",
-      "clue": "close at hand"
-    },
-    "c": {
-      "word": "REASONABLY",
-      "clue": "to a moderately sufficient extent or degree"
-    }
-  },
-  {
-    "day": 84,
-    "date": "2026-09-27",
-    "difficulty": 1,
-    "a": {
-      "word": "RED",
-      "clue": "of a color at the end of the color spectrum"
-    },
-    "b": {
-      "word": "PAPER",
-      "clue": "a material made of cellulose pulp derived mainly from wood or rags or certain grasses"
-    },
-    "c": {
-      "word": "PREPARED",
-      "clue": "made ready or fit or suitable beforehand"
-    }
-  },
-  {
-    "day": 85,
-    "date": "2026-09-28",
-    "difficulty": 2,
-    "a": {
-      "word": "DOWN",
-      "clue": "spatially or metaphorically from a higher to a lower level or position"
-    },
-    "b": {
-      "word": "LOAD",
-      "clue": "weight to be borne or conveyed"
-    },
-    "c": {
-      "word": "DOWNLOAD",
-      "clue": "transfer a file or program from a central computer to a smaller computer or to a computer at a remote location"
-    }
-  },
-  {
-    "day": 86,
-    "date": "2026-09-29",
+    "day": 51,
+    "date": "2026-08-25",
     "difficulty": 1,
     "a": {
       "word": "DEATH",
@@ -2061,8 +1466,25 @@ export const DAYS = [
     }
   },
   {
-    "day": 87,
-    "date": "2026-09-30",
+    "day": 52,
+    "date": "2026-08-26",
+    "difficulty": 2,
+    "a": {
+      "word": "LITTLE",
+      "clue": "limited or below average in number or quantity or magnitude or extent"
+    },
+    "b": {
+      "word": "SEA",
+      "clue": "a division of an ocean or a large body of salt water partially enclosed by land"
+    },
+    "c": {
+      "word": "SATELLITE",
+      "clue": "man-made equipment that orbits around the earth or the moon"
+    }
+  },
+  {
+    "day": 53,
+    "date": "2026-08-27",
     "difficulty": 4,
     "a": {
       "word": "TERRY",
@@ -2078,59 +1500,42 @@ export const DAYS = [
     }
   },
   {
-    "day": 88,
-    "date": "2026-10-01",
+    "day": 54,
+    "date": "2026-08-28",
     "difficulty": 5,
     "a": {
-      "word": "CODING",
-      "clue": "act of writing in code or cipher"
+      "word": "TRUE",
+      "clue": "consistent with fact or reality"
     },
     "b": {
-      "word": "CAR",
-      "clue": "a motor vehicle with four wheels"
+      "word": "RETAIL",
+      "clue": "the selling of goods to consumers"
     },
     "c": {
-      "word": "ACCORDING",
-      "clue": "as reported or stated by"
+      "word": "LITERATURE",
+      "clue": "creative writing of recognized artistic value"
     }
   },
   {
-    "day": 89,
-    "date": "2026-10-02",
+    "day": 55,
+    "date": "2026-08-29",
     "difficulty": 4,
     "a": {
-      "word": "MEET",
-      "clue": "come together"
+      "word": "DRESS",
+      "clue": "a one-piece garment for a woman"
     },
     "b": {
-      "word": "NEARLY",
-      "clue": "slightly short of or not quite accomplished"
+      "word": "LARGE",
+      "clue": "above average in size or number or quantity or magnitude or extent"
     },
     "c": {
-      "word": "ELEMENTARY",
-      "clue": "easy and not involved or complicated"
+      "word": "REGARDLESS",
+      "clue": "in spite of everything"
     }
   },
   {
-    "day": 90,
-    "date": "2026-10-03",
-    "difficulty": 5,
-    "a": {
-      "word": "NEVER",
-      "clue": "not ever"
-    },
-    "b": {
-      "word": "TRIAL",
-      "clue": "the act of testing something"
-    },
-    "c": {
-      "word": "IRRELEVANT",
-      "clue": "having no bearing on or connection with the subject at issue"
-    }
-  },
-  {
-    "day": 91,
-    "date": "2026-10-04",
+    "day": 56,
+    "date": "2026-08-30",
     "difficulty": 1,
     "a": {
       "word": "BEST",
@@ -2146,8 +1551,8 @@ export const DAYS = [
     }
   },
   {
-    "day": 92,
-    "date": "2026-10-05",
+    "day": 57,
+    "date": "2026-08-31",
     "difficulty": 3,
     "a": {
       "word": "TOP",
@@ -2163,9 +1568,9 @@ export const DAYS = [
     }
   },
   {
-    "day": 93,
-    "date": "2026-10-06",
-    "difficulty": 2,
+    "day": 58,
+    "date": "2026-09-01",
+    "difficulty": 1,
     "a": {
       "word": "COOL",
       "clue": "neither warm nor very cold"
@@ -2180,9 +1585,9 @@ export const DAYS = [
     }
   },
   {
-    "day": 94,
-    "date": "2026-10-07",
-    "difficulty": 3,
+    "day": 59,
+    "date": "2026-09-02",
+    "difficulty": 2,
     "a": {
       "word": "PAPER",
       "clue": "a material made of cellulose pulp derived mainly from wood or rags or certain grasses"
@@ -2197,60 +1602,60 @@ export const DAYS = [
     }
   },
   {
-    "day": 95,
-    "date": "2026-10-08",
-    "difficulty": 3,
-    "a": {
-      "word": "FULLY",
-      "clue": "to the greatest degree or extent"
-    },
-    "b": {
-      "word": "HOPE",
-      "clue": "expect and wish"
-    },
-    "c": {
-      "word": "HOPEFULLY",
-      "clue": "with hope"
-    }
-  },
-  {
-    "day": 96,
-    "date": "2026-10-09",
+    "day": 60,
+    "date": "2026-09-03",
     "difficulty": 5,
     "a": {
-      "word": "THERE",
-      "clue": "in or at that place"
+      "word": "CODING",
+      "clue": "act of writing in code or cipher"
     },
     "b": {
-      "word": "WASTE",
-      "clue": "spend thoughtlessly"
+      "word": "CAR",
+      "clue": "a motor vehicle with four wheels"
     },
     "c": {
-      "word": "SWEETHEART",
-      "clue": "any well-liked individual"
+      "word": "ACCORDING",
+      "clue": "as reported or stated by"
     }
   },
   {
-    "day": 97,
-    "date": "2026-10-10",
-    "difficulty": 4,
+    "day": 61,
+    "date": "2026-09-04",
+    "difficulty": 5,
     "a": {
-      "word": "PROVIDE",
-      "clue": "give something useful or necessary to"
+      "word": "PORTION",
+      "clue": "something determined in relation to something that includes it"
     },
     "b": {
-      "word": "CUT",
-      "clue": "separate with or as if with an instrument"
+      "word": "SEA",
+      "clue": "a division of an ocean or a large body of salt water partially enclosed by land"
     },
     "c": {
-      "word": "PRODUCTIVE",
-      "clue": "producing or capable of producing"
+      "word": "OPERATIONS",
+      "clue": "financial transactions at a brokerage"
     }
   },
   {
-    "day": 98,
-    "date": "2026-10-11",
-    "difficulty": 3,
+    "day": 62,
+    "date": "2026-09-05",
+    "difficulty": 5,
+    "a": {
+      "word": "NEXT",
+      "clue": "nearest in space or position"
+    },
+    "b": {
+      "word": "EMPIRE",
+      "clue": "the domain ruled by an emperor or empress"
+    },
+    "c": {
+      "word": "EXPERIMENT",
+      "clue": "the act of conducting a controlled test or investigation"
+    }
+  },
+  {
+    "day": 63,
+    "date": "2026-09-06",
+    "difficulty": 2,
     "a": {
       "word": "PET",
       "clue": "a domesticated animal kept for companionship or amusement"
@@ -2265,9 +1670,9 @@ export const DAYS = [
     }
   },
   {
-    "day": 99,
-    "date": "2026-10-12",
-    "difficulty": 2,
+    "day": 64,
+    "date": "2026-09-07",
+    "difficulty": 1,
     "a": {
       "word": "OLDER",
       "clue": "advanced in years"
@@ -2282,9 +1687,9 @@ export const DAYS = [
     }
   },
   {
-    "day": 100,
-    "date": "2026-10-13",
-    "difficulty": 2,
+    "day": 65,
+    "date": "2026-09-08",
+    "difficulty": 1,
     "a": {
       "word": "SKIN",
       "clue": "a natural protective body covering and site of the sense of touch"
@@ -2299,9 +1704,9 @@ export const DAYS = [
     }
   },
   {
-    "day": 101,
-    "date": "2026-10-14",
-    "difficulty": 4,
+    "day": 66,
+    "date": "2026-09-09",
+    "difficulty": 3,
     "a": {
       "word": "WINNER",
       "clue": "the contestant who wins the contest"
@@ -2316,110 +1721,8 @@ export const DAYS = [
     }
   },
   {
-    "day": 102,
-    "date": "2026-10-15",
-    "difficulty": 3,
-    "a": {
-      "word": "FULLY",
-      "clue": "to the greatest degree or extent"
-    },
-    "b": {
-      "word": "CARE",
-      "clue": "feel concern or interest"
-    },
-    "c": {
-      "word": "CAREFULLY",
-      "clue": "taking care or paying attention"
-    }
-  },
-  {
-    "day": 103,
-    "date": "2026-10-16",
-    "difficulty": 5,
-    "a": {
-      "word": "HELD",
-      "clue": "occupied or in the control of"
-    },
-    "b": {
-      "word": "PRAISE",
-      "clue": "express approval of"
-    },
-    "c": {
-      "word": "LEADERSHIP",
-      "clue": "the activity of leading"
-    }
-  },
-  {
-    "day": 104,
-    "date": "2026-10-17",
-    "difficulty": 4,
-    "a": {
-      "word": "TRYING",
-      "clue": "hard to endure"
-    },
-    "b": {
-      "word": "FIRE",
-      "clue": "the event of something burning"
-    },
-    "c": {
-      "word": "TERRIFYING",
-      "clue": "causing extreme terror"
-    }
-  },
-  {
-    "day": 105,
-    "date": "2026-10-18",
-    "difficulty": 1,
-    "a": {
-      "word": "RED",
-      "clue": "of a color at the end of the color spectrum"
-    },
-    "b": {
-      "word": "BEING",
-      "clue": "the state or fact of existing"
-    },
-    "c": {
-      "word": "BREEDING",
-      "clue": "producing offspring or set aside especially for producing offspring"
-    }
-  },
-  {
-    "day": 106,
-    "date": "2026-10-19",
-    "difficulty": 3,
-    "a": {
-      "word": "SIGHT",
-      "clue": "an instance of visual perception"
-    },
-    "b": {
-      "word": "ART",
-      "clue": "the products of human creativity"
-    },
-    "c": {
-      "word": "STRAIGHT",
-      "clue": "without deviation"
-    }
-  },
-  {
-    "day": 107,
-    "date": "2026-10-20",
-    "difficulty": 3,
-    "a": {
-      "word": "TUBE",
-      "clue": "conduit consisting of a long hollow object used to hold and conduct objects or liquids or gases"
-    },
-    "b": {
-      "word": "ALSO",
-      "clue": "in addition"
-    },
-    "c": {
-      "word": "ABSOLUTE",
-      "clue": "perfect or complete or pure"
-    }
-  },
-  {
-    "day": 108,
-    "date": "2026-10-21",
+    "day": 67,
+    "date": "2026-09-10",
     "difficulty": 2,
     "a": {
       "word": "ONCE",
@@ -2435,127 +1738,110 @@ export const DAYS = [
     }
   },
   {
-    "day": 109,
-    "date": "2026-10-22",
-    "difficulty": 3,
-    "a": {
-      "word": "WORK",
-      "clue": "activity directed toward making or doing something"
-    },
-    "b": {
-      "word": "FORCE",
-      "clue": "to cause to do through pressure or necessity, by physical, moral or intellectual means :"
-    },
-    "c": {
-      "word": "WORKFORCE",
-      "clue": "the force of workers available"
-    }
-  },
-  {
-    "day": 110,
-    "date": "2026-10-23",
+    "day": 68,
+    "date": "2026-09-11",
     "difficulty": 5,
     "a": {
-      "word": "MAKE",
-      "clue": "engage in"
+      "word": "MANNER",
+      "clue": "how something is done or how it happens"
     },
     "b": {
-      "word": "BARREL",
-      "clue": "a tube through which a bullet travels when a gun is fired"
+      "word": "GREAT",
+      "clue": "relatively large in size or number or extent"
     },
     "c": {
-      "word": "REMARKABLE",
-      "clue": "unusual or striking"
+      "word": "ARRANGEMENT",
+      "clue": "the thing arranged or agreed to"
     }
   },
   {
-    "day": 111,
-    "date": "2026-10-24",
+    "day": 69,
+    "date": "2026-09-12",
     "difficulty": 5,
     "a": {
-      "word": "FEE",
-      "clue": "a fixed charge for a privilege or for professional services"
+      "word": "ALSO",
+      "clue": "in addition"
     },
     "b": {
-      "word": "CONCERN",
-      "clue": "be relevant to"
+      "word": "NEARBY",
+      "clue": "close at hand"
     },
     "c": {
-      "word": "CONFERENCE",
-      "clue": "a prearranged meeting for consultation or exchange of information or discussion"
+      "word": "REASONABLY",
+      "clue": "to a moderately sufficient extent or degree"
     }
   },
   {
-    "day": 112,
-    "date": "2026-10-25",
-    "difficulty": 2,
-    "a": {
-      "word": "MUST",
-      "clue": "highly recommended"
-    },
-    "b": {
-      "word": "CORE",
-      "clue": "a small group of indispensable persons or things"
-    },
-    "c": {
-      "word": "CUSTOMER",
-      "clue": "someone who pays for goods or services"
-    }
-  },
-  {
-    "day": 113,
-    "date": "2026-10-26",
-    "difficulty": 3,
-    "a": {
-      "word": "SIDE",
-      "clue": "a place within a region identified relative to a center or reference location"
-    },
-    "b": {
-      "word": "COIN",
-      "clue": "a flat metal piece used as money"
-    },
-    "c": {
-      "word": "DECISION",
-      "clue": "the act of making up your mind about something"
-    }
-  },
-  {
-    "day": 114,
-    "date": "2026-10-27",
+    "day": 70,
+    "date": "2026-09-13",
     "difficulty": 1,
     "a": {
-      "word": "LONG",
-      "clue": "primarily temporal sense"
+      "word": "RED",
+      "clue": "of a color at the end of the color spectrum"
     },
     "b": {
-      "word": "LIFE",
-      "clue": "a characteristic state or mode of living"
+      "word": "BEING",
+      "clue": "the state or fact of existing"
     },
     "c": {
-      "word": "LIFELONG",
-      "clue": "continuing through life"
+      "word": "BREEDING",
+      "clue": "producing offspring or set aside especially for producing offspring"
     }
   },
   {
-    "day": 115,
-    "date": "2026-10-28",
-    "difficulty": 4,
+    "day": 71,
+    "date": "2026-09-14",
+    "difficulty": 2,
     "a": {
-      "word": "RIGHT",
-      "clue": "an abstract idea of that which is due to a person or governmental body by law or tradition or nature"
+      "word": "SIGHT",
+      "clue": "an instance of visual perception"
     },
     "b": {
-      "word": "COPY",
-      "clue": "a reproduction of a written record"
+      "word": "ART",
+      "clue": "the products of human creativity"
     },
     "c": {
-      "word": "COPYRIGHT",
-      "clue": "a document granting exclusive right to publish and sell literary or musical or artistic work"
+      "word": "STRAIGHT",
+      "clue": "without deviation"
     }
   },
   {
-    "day": 116,
-    "date": "2026-10-29",
+    "day": 72,
+    "date": "2026-09-15",
+    "difficulty": 1,
+    "a": {
+      "word": "OVER",
+      "clue": "at or to a point across intervening space etc."
+    },
+    "b": {
+      "word": "LATE",
+      "clue": "being or occurring at an advanced period of time or after a usual or expected time"
+    },
+    "c": {
+      "word": "ELEVATOR",
+      "clue": "lifting device consisting of a platform or cage that is raised and lowered mechanically in a vertical shaft in order to…"
+    }
+  },
+  {
+    "day": 73,
+    "date": "2026-09-16",
+    "difficulty": 3,
+    "a": {
+      "word": "LEG",
+      "clue": "a human limb"
+    },
+    "b": {
+      "word": "NEARLY",
+      "clue": "slightly short of or not quite accomplished"
+    },
+    "c": {
+      "word": "GENERALLY",
+      "clue": "usually"
+    }
+  },
+  {
+    "day": 74,
+    "date": "2026-09-17",
     "difficulty": 4,
     "a": {
       "word": "PORN",
@@ -2571,110 +1857,93 @@ export const DAYS = [
     }
   },
   {
-    "day": 117,
-    "date": "2026-10-30",
-    "difficulty": 5,
-    "a": {
-      "word": "CONTENT",
-      "clue": "everything that is included in a collection and that is held or included in something"
-    },
-    "b": {
-      "word": "CARE",
-      "clue": "feel concern or interest"
-    },
-    "c": {
-      "word": "CONCENTRATE",
-      "clue": "make denser, stronger, or purer"
-    }
-  },
-  {
-    "day": 118,
-    "date": "2026-10-31",
-    "difficulty": 5,
-    "a": {
-      "word": "TIP",
-      "clue": "the extreme end of something"
-    },
-    "b": {
-      "word": "CONSIDER",
-      "clue": "deem to be"
-    },
-    "c": {
-      "word": "DESCRIPTION",
-      "clue": "a statement that represents something in words"
-    }
-  },
-  {
-    "day": 119,
-    "date": "2026-11-01",
-    "difficulty": 2,
-    "a": {
-      "word": "RING",
-      "clue": "sound loudly and sonorously"
-    },
-    "b": {
-      "word": "KIND",
-      "clue": "a category of things distinguished by some common characteristic or quality"
-    },
-    "c": {
-      "word": "DRINKING",
-      "clue": "the act of consuming liquids"
-    }
-  },
-  {
-    "day": 120,
-    "date": "2026-11-02",
-    "difficulty": 1,
-    "a": {
-      "word": "LOVE",
-      "clue": "have a great affection or liking for"
-    },
-    "b": {
-      "word": "CITY",
-      "clue": "a large and densely populated urban area"
-    },
-    "c": {
-      "word": "VELOCITY",
-      "clue": "distance travelled per unit time"
-    }
-  },
-  {
-    "day": 121,
-    "date": "2026-11-03",
-    "difficulty": 3,
-    "a": {
-      "word": "SUN",
-      "clue": "the star that is the source of light and heat for the planets in the solar system"
-    },
-    "b": {
-      "word": "DIRTY",
-      "clue": "soiled or likely to soil with dirt or grime"
-    },
-    "c": {
-      "word": "INDUSTRY",
-      "clue": "the people or companies engaged in a particular kind of commercial enterprise"
-    }
-  },
-  {
-    "day": 122,
-    "date": "2026-11-04",
+    "day": 75,
+    "date": "2026-09-18",
     "difficulty": 4,
     "a": {
-      "word": "LONG",
-      "clue": "primarily temporal sense"
+      "word": "OUT",
+      "clue": "away from home"
     },
     "b": {
-      "word": "ASIDE",
-      "clue": "on or to one side"
+      "word": "RESEARCH",
+      "clue": "systematic investigation to establish facts"
     },
     "c": {
-      "word": "ALONGSIDE",
-      "clue": "side by side"
+      "word": "TREACHEROUS",
+      "clue": "dangerously unstable and unpredictable"
     }
   },
   {
-    "day": 123,
-    "date": "2026-11-05",
+    "day": 76,
+    "date": "2026-09-19",
+    "difficulty": 4,
+    "a": {
+      "word": "NEVER",
+      "clue": "not ever"
+    },
+    "b": {
+      "word": "TRIAL",
+      "clue": "the act of testing something"
+    },
+    "c": {
+      "word": "IRRELEVANT",
+      "clue": "having no bearing on or connection with the subject at issue"
+    }
+  },
+  {
+    "day": 77,
+    "date": "2026-09-20",
+    "difficulty": 2,
+    "a": {
+      "word": "TUBE",
+      "clue": "conduit consisting of a long hollow object used to hold and conduct objects or liquids or gases"
+    },
+    "b": {
+      "word": "ALSO",
+      "clue": "in addition"
+    },
+    "c": {
+      "word": "ABSOLUTE",
+      "clue": "perfect or complete or pure"
+    }
+  },
+  {
+    "day": 78,
+    "date": "2026-09-21",
+    "difficulty": 2,
+    "a": {
+      "word": "MUST",
+      "clue": "highly recommended"
+    },
+    "b": {
+      "word": "CORE",
+      "clue": "a small group of indispensable persons or things"
+    },
+    "c": {
+      "word": "CUSTOMER",
+      "clue": "someone who pays for goods or services"
+    }
+  },
+  {
+    "day": 79,
+    "date": "2026-09-22",
+    "difficulty": 3,
+    "a": {
+      "word": "SIDE",
+      "clue": "a place within a region identified relative to a center or reference location"
+    },
+    "b": {
+      "word": "COIN",
+      "clue": "a flat metal piece used as money"
+    },
+    "c": {
+      "word": "DECISION",
+      "clue": "the act of making up your mind about something"
+    }
+  },
+  {
+    "day": 80,
+    "date": "2026-09-23",
     "difficulty": 2,
     "a": {
       "word": "REPORT",
@@ -2690,59 +1959,297 @@ export const DAYS = [
     }
   },
   {
-    "day": 124,
-    "date": "2026-11-06",
-    "difficulty": 5,
-    "a": {
-      "word": "REGRET",
-      "clue": "feel remorse for"
-    },
-    "b": {
-      "word": "SIDE",
-      "clue": "a place within a region identified relative to a center or reference location"
-    },
-    "c": {
-      "word": "REGISTERED",
-      "clue": "furnished with necessary official documents specifying ownership etc"
-    }
-  },
-  {
-    "day": 125,
-    "date": "2026-11-07",
-    "difficulty": 5,
-    "a": {
-      "word": "YEARS",
-      "clue": "a late time of life"
-    },
-    "b": {
-      "word": "PLATE",
-      "clue": "base consisting of a rubber slab where the batter stands"
-    },
-    "c": {
-      "word": "SEPARATELY",
-      "clue": "apart from others"
-    }
-  },
-  {
-    "day": 126,
-    "date": "2026-11-08",
+    "day": 81,
+    "date": "2026-09-24",
     "difficulty": 2,
     "a": {
-      "word": "MEN",
-      "clue": "the force of workers available"
+      "word": "LISTEN",
+      "clue": "hear with intention"
     },
     "b": {
-      "word": "STEEL",
-      "clue": "an alloy of iron with small amounts of carbon"
+      "word": "SEA",
+      "clue": "a division of an ocean or a large body of salt water partially enclosed by land"
     },
     "c": {
-      "word": "ELEMENTS",
-      "clue": "violent or severe weather"
+      "word": "ESSENTIAL",
+      "clue": "absolutely necessary"
     }
   },
   {
-    "day": 127,
-    "date": "2026-11-09",
+    "day": 82,
+    "date": "2026-09-25",
+    "difficulty": 4,
+    "a": {
+      "word": "MEET",
+      "clue": "come together"
+    },
+    "b": {
+      "word": "NEARLY",
+      "clue": "slightly short of or not quite accomplished"
+    },
+    "c": {
+      "word": "ELEMENTARY",
+      "clue": "easy and not involved or complicated"
+    }
+  },
+  {
+    "day": 83,
+    "date": "2026-09-26",
+    "difficulty": 4,
+    "a": {
+      "word": "THERE",
+      "clue": "in or at that place"
+    },
+    "b": {
+      "word": "WASTE",
+      "clue": "spend thoughtlessly"
+    },
+    "c": {
+      "word": "SWEETHEART",
+      "clue": "any well-liked individual"
+    }
+  },
+  {
+    "day": 84,
+    "date": "2026-09-27",
+    "difficulty": 1,
+    "a": {
+      "word": "RING",
+      "clue": "sound loudly and sonorously"
+    },
+    "b": {
+      "word": "KIND",
+      "clue": "a category of things distinguished by some common characteristic or quality"
+    },
+    "c": {
+      "word": "DRINKING",
+      "clue": "the act of consuming liquids"
+    }
+  },
+  {
+    "day": 85,
+    "date": "2026-09-28",
+    "difficulty": 2,
+    "a": {
+      "word": "SUN",
+      "clue": "the star that is the source of light and heat for the planets in the solar system"
+    },
+    "b": {
+      "word": "DIRTY",
+      "clue": "soiled or likely to soil with dirt or grime"
+    },
+    "c": {
+      "word": "INDUSTRY",
+      "clue": "the people or companies engaged in a particular kind of commercial enterprise"
+    }
+  },
+  {
+    "day": 86,
+    "date": "2026-09-29",
+    "difficulty": 1,
+    "a": {
+      "word": "ROOM",
+      "clue": "an area within a building enclosed by walls and floor and ceiling"
+    },
+    "b": {
+      "word": "EVER",
+      "clue": "at any time"
+    },
+    "c": {
+      "word": "MOREOVER",
+      "clue": "in addition"
+    }
+  },
+  {
+    "day": 87,
+    "date": "2026-09-30",
+    "difficulty": 2,
+    "a": {
+      "word": "ORDER",
+      "clue": "give instructions to or direct somebody to do something with authority"
+    },
+    "b": {
+      "word": "CITY",
+      "clue": "a large and densely populated urban area"
+    },
+    "c": {
+      "word": "DIRECTORY",
+      "clue": "an alphabetical list of names and addresses"
+    }
+  },
+  {
+    "day": 88,
+    "date": "2026-10-01",
+    "difficulty": 4,
+    "a": {
+      "word": "MERIT",
+      "clue": "be worthy or deserving"
+    },
+    "b": {
+      "word": "NEED",
+      "clue": "require as useful, just, or proper"
+    },
+    "c": {
+      "word": "DETERMINE",
+      "clue": "establish after a calculation, investigation, experiment, survey, or study"
+    }
+  },
+  {
+    "day": 89,
+    "date": "2026-10-02",
+    "difficulty": 4,
+    "a": {
+      "word": "PROVIDE",
+      "clue": "give something useful or necessary to"
+    },
+    "b": {
+      "word": "CUT",
+      "clue": "separate with or as if with an instrument"
+    },
+    "c": {
+      "word": "PRODUCTIVE",
+      "clue": "producing or capable of producing"
+    }
+  },
+  {
+    "day": 90,
+    "date": "2026-10-03",
+    "difficulty": 5,
+    "a": {
+      "word": "HELD",
+      "clue": "occupied or in the control of"
+    },
+    "b": {
+      "word": "PRAISE",
+      "clue": "express approval of"
+    },
+    "c": {
+      "word": "LEADERSHIP",
+      "clue": "the activity of leading"
+    }
+  },
+  {
+    "day": 91,
+    "date": "2026-10-04",
+    "difficulty": 1,
+    "a": {
+      "word": "TOO",
+      "clue": "to a degree exceeding normal or proper limits"
+    },
+    "b": {
+      "word": "BRAIN",
+      "clue": "that part of the central nervous system that includes all the higher nervous centers"
+    },
+    "c": {
+      "word": "ABORTION",
+      "clue": "termination of pregnancy"
+    }
+  },
+  {
+    "day": 92,
+    "date": "2026-10-05",
+    "difficulty": 1,
+    "a": {
+      "word": "TERMS",
+      "clue": "status with respect to the relations between people or groups"
+    },
+    "b": {
+      "word": "SEE",
+      "clue": "perceive by sight or have the power to perceive by sight"
+    },
+    "c": {
+      "word": "SEMESTER",
+      "clue": "half a year"
+    }
+  },
+  {
+    "day": 93,
+    "date": "2026-10-06",
+    "difficulty": 1,
+    "a": {
+      "word": "TRUE",
+      "clue": "consistent with fact or reality"
+    },
+    "b": {
+      "word": "CARE",
+      "clue": "feel concern or interest"
+    },
+    "c": {
+      "word": "CREATURE",
+      "clue": "a living organism characterized by voluntary movement"
+    }
+  },
+  {
+    "day": 94,
+    "date": "2026-10-07",
+    "difficulty": 2,
+    "a": {
+      "word": "USING",
+      "clue": "an act that exploits or victimizes someone"
+    },
+    "b": {
+      "word": "RATE",
+      "clue": "a magnitude or frequency relative to a time unit"
+    },
+    "c": {
+      "word": "SIGNATURE",
+      "clue": "a distinguishing style"
+    }
+  },
+  {
+    "day": 95,
+    "date": "2026-10-08",
+    "difficulty": 2,
+    "a": {
+      "word": "GIVEN",
+      "clue": "acknowledged as a supposition"
+    },
+    "b": {
+      "word": "REAL",
+      "clue": "being or occurring in fact or actuality"
+    },
+    "c": {
+      "word": "REVEALING",
+      "clue": "disclosing unintentionally"
+    }
+  },
+  {
+    "day": 96,
+    "date": "2026-10-09",
+    "difficulty": 3,
+    "a": {
+      "word": "TRYING",
+      "clue": "hard to endure"
+    },
+    "b": {
+      "word": "FIRE",
+      "clue": "the event of something burning"
+    },
+    "c": {
+      "word": "TERRIFYING",
+      "clue": "causing extreme terror"
+    }
+  },
+  {
+    "day": 97,
+    "date": "2026-10-10",
+    "difficulty": 5,
+    "a": {
+      "word": "MAKE",
+      "clue": "engage in"
+    },
+    "b": {
+      "word": "BARREL",
+      "clue": "a tube through which a bullet travels when a gun is fired"
+    },
+    "c": {
+      "word": "REMARKABLE",
+      "clue": "unusual or striking"
+    }
+  },
+  {
+    "day": 98,
+    "date": "2026-10-11",
     "difficulty": 1,
     "a": {
       "word": "ORDER",
@@ -2758,20 +2265,513 @@ export const DAYS = [
     }
   },
   {
-    "day": 128,
-    "date": "2026-11-10",
+    "day": 99,
+    "date": "2026-10-12",
     "difficulty": 2,
     "a": {
-      "word": "TOO",
-      "clue": "to a degree exceeding normal or proper limits"
+      "word": "THIRD",
+      "clue": "coming next after the second and just before the fourth in position"
     },
     "b": {
-      "word": "BRAIN",
-      "clue": "that part of the central nervous system that includes all the higher nervous centers"
+      "word": "BAY",
+      "clue": "an indentation of a shoreline larger than a cove but smaller than a gulf"
     },
     "c": {
-      "word": "ABORTION",
-      "clue": "termination of pregnancy"
+      "word": "BIRTHDAY",
+      "clue": "an anniversary of the day on which a person was born"
+    }
+  },
+  {
+    "day": 100,
+    "date": "2026-10-13",
+    "difficulty": 2,
+    "a": {
+      "word": "LIMIT",
+      "clue": "the greatest possible degree of something"
+    },
+    "b": {
+      "word": "RAY",
+      "clue": "a column of light"
+    },
+    "c": {
+      "word": "MILITARY",
+      "clue": "of or relating to the study of the principles of warfare"
+    }
+  },
+  {
+    "day": 101,
+    "date": "2026-10-14",
+    "difficulty": 3,
+    "a": {
+      "word": "NATURE",
+      "clue": "the essential qualities or characteristics by which something is recognized"
+    },
+    "b": {
+      "word": "AGE",
+      "clue": "how long something has existed"
+    },
+    "c": {
+      "word": "GUARANTEE",
+      "clue": "give surety or assume responsibility"
+    }
+  },
+  {
+    "day": 102,
+    "date": "2026-10-15",
+    "difficulty": 3,
+    "a": {
+      "word": "NEXT",
+      "clue": "nearest in space or position"
+    },
+    "b": {
+      "word": "NOISE",
+      "clue": "sound of any kind"
+    },
+    "c": {
+      "word": "EXTENSION",
+      "clue": "a mutually agreed delay in the date set for the completion of a job or payment of a debt"
+    }
+  },
+  {
+    "day": 103,
+    "date": "2026-10-16",
+    "difficulty": 5,
+    "a": {
+      "word": "FEE",
+      "clue": "a fixed charge for a privilege or for professional services"
+    },
+    "b": {
+      "word": "CONCERN",
+      "clue": "be relevant to"
+    },
+    "c": {
+      "word": "CONFERENCE",
+      "clue": "a prearranged meeting for consultation or exchange of information or discussion"
+    }
+  },
+  {
+    "day": 104,
+    "date": "2026-10-17",
+    "difficulty": 5,
+    "a": {
+      "word": "CONTENT",
+      "clue": "everything that is included in a collection and that is held or included in something"
+    },
+    "b": {
+      "word": "CARE",
+      "clue": "feel concern or interest"
+    },
+    "c": {
+      "word": "CONCENTRATE",
+      "clue": "make denser, stronger, or purer"
+    }
+  },
+  {
+    "day": 105,
+    "date": "2026-10-18",
+    "difficulty": 3,
+    "a": {
+      "word": "EVER",
+      "clue": "at any time"
+    },
+    "b": {
+      "word": "DICE",
+      "clue": "a small cube with 1 to 6 spots on the six faces"
+    },
+    "c": {
+      "word": "RECEIVED",
+      "clue": "widely accepted as true or worthy"
+    }
+  },
+  {
+    "day": 106,
+    "date": "2026-10-19",
+    "difficulty": 1,
+    "a": {
+      "word": "SURE",
+      "clue": "having or feeling no doubt or uncertainty"
+    },
+    "b": {
+      "word": "GONE",
+      "clue": "destroyed or killed"
+    },
+    "c": {
+      "word": "GENEROUS",
+      "clue": "willing to give and share unstintingly"
+    }
+  },
+  {
+    "day": 107,
+    "date": "2026-10-20",
+    "difficulty": 2,
+    "a": {
+      "word": "DIET",
+      "clue": "a prescribed selection of foods"
+    },
+    "b": {
+      "word": "ALSO",
+      "clue": "in addition"
+    },
+    "c": {
+      "word": "ISOLATED",
+      "clue": "not close together in time"
+    }
+  },
+  {
+    "day": 108,
+    "date": "2026-10-21",
+    "difficulty": 3,
+    "a": {
+      "word": "MEN",
+      "clue": "the force of workers available"
+    },
+    "b": {
+      "word": "PARENT",
+      "clue": "a father or mother"
+    },
+    "c": {
+      "word": "PERMANENT",
+      "clue": "continuing or enduring without marked change in status or condition or place"
+    }
+  },
+  {
+    "day": 109,
+    "date": "2026-10-22",
+    "difficulty": 3,
+    "a": {
+      "word": "BILL",
+      "clue": "a statute in draft before it becomes law"
+    },
+    "b": {
+      "word": "TRAIN",
+      "clue": "public transport provided by a line of railway cars coupled together and drawn by a locomotive"
+    },
+    "c": {
+      "word": "BRILLIANT",
+      "clue": "of surpassing excellence"
+    }
+  },
+  {
+    "day": 110,
+    "date": "2026-10-23",
+    "difficulty": 5,
+    "a": {
+      "word": "REGRET",
+      "clue": "feel remorse for"
+    },
+    "b": {
+      "word": "SIDE",
+      "clue": "a place within a region identified relative to a center or reference location"
+    },
+    "c": {
+      "word": "REGISTERED",
+      "clue": "furnished with necessary official documents specifying ownership etc"
+    }
+  },
+  {
+    "day": 111,
+    "date": "2026-10-24",
+    "difficulty": 5,
+    "a": {
+      "word": "TIP",
+      "clue": "the extreme end of something"
+    },
+    "b": {
+      "word": "CONSIDER",
+      "clue": "deem to be"
+    },
+    "c": {
+      "word": "DESCRIPTION",
+      "clue": "a statement that represents something in words"
+    }
+  },
+  {
+    "day": 112,
+    "date": "2026-10-25",
+    "difficulty": 1,
+    "a": {
+      "word": "THEN",
+      "clue": "subsequently or soon afterward"
+    },
+    "b": {
+      "word": "RATE",
+      "clue": "a magnitude or frequency relative to a time unit"
+    },
+    "c": {
+      "word": "THREATEN",
+      "clue": "pose a threat to"
+    }
+  },
+  {
+    "day": 113,
+    "date": "2026-10-26",
+    "difficulty": 2,
+    "a": {
+      "word": "NAZI",
+      "clue": "derogatory term for a person who is fanatically dedicated to, or seeks to control, some activity, practice, etc."
+    },
+    "b": {
+      "word": "GAME",
+      "clue": "a contest with rules to determine a winner"
+    },
+    "c": {
+      "word": "MAGAZINE",
+      "clue": "a periodic publication containing pictures and stories and articles of interest to those who purchase it or subscribe…"
+    }
+  },
+  {
+    "day": 114,
+    "date": "2026-10-27",
+    "difficulty": 1,
+    "a": {
+      "word": "SEE",
+      "clue": "perceive by sight or have the power to perceive by sight"
+    },
+    "b": {
+      "word": "TRIAL",
+      "clue": "the act of testing something"
+    },
+    "c": {
+      "word": "EARLIEST",
+      "clue": "more early than"
+    }
+  },
+  {
+    "day": 115,
+    "date": "2026-10-28",
+    "difficulty": 3,
+    "a": {
+      "word": "STEP",
+      "clue": "any maneuver made as part of progress toward a goal"
+    },
+    "b": {
+      "word": "PROUD",
+      "clue": "feeling self-respect or pleasure in something by which you measure your self-worth"
+    },
+    "c": {
+      "word": "SUPPORTED",
+      "clue": "held up or having the weight borne especially from below"
+    }
+  },
+  {
+    "day": 116,
+    "date": "2026-10-29",
+    "difficulty": 2,
+    "a": {
+      "word": "EVEN",
+      "clue": "used as an intensive especially to indicate something unexpected"
+    },
+    "b": {
+      "word": "CLEAR",
+      "clue": "readily apparent to the mind"
+    },
+    "c": {
+      "word": "RELEVANCE",
+      "clue": "the relation of something to the matter at hand"
+    }
+  },
+  {
+    "day": 117,
+    "date": "2026-10-30",
+    "difficulty": 5,
+    "a": {
+      "word": "YEARS",
+      "clue": "a late time of life"
+    },
+    "b": {
+      "word": "PLATE",
+      "clue": "base consisting of a rubber slab where the batter stands"
+    },
+    "c": {
+      "word": "SEPARATELY",
+      "clue": "apart from others"
+    }
+  },
+  {
+    "day": 118,
+    "date": "2026-10-31",
+    "difficulty": 4,
+    "a": {
+      "word": "OFTEN",
+      "clue": "many times at short intervals"
+    },
+    "b": {
+      "word": "PRICE",
+      "clue": "the property of having material worth"
+    },
+    "c": {
+      "word": "PERFECTION",
+      "clue": "the state of being without a flaw or defect"
+    }
+  },
+  {
+    "day": 119,
+    "date": "2026-11-01",
+    "difficulty": 1,
+    "a": {
+      "word": "USE",
+      "clue": "put into service"
+    },
+    "b": {
+      "word": "DREAM",
+      "clue": "a series of mental images and emotions occurring during sleep"
+    },
+    "c": {
+      "word": "MEASURED",
+      "clue": "unhurried and with care and dignity"
+    }
+  },
+  {
+    "day": 120,
+    "date": "2026-11-02",
+    "difficulty": 1,
+    "a": {
+      "word": "HOLY",
+      "clue": "belonging to or derived from or associated with a divine power"
+    },
+    "b": {
+      "word": "SENT",
+      "clue": "caused or enabled to go or be conveyed or transmitted"
+    },
+    "c": {
+      "word": "HONESTLY",
+      "clue": "it is sincerely the case that"
+    }
+  },
+  {
+    "day": 121,
+    "date": "2026-11-03",
+    "difficulty": 3,
+    "a": {
+      "word": "BLESS",
+      "clue": "give a benediction to"
+    },
+    "b": {
+      "word": "MAY",
+      "clue": "thorny Eurasian shrub of small tree having dense clusters of white to scarlet flowers followed by deep red berries"
+    },
+    "c": {
+      "word": "ASSEMBLY",
+      "clue": "the act of constructing something"
+    }
+  },
+  {
+    "day": 122,
+    "date": "2026-11-04",
+    "difficulty": 4,
+    "a": {
+      "word": "FINE",
+      "clue": "minutely precise especially in differences in meaning"
+    },
+    "b": {
+      "word": "UNCLE",
+      "clue": "the brother of your father or mother"
+    },
+    "c": {
+      "word": "INFLUENCE",
+      "clue": "a power to affect persons or events especially power based on prestige etc"
+    }
+  },
+  {
+    "day": 123,
+    "date": "2026-11-05",
+    "difficulty": 2,
+    "a": {
+      "word": "SOME",
+      "clue": "quantifier"
+    },
+    "b": {
+      "word": "DEATH",
+      "clue": "the event of dying or departure from life"
+    },
+    "c": {
+      "word": "HOMESTEAD",
+      "clue": "dwelling that is usually a farmhouse and adjoining land"
+    }
+  },
+  {
+    "day": 124,
+    "date": "2026-11-06",
+    "difficulty": 5,
+    "a": {
+      "word": "VISIT",
+      "clue": "go to see a place, as for entertainment"
+    },
+    "b": {
+      "word": "GARDEN",
+      "clue": "a plot of ground where plants are cultivated"
+    },
+    "c": {
+      "word": "ADVERTISING",
+      "clue": "a public promotion of some product or service"
+    }
+  },
+  {
+    "day": 125,
+    "date": "2026-11-07",
+    "difficulty": 5,
+    "a": {
+      "word": "LINE",
+      "clue": "a formation of people or things one beside another"
+    },
+    "b": {
+      "word": "PRIMARY",
+      "clue": "of first rank or importance or value"
+    },
+    "c": {
+      "word": "PRELIMINARY",
+      "clue": "denoting an action or event preceding or in preparation for something more important"
+    }
+  },
+  {
+    "day": 126,
+    "date": "2026-11-08",
+    "difficulty": 2,
+    "a": {
+      "word": "SCOPE",
+      "clue": "an area in which something acts or operates or has power or control:"
+    },
+    "b": {
+      "word": "ALL",
+      "clue": "quantifier"
+    },
+    "c": {
+      "word": "COLLAPSE",
+      "clue": "break down, literally or metaphorically"
+    }
+  },
+  {
+    "day": 127,
+    "date": "2026-11-09",
+    "difficulty": 2,
+    "a": {
+      "word": "FEED",
+      "clue": "provide as food"
+    },
+    "b": {
+      "word": "FACT",
+      "clue": "a piece of information about circumstances that exist or events that have occurred"
+    },
+    "c": {
+      "word": "AFFECTED",
+      "clue": "acted upon"
+    }
+  },
+  {
+    "day": 128,
+    "date": "2026-11-10",
+    "difficulty": 1,
+    "a": {
+      "word": "OTHER",
+      "clue": "not the same one or ones already mentioned or implied"
+    },
+    "b": {
+      "word": "GAS",
+      "clue": "the state of matter distinguished from the solid and liquid states by: relatively low density and viscosity"
+    },
+    "c": {
+      "word": "SHORTAGE",
+      "clue": "the property of being an amount by which something is less than expected or required"
     }
   },
   {
@@ -2779,16 +2779,16 @@ export const DAYS = [
     "date": "2026-11-11",
     "difficulty": 3,
     "a": {
-      "word": "LISTEN",
-      "clue": "hear with intention"
+      "word": "MOTION",
+      "clue": "the use of movements to communicate familiar or prearranged signals"
     },
     "b": {
-      "word": "SEA",
-      "clue": "a division of an ocean or a large body of salt water partially enclosed by land"
+      "word": "FAR",
+      "clue": "to a considerable degree"
     },
     "c": {
-      "word": "ESSENTIAL",
-      "clue": "absolutely necessary"
+      "word": "FORMATION",
+      "clue": "an arrangement of people or things acting as a unit"
     }
   }
 ];

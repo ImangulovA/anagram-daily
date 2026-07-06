@@ -521,6 +521,32 @@ def triple_has_cognates(a_word, b_word, c_word):
             or are_cognate(b_word, c_word))
 
 
+def source_is_substring_of_final(a_word, b_word, c_word):
+    """True if source word A or B appears as a SUBSTRING of the final word C.
+
+    Catches compounds / embedded roots the cognate heuristic misses, e.g.
+    SOME + BODY -> SOMEBODY, or GET inside TOGETHER. Source words must never be
+    literally contained in the answer.
+    """
+    cu = c_word.upper()
+    return a_word.upper() in cu or b_word.upper() in cu
+
+
+# Final (C) words to exclude entirely. Populated from the SEMANTIC (AI) audit of
+# same-root / compound / etymologically-related answers that the mechanical
+# heuristics above can't catch (e.g. irregular derivations, loan compounds).
+# Dropping a flagged C makes regeneration pick a clean alternative for that day.
+BLOCKED_FINAL_WORDS = {
+    "SOMEBODY",    # SOME + BODY (compound); reported day -33
+    # --- Flagged by the semantic (AI) audit, 2026-07-06 ---
+    "FORGOTTEN",   # FORGET + N -> FORGOTTEN is the past participle of FORGET
+    "SEPARATE",    # APART / SEPARATE share the Latin pars/separare root
+    "ENTRANCE",    # ENTER / ENTRANCE (noun derivation of the verb enter)
+    "MONETARY",    # MONEY / MONETARY both from Latin moneta
+    "CHARTERED",   # CARD / CHARTERED both from Latin charta (paper)
+}
+
+
 # ----------------------------------------------------------------------------
 # Anagram engine
 # ----------------------------------------------------------------------------
@@ -567,6 +593,10 @@ def find_splits(defs, groups):
         if clen < MIN_C_LEN:
             continue
         if c_meta["freq"] < MIN_C_FREQ:
+            continue
+        # Skip final words flagged by the semantic (AI) audit as related to their
+        # sources / compounds.
+        if c_word in BLOCKED_FINAL_WORDS:
             continue
         # Skip final words whose clue is circular / self-referential.
         if is_circular_clue(c_word, c_meta["def"]):
@@ -622,6 +652,11 @@ def find_splits(defs, groups):
             # Drop triples whose answers are cognate / share a root
             # (e.g. GREAT + SET -> GREATEST). Answers must be unrelated words.
             if triple_has_cognates(a_word, b_word, c_word):
+                continue
+
+            # Drop triples where a source word is embedded in the final word
+            # (e.g. SOME + BODY -> SOMEBODY, GET in TOGETHER).
+            if source_is_substring_of_final(a_word, b_word, c_word):
                 continue
 
             c_freq = c_meta["freq"]
