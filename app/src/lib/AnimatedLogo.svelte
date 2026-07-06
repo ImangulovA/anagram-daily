@@ -74,7 +74,7 @@
 {/snippet}
 
 {#if link}
-  <a class="brand" href="{base}/" aria-label={PHRASES[0]} data-sveltekit-reload>
+  <a class="brand" href="{base}/" aria-label={PHRASES[0]}>
     {@render stage()}
   </a>
 {:else}

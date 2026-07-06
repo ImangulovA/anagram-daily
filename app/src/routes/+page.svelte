@@ -3,7 +3,8 @@
   // GAME SHELL — PLATFORM code, customized end screen for Anagram Daily (score
   // based: shows the score, reveals the three words, and a gated histogram).
   // ===========================================================================
-  import { onMount, onDestroy } from 'svelte';
+  import { onDestroy } from 'svelte';
+  import { afterNavigate } from '$app/navigation';
   import { base } from '$app/paths';
   import { GAME } from '$lib/game/index.js';
   import {
@@ -34,7 +35,29 @@
   let timer = null;
   let tick = null;
 
-  onMount(() => {
+  function teardown() {
+    timer?.destroy();
+    timer = null;
+    if (tick) {
+      clearInterval(tick);
+      tick = null;
+    }
+  }
+
+  // Resolve the current URL into a view. Runs on first mount AND on every
+  // client-side navigation (afterNavigate), because landing ⇄ puzzle share the
+  // same route (only ?day changes) — SvelteKit does NOT remount then, so relying
+  // on onMount alone would leave the page stuck on the previous view.
+  function applyRoute() {
+    teardown();
+    activeMark = -1;
+    shared = '';
+    showPuzzle = false;
+    agg = null;
+    record = null;
+    puzzle = null;
+    isFuture = false;
+
     const unlocked = applyUnlockFromUrl();
     const params = new URLSearchParams(location.search);
     const requested = params.get('day');
@@ -81,12 +104,10 @@
       untilMidnight = fmtTime(msUntilLocalMidnight());
     }, 1000);
     untilMidnight = fmtTime(msUntilLocalMidnight());
-  });
+  }
 
-  onDestroy(() => {
-    timer?.destroy();
-    if (tick) clearInterval(tick);
-  });
+  afterNavigate(() => applyRoute());
+  onDestroy(teardown);
 
   function persist() {
     saveDay(dayIdx, record);
@@ -235,7 +256,6 @@
     <a
       class="primary bigbtn"
       href="{base}/?day={homeIdx}{homeStatus === 'done' ? '' : '&start=1'}"
-      data-sveltekit-reload
     >
       {homeStatus === 'done'
         ? "See today's result"
