@@ -10,7 +10,15 @@
   import { onMount } from 'svelte';
   import { createEngine } from './scoring.js';
 
-  let { puzzle, dayIdx, saved = null, onstart, onprogress, onfinish } = $props();
+  let {
+    puzzle,
+    dayIdx,
+    saved = null,
+    reveal = false,
+    onstart,
+    onprogress,
+    onfinish
+  } = $props();
 
   const engine = createEngine(puzzle, saved);
 
@@ -46,18 +54,23 @@
   const typedOf = (w) => (w === 'a' ? typedA : w === 'b' ? typedB : typedC);
   const lockedOf = (w) => (w === 'a' ? lockedA : w === 'b' ? lockedB : lockedC);
 
-  // Seed any revealed letters from a resumed snapshot.
+  // Seed any revealed letters from a resumed snapshot (or reveal everything in
+  // read-only "view puzzle" mode on the end screen).
   onMount(() => {
-    seedSource('a');
-    seedSource('b');
-    const snap = engine.snapshot();
-    const c = engine.answers.c;
-    (snap.revealedFinal || []).forEach((on, i) => {
-      if (on) {
-        typedC[i] = c.charAt(i);
-        lockedC[i] = true;
-      }
-    });
+    if (reveal) {
+      fillAllRevealed();
+    } else {
+      seedSource('a');
+      seedSource('b');
+      const snap = engine.snapshot();
+      const c = engine.answers.c;
+      (snap.revealedFinal || []).forEach((on, i) => {
+        if (on) {
+          typedC[i] = c.charAt(i);
+          lockedC[i] = true;
+        }
+      });
+    }
     reconcilePool();
 
     // Keep the pool sized to its (narrow) column.
@@ -72,6 +85,23 @@
       }
     }
   });
+
+  // Fill every box with the answer, locked + read-only (end-screen preview).
+  function fillAllRevealed() {
+    ['a', 'b', 'c'].forEach((w) => {
+      const word = engine.answers[w];
+      const typed = typedOf(w);
+      const locked = lockedOf(w);
+      for (let i = 0; i < word.length; i++) {
+        typed[i] = word.charAt(i);
+        locked[i] = true;
+      }
+    });
+    correctA = true;
+    correctB = true;
+    clueRevealed = true;
+    finished = true;
+  }
 
   function seedSource(w) {
     const snap = engine.snapshot();
@@ -132,35 +162,92 @@
     poolOrder = kept;
   }
 
-  // Pure ring layout: tile size adapts to the (narrow) pool width + count.
+  // Pure layout: pack the (circular) tiles onto CONCENTRIC RINGS so they never
+  // overlap, choosing the largest tile size that still fits the (narrow) pool.
+  // Circular tiles => non-overlap is exactly center-distance >= diameter, which
+  // chord + radial spacing guarantee.
   let placements = $derived(computePlacements(poolOrder, poolW));
   function computePlacements(order, size) {
     const n = order.length;
     if (!n || !size) return [];
-    let ts = 44;
-    for (ts = 44; ts >= 20; ts -= 2) {
-      if (n === 1) break;
-      const Rt = size / 2 - ts / 2 - 2;
-      if (Rt <= 0) continue;
-      const chord = 2 * Rt * Math.sin(Math.PI / n);
-      if (chord >= ts * 0.92) break;
+    const gap = 6;
+    let chosen = null;
+    for (let ts = 46; ts >= 12; ts -= 2) {
+      const rings = packRings(n, size, ts, gap, false);
+      if (rings) {
+        chosen = { ts, rings };
+        break;
+      }
     }
-    const th = Math.round(ts * 1.14);
+    if (!chosen) chosen = { ts: 12, rings: packRings(n, size, 12, gap, true) };
+    const { ts, rings } = chosen;
     const cx = size / 2;
     const cy = size / 2;
-    const R = n === 1 ? 0 : Math.max(0, size / 2 - ts / 2 - 2);
-    return order.map((ch, i) => {
-      const ang = ((-90 + i * (360 / n)) * Math.PI) / 180;
-      return {
-        ch,
-        i,
-        left: cx + R * Math.cos(ang) - ts / 2,
-        top: cy + R * Math.sin(ang) - th / 2,
-        w: ts,
-        h: th,
-        font: Math.max(12, Math.round(ts * 0.5))
-      };
+    const out = [];
+    let idx = 0;
+    rings.forEach((ring, ri) => {
+      const c = ring.count;
+      const offset = ri * (Math.PI / Math.max(1, c)); // stagger rings a touch
+      for (let k = 0; k < c && idx < n; k++) {
+        let x = cx;
+        let y = cy;
+        if (ring.R > 0) {
+          const ang = -Math.PI / 2 + offset + (k * (2 * Math.PI)) / c;
+          x = cx + ring.R * Math.cos(ang);
+          y = cy + ring.R * Math.sin(ang);
+        }
+        out.push({
+          ch: order[idx],
+          i: idx,
+          left: x - ts / 2,
+          top: y - ts / 2,
+          w: ts,
+          font: Math.max(11, Math.round(ts * 0.52))
+        });
+        idx++;
+      }
     });
+    return out;
+  }
+
+  // Angular capacity of one ring: how many tiles of diameter (dia) fit with
+  // center spacing >= dia, via the chord formula 2R·sin(π/k) >= dia.
+  function ringCap(R, dia) {
+    if (R <= 0) return 1;
+    const s = dia / (2 * R);
+    if (s >= 1) return 1;
+    return Math.max(1, Math.floor(Math.PI / Math.asin(s)));
+  }
+
+  // Distribute n circular tiles (diameter dia) across concentric rings. Returns
+  // [{ R, count }] outer-first, or null if it can't fit at this size (unless
+  // `force`). A center tile is only used when the innermost ring is >= a full
+  // spacing away, so it never collides with an inner ring.
+  function packRings(n, size, dia, gap, force) {
+    const cell = dia + gap;
+    const maxR = size / 2 - dia / 2 - 2;
+    if (n === 1) return [{ R: 0, count: 1 }];
+    const radii = [];
+    for (let R = maxR; R >= cell * 0.6; R -= cell) radii.push(R);
+    const innermost = radii.length ? radii[radii.length - 1] : 0;
+    const useCenter = radii.length === 0 || innermost >= cell;
+    const slots = radii.map((R) => ({ R, cap: ringCap(R, cell) }));
+    if (useCenter) slots.push({ R: 0, cap: 1 });
+    const total = slots.reduce((s, x) => s + x.cap, 0);
+    if (total < n && !force) return null;
+    const rings = [];
+    let remaining = n;
+    for (const slot of slots) {
+      if (remaining <= 0) break;
+      const take = Math.min(slot.cap, remaining);
+      rings.push({ R: slot.R, count: take });
+      remaining -= take;
+    }
+    if (remaining > 0) {
+      if (force) rings.push({ R: 0, count: remaining });
+      else return null;
+    }
+    return rings;
   }
 
   function shuffleArr(arr) {
@@ -366,10 +453,12 @@
 </script>
 
 <div class="anagram" bind:this={rootEl}>
-  <div class="scorebar">
-    <span class="score-pill">{score.toFixed(1)} / 20</span>
-    <span class="diff">Difficulty {stars(puzzle.difficulty)}</span>
-  </div>
+  {#if !reveal}
+    <div class="scorebar">
+      <span class="score-pill">{score.toFixed(1)} / 20</span>
+      <span class="diff">Difficulty {stars(puzzle.difficulty)}</span>
+    </div>
+  {/if}
 
   <div class="top-row">
     <!-- Clue 1 -->
@@ -396,18 +485,20 @@
           />
         {/each}
       </div>
-      <div class="row-actions">
-        <button class="btn primary" onclick={() => doCheck('a')} disabled={finished}
-          >Check <span class="cost">-0.5</span></button
-        >
-        <button class="btn" onclick={() => doRevealLetter('a')} disabled={finished}
-          >Reveal a letter <span class="cost">-1</span></button
-        >
-        <button class="btn ghost" onclick={() => doRevealWord('a')} disabled={finished}
-          >Reveal word <span class="cost">-4</span></button
-        >
-        <span class="fb" class:ok={fbA.startsWith('✓')} class:no={fbA.startsWith('✗')}>{fbA}</span>
-      </div>
+      {#if !reveal}
+        <div class="row-actions">
+          <button class="btn primary" onclick={() => doCheck('a')} disabled={finished}
+            >Check <span class="cost">-0.5</span></button
+          >
+          <button class="btn" onclick={() => doRevealLetter('a')} disabled={finished}
+            >Reveal a letter <span class="cost">-1</span></button
+          >
+          <button class="btn ghost" onclick={() => doRevealWord('a')} disabled={finished}
+            >Reveal word <span class="cost">-4</span></button
+          >
+          <span class="fb" class:ok={fbA.startsWith('✓')} class:no={fbA.startsWith('✗')}>{fbA}</span>
+        </div>
+      {/if}
     </section>
 
     <!-- Clue 2 -->
@@ -434,18 +525,20 @@
           />
         {/each}
       </div>
-      <div class="row-actions">
-        <button class="btn primary" onclick={() => doCheck('b')} disabled={finished}
-          >Check <span class="cost">-0.5</span></button
-        >
-        <button class="btn" onclick={() => doRevealLetter('b')} disabled={finished}
-          >Reveal a letter <span class="cost">-1</span></button
-        >
-        <button class="btn ghost" onclick={() => doRevealWord('b')} disabled={finished}
-          >Reveal word <span class="cost">-4</span></button
-        >
-        <span class="fb" class:ok={fbB.startsWith('✓')} class:no={fbB.startsWith('✗')}>{fbB}</span>
-      </div>
+      {#if !reveal}
+        <div class="row-actions">
+          <button class="btn primary" onclick={() => doCheck('b')} disabled={finished}
+            >Check <span class="cost">-0.5</span></button
+          >
+          <button class="btn" onclick={() => doRevealLetter('b')} disabled={finished}
+            >Reveal a letter <span class="cost">-1</span></button
+          >
+          <button class="btn ghost" onclick={() => doRevealWord('b')} disabled={finished}
+            >Reveal word <span class="cost">-4</span></button
+          >
+          <span class="fb" class:ok={fbB.startsWith('✓')} class:no={fbB.startsWith('✗')}>{fbB}</span>
+        </div>
+      {/if}
     </section>
 
     <!-- Letter pool -->
@@ -458,16 +551,18 @@
           {#each placements as p (p.i)}
             <button
               class="tile"
-              style="left:{p.left}px;top:{p.top}px;width:{p.w}px;height:{p.h}px;font-size:{p.font}px"
+              style="left:{p.left}px;top:{p.top}px;width:{p.w}px;height:{p.w}px;font-size:{p.font}px"
               onclick={() => placeInFinal(p.ch)}
               aria-label={`Letter ${p.ch}`}>{p.ch}</button
             >
           {/each}
         {/if}
       </div>
-      <button class="btn" onclick={doShuffle} disabled={finished}
-        >🔀 Shuffle <span class="cost">free</span></button
-      >
+      {#if !reveal}
+        <button class="btn" onclick={doShuffle} disabled={finished}
+          >🔀 Shuffle <span class="cost">free</span></button
+        >
+      {/if}
     </section>
   </div>
 
@@ -498,21 +593,23 @@
         />
       {/each}
     </div>
-    <div class="row-actions">
-      <button class="btn primary" onclick={doSubmit} disabled={finished}
-        >Submit <span class="cost">-1 if wrong</span></button
-      >
-      <button class="btn" onclick={doRevealClue} disabled={finished || clueRevealed}
-        >Reveal clue <span class="cost">-4</span></button
-      >
-      <button class="btn" onclick={doRevealFinalLetter} disabled={finished}
-        >Reveal a letter <span class="cost">-1.5</span></button
-      >
-      <button class="btn ghost" onclick={doGiveUp} disabled={finished}
-        >Give up <span class="cost">→ 0</span></button
-      >
-      <span class="fb" class:ok={fbC.startsWith('✓')} class:no={fbC.startsWith('✗')}>{fbC}</span>
-    </div>
+    {#if !reveal}
+      <div class="row-actions">
+        <button class="btn primary" onclick={doSubmit} disabled={finished}
+          >Submit <span class="cost">-1 if wrong</span></button
+        >
+        <button class="btn" onclick={doRevealClue} disabled={finished || clueRevealed}
+          >Reveal clue <span class="cost">-4</span></button
+        >
+        <button class="btn" onclick={doRevealFinalLetter} disabled={finished}
+          >Reveal a letter <span class="cost">-1.5</span></button
+        >
+        <button class="btn ghost" onclick={doGiveUp} disabled={finished}
+          >Give up <span class="cost">→ 0</span></button
+        >
+        <span class="fb" class:ok={fbC.startsWith('✓')} class:no={fbC.startsWith('✗')}>{fbC}</span>
+      </div>
+    {/if}
   </section>
 </div>
 
@@ -678,7 +775,7 @@
   .tile {
     position: absolute;
     border: var(--border);
-    border-radius: 8px;
+    border-radius: 50%;
     background: var(--accent);
     color: #111;
     font-family: var(--mono);

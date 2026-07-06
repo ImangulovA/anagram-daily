@@ -142,6 +142,7 @@
     return GAME.shareLine(record.result, dayIdx, url);
   }
   let shared = $state('');
+  let showPuzzle = $state(false); // end screen: preview the solved puzzle
   async function share() {
     const text = shareText();
     try {
@@ -244,9 +245,26 @@
 
       <div class="actions">
         <button class="primary" onclick={share}>Share</button>
+        <button class="ghost btnlike" onclick={() => (showPuzzle = !showPuzzle)}>
+          {showPuzzle ? 'Hide puzzle' : 'View puzzle'}
+        </button>
         <a class="ghost" href="{base}/stats">All stats →</a>
       </div>
       {#if shared}<p class="copied">{shared}</p>{/if}
+
+      {#if showPuzzle}
+        <div class="preview">
+          <GAME.component
+            {puzzle}
+            {dayIdx}
+            saved={record.state}
+            reveal={true}
+            onstart={() => {}}
+            onprogress={() => {}}
+            onfinish={() => {}}
+          />
+        </div>
+      {/if}
 
       <p class="nextgame">Next puzzle in {untilMidnight}</p>
     </div>
@@ -423,6 +441,19 @@
     justify-content: center;
     gap: 18px;
     margin-top: 18px;
+  }
+  .btnlike {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+  }
+  .preview {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: var(--border);
+    text-align: left;
   }
   .copied {
     color: var(--good);

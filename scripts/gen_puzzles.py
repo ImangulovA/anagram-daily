@@ -76,6 +76,24 @@ MAX_SOURCE_WORD_USES = 3
 # A source word may not repeat within this many days of a prior use.
 SOURCE_WORD_MIN_GAP = 7
 
+# --- Weekday difficulty ramp (by final-word length) -------------------------
+# The day of week decides how long the anagram (word C) is. weekday(): Mon=0 ..
+# Sun=6.  Sun/Mon/Tue -> 8 letters | Wed/Thu -> 9 | Fri/Sat -> 10..12.
+WEEKDAY_C_LENS = {
+    6: (8,),            # Sunday
+    0: (8,),            # Monday
+    1: (8,),            # Tuesday
+    2: (9,),            # Wednesday
+    3: (9,),            # Thursday
+    4: (10, 11, 12),    # Friday
+    5: (10, 11, 12),    # Saturday
+}
+
+
+def len_target_for_weekday(weekday):
+    """Allowed C lengths for a given weekday index (Mon=0..Sun=6)."""
+    return set(WEEKDAY_C_LENS.get(weekday, (8, 9, 10, 11, 12)))
+
 # ----------------------------------------------------------------------------
 # Bootstrap starter dictionary (used ONLY if words_defs.json is absent).
 # Curated so that many valid A+B==C splits exist with clean definitions.
@@ -763,12 +781,14 @@ def _place_days(pool, full_pool, num_days):
     # Day 0 (launch day) deserves a clean, common, satisfying puzzle: both
     # sources len>=3, high freq everywhere, C in the sweet spot. Pick the best.
     def day0_pick():
-        lo, hi = PREFERRED_C_LEN
+        # Day 0 must honor its weekday's C-length rule too (2026-07-05 = Sunday
+        # -> 8 letters), while still being clean/common/satisfying.
+        day0_lens = len_target_for_weekday(ANCHOR_DATE.weekday())
         cands = [
             t for t in ordered
             if len(t["a"]) >= PREFERRED_MIN_SRC_LEN
             and len(t["b"]) >= PREFERRED_MIN_SRC_LEN
-            and lo <= t["clen"] <= hi
+            and t["clen"] in day0_lens
             and min(t["a_freq"], t["b_freq"]) >= 0.35
             and t["c_freq"] >= 0.45
         ]
@@ -790,7 +810,8 @@ def _place_days(pool, full_pool, num_days):
     # days are historical playtest days; date(day) = ANCHOR_DATE + day. The
     # gap/cap bookkeeping keys off these true indices, so it spans negatives.
     for day in range(FIRST_DAY, LAST_DAY + 1):
-        target = weekday_target[(ANCHOR_DATE + timedelta(days=day)).weekday()]
+        allowed_lens = len_target_for_weekday(
+            (ANCHOR_DATE + timedelta(days=day)).weekday())
         pick = None
 
         if day == 0 and launch_pick is not None:  # public launch day
@@ -801,16 +822,16 @@ def _place_days(pool, full_pool, num_days):
             arranged.append(launch_pick)
             continue
 
-        # Try progressively looser matching: exact band+all constraints, then
-        # widen the band, then drop gap, then drop cap. Deterministic order.
-        for enforce_gap, enforce_cap in ((True, True), (True, False),
-                                         (False, True), (False, False)):
-            for band_step in range(0, 5):
-                bands = {b for b in (target - band_step, target + band_step)
-                         if 1 <= b <= 5}
+        # C-length is the PRIMARY driver (weekday ramp). Prefer the exact allowed
+        # lengths at every constraint level before falling back to any length, so
+        # a busy source-word calendar never overrides the weekday rule.
+        for lens in (allowed_lens, None):
+            for enforce_gap, enforce_cap in ((True, True), (True, False),
+                                             (False, True), (False, False)):
                 for t in ordered:
-                    if t["difficulty"] in bands and \
-                            constraints_ok(t, day, enforce_gap, enforce_cap):
+                    if lens is not None and t["clen"] not in lens:
+                        continue
+                    if constraints_ok(t, day, enforce_gap, enforce_cap):
                         pick = t
                         break
                 if pick:
