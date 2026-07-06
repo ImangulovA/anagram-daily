@@ -17,6 +17,7 @@
   import { makeTimer, fmtTime } from '$lib/platform/timer.js';
   import { submitStart, submitFinish, fetchAgg, statsEnabled } from '$lib/platform/api.js';
   import { applyUnlockFromUrl } from '$lib/platform/unlock.js';
+  import AnimatedLogo from '$lib/AnimatedLogo.svelte';
 
   let dayIdx = $state(0);
   let puzzle = $state(null);
@@ -228,12 +229,13 @@
   </div>
 {:else if view === 'home'}
   <div class="card home">
-    <h1>{GAME.title}</h1>
+    <div class="hero-logo"><AnimatedLogo fontSize="clamp(26px, 8vw, 40px)" link={false} /></div>
     <p class="muted">{GAME.tagline}</p>
 
     <a
       class="primary bigbtn"
       href="{base}/?day={homeIdx}{homeStatus === 'done' ? '' : '&start=1'}"
+      data-sveltekit-reload
     >
       {homeStatus === 'done'
         ? "See today's result"
@@ -423,8 +425,8 @@
   .home {
     text-align: center;
   }
-  .home h1 {
-    font-size: 30px;
+  .hero-logo {
+    margin: 6px 0 10px;
   }
   .bigbtn {
     display: inline-block;

@@ -4,11 +4,22 @@
   // component relies on (--accent, --surface-2, --border, --shadow, --mono, --muted).
   import { onMount } from 'svelte';
   import { base } from '$app/paths';
+  import { page } from '$app/stores';
   import { GAME } from '$lib/game/index.js';
   import AnimatedLogo from '$lib/AnimatedLogo.svelte';
 
   let { children } = $props();
   let theme = $state('light');
+
+  // Landing page (root route, no ?day) shows the animated wordmark centered in
+  // the page, so the header brand is hidden there (via the `is-home` class on
+  // <html>). The class is set pre-paint by an inline script in app.html; this
+  // effect keeps it in sync across client-side navigations. Reading searchParams
+  // here is safe because $effect only runs in the browser, never at prerender.
+  $effect(() => {
+    const home = $page.route.id === '/' && !$page.url.searchParams.has('day');
+    document.documentElement.classList.toggle('is-home', home);
+  });
 
   onMount(() => {
     const saved = localStorage.getItem('theme');
@@ -26,7 +37,7 @@
 <svelte:head><title>{GAME.title}</title></svelte:head>
 
 <header>
-  <AnimatedLogo />
+  <span class="logo-slot"><AnimatedLogo /></span>
   <nav>
     <a class="hub" href="https://imangulova.github.io/games/">◂ All games</a>
     <a href="{base}/archive">Archive</a>
@@ -109,10 +120,17 @@
     margin: 0 auto;
     padding: 18px 16px 0;
   }
+  .logo-slot {
+    display: inline-flex;
+  }
+  :global(html.is-home) .logo-slot {
+    display: none;
+  }
   nav {
     display: flex;
     align-items: center;
     gap: 14px;
+    margin-left: auto;
   }
   nav a {
     color: var(--ink);

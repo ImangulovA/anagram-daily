@@ -5,6 +5,10 @@
   import { onMount, onDestroy } from 'svelte';
   import { base } from '$app/paths';
 
+  // fontSize: any CSS length. link=false renders a non-clickable hero (used
+  // centered on the landing page instead of the header brand link).
+  let { fontSize = '20px', link = true } = $props();
+
   const PHRASES = [
     'Anagram Daily',
     'Yada marginal',
@@ -59,15 +63,25 @@
   onDestroy(() => clearTimeout(timer));
 </script>
 
-<a class="brand" href="{base}/" aria-label={PHRASES[0]}>
-  <span class="stage" aria-hidden="true" style="--cols:{COLS}; --morph:{MORPH}ms">
+{#snippet stage()}
+  <span class="stage" aria-hidden="true" style="--cols:{COLS}; --morph:{MORPH}ms; font-size:{fontSize}">
     {#each tokens as t (t.id)}
       <span class="glyph" style="transform: translateX({t.col}ch); transition-delay:{(t.id % 6) * 45}ms"
         >{t.char}</span
       >
     {/each}
   </span>
-</a>
+{/snippet}
+
+{#if link}
+  <a class="brand" href="{base}/" aria-label={PHRASES[0]} data-sveltekit-reload>
+    {@render stage()}
+  </a>
+{:else}
+  <span class="brand hero" aria-label={PHRASES[0]}>
+    {@render stage()}
+  </span>
+{/if}
 
 <style>
   .brand {
@@ -82,7 +96,6 @@
     height: 1.3em;
     font-family: var(--mono);
     font-weight: 800;
-    font-size: 20px;
     line-height: 1.3em;
     white-space: nowrap;
   }
