@@ -77,6 +77,12 @@ export function createEngine(puzzle, saved) {
     b: normWord(puzzle && puzzle.b && puzzle.b.word),
     c: normWord(puzzle && puzzle.c && puzzle.c.word)
   };
+  // Solution-uniqueness: the pooled letters may spell more than one valid word.
+  // `puzzle.accept` lists every accepted final word (always includes C). Any of
+  // them counts as a correct final guess. Fall back to just C for old data.
+  const acceptRaw = Array.isArray(puzzle && puzzle.accept) ? puzzle.accept : [];
+  const acceptList = acceptRaw.map(normWord).filter((w) => w.length > 0);
+  const acceptFinal = new Set(acceptList.length ? acceptList : [answers.c].filter(Boolean));
   const st = hydrate(saved);
 
   function touchStarted() {
@@ -225,7 +231,8 @@ export function createEngine(puzzle, saved) {
   function guessFinal(typedWord) {
     if (st.finished) return { correct: st.won, score: displayScore(st.score), finished: true };
     touchStarted();
-    const correct = normWord(typedWord) === answers.c && answers.c.length > 0;
+    // Accept ANY valid anagram of the pooled letters, not only the canonical C.
+    const correct = acceptFinal.has(normWord(typedWord));
     if (correct) {
       st.won = true;
       st.finished = true;
@@ -287,6 +294,7 @@ export function createEngine(puzzle, saved) {
 
   return {
     answers,
+    acceptFinal: [...acceptFinal],
     state,
     snapshot,
     result,

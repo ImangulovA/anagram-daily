@@ -14,6 +14,9 @@ for EVERY entry:
   5. Dates are contiguous from the anchor 2026-07-05.
   6. clue fields are non-empty and match the dictionary definitions.
   7. All three words exist in words_defs.json (the effective dictionary).
+  8. `accept` lists every valid full anagram of C: contains C, all entries are
+     UPPERCASE A-Z words in the dictionary whose letters match C exactly, and
+     nothing is missing (matches the dictionary's anagram group for C).
 
 Exits nonzero on ANY failure with a clear message.
 """
@@ -85,6 +88,14 @@ def main():
     print(f"[verify] dictionary source: {defs_source} ({len(defs)} words)")
     print(f"[verify] loaded {len(puzzles)} puzzle entries")
 
+    # Anagram index: signature -> set of dictionary words. Lets us confirm each
+    # entry's `accept` list is exactly the full anagram group for its C word.
+    sig_index = {}
+    for w in defs:
+        sig_index.setdefault("".join(sorted(w)), set()).add(w)
+
+    non_unique = 0
+
     # ---- puzzles.js consistency -------------------------------------------
     if os.path.exists(PUZZLES_JS_PATH):
         with open(PUZZLES_JS_PATH, "r", encoding="utf-8") as fh:
@@ -120,7 +131,7 @@ def main():
         ctx = f"entry index {i}"
 
         # ---- schema / day index -------------------------------------------
-        for field in ("day", "date", "a", "b", "c", "difficulty"):
+        for field in ("day", "date", "a", "b", "c", "accept", "difficulty"):
             if field not in p:
                 fail(f"{ctx}: missing field '{field}'")
         expected_day = first_day + i
@@ -183,6 +194,34 @@ def main():
             if w not in defs:
                 fail(f"{ctx}: {label}.word '{w}' not found in dictionary")
 
+        # ---- accept list: solution-uniqueness contract --------------------
+        accept = p["accept"]
+        if not isinstance(accept, list) or not accept:
+            fail(f"{ctx}: 'accept' must be a non-empty list")
+        for w in accept:
+            if not isinstance(w, str) or not w.isalpha() or not w.isascii() \
+                    or w.upper() != w:
+                fail(f"{ctx}: accept entry '{w}' is not UPPERCASE A-Z")
+            if sorted(w) != sorted(c_word):
+                fail(f"{ctx}: accept entry '{w}' is not an anagram of C "
+                     f"'{c_word}'")
+            if w not in defs:
+                fail(f"{ctx}: accept entry '{w}' not found in dictionary")
+        if c_word not in accept:
+            fail(f"{ctx}: accept list must contain C '{c_word}'")
+        if len(accept) != len(set(accept)):
+            fail(f"{ctx}: accept list has duplicates: {accept}")
+        # `accept` must be the COMPLETE anagram group for C (no valid word the
+        # pooled letters spell may be left uncredited).
+        expected_accept = sig_index.get("".join(sorted(c_word)), set())
+        if set(accept) != expected_accept:
+            missing = sorted(expected_accept - set(accept))
+            extra = sorted(set(accept) - expected_accept)
+            fail(f"{ctx}: accept list != full anagram group for '{c_word}' "
+                 f"(missing={missing}, extra={extra})")
+        if len(accept) > 1:
+            non_unique += 1
+
         # ---- clues non-empty & match definitions --------------------------
         for label, w in (("a", a_word), ("b", b_word), ("c", c_word)):
             clue = p[label].get("clue")
@@ -198,6 +237,8 @@ def main():
     print(f"[verify] days: {puzzles[0]['day']}..{puzzles[-1]['day']} "
           f"({puzzles[0]['date']} .. {puzzles[-1]['date']})")
     print(f"[verify] difficulty histogram: {diff_hist}")
+    print(f"[verify] non-unique solutions (accept > 1): {non_unique}/"
+          f"{len(puzzles)} (each credits any listed anagram)")
     return 0
 
 

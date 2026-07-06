@@ -14,6 +14,9 @@ window.PUZZLES = [
       "word": "SECURITY",
       "clue": "the state of being free from danger or injury"
     },
+    "accept": [
+      "SECURITY"
+    ],
     "difficulty": 1
   },
   {
@@ -31,6 +34,9 @@ window.PUZZLES = [
       "word": "ECONOMIC",
       "clue": "of or relating to an economy, the system of production and management of material wealth"
     },
+    "accept": [
+      "ECONOMIC"
+    ],
     "difficulty": 2
   },
   {
@@ -48,6 +54,9 @@ window.PUZZLES = [
       "word": "THEREFORE",
       "clue": "from that fact or reason or as a result"
     },
+    "accept": [
+      "THEREFORE"
+    ],
     "difficulty": 1
   },
   {
@@ -65,6 +74,9 @@ window.PUZZLES = [
       "word": "TEMPORARY",
       "clue": "not permanent"
     },
+    "accept": [
+      "TEMPORARY"
+    ],
     "difficulty": 1
   },
   {
@@ -82,6 +94,9 @@ window.PUZZLES = [
       "word": "CONSIDERED",
       "clue": "carefully weighed"
     },
+    "accept": [
+      "CONSIDERED"
+    ],
     "difficulty": 4
   },
   {
@@ -99,6 +114,9 @@ window.PUZZLES = [
       "word": "THROUGHOUT",
       "clue": "from first to last"
     },
+    "accept": [
+      "THROUGHOUT"
+    ],
     "difficulty": 4
   },
   {
@@ -116,6 +134,9 @@ window.PUZZLES = [
       "word": "THOUSAND",
       "clue": "the cardinal number that is the product of 10 and 100"
     },
+    "accept": [
+      "THOUSAND"
+    ],
     "difficulty": 1
   },
   {
@@ -133,6 +154,9 @@ window.PUZZLES = [
       "word": "FESTIVAL",
       "clue": "a day or period of time set aside for feasting and celebration"
     },
+    "accept": [
+      "FESTIVAL"
+    ],
     "difficulty": 1
   },
   {
@@ -150,6 +174,9 @@ window.PUZZLES = [
       "word": "EVIDENCE",
       "clue": "your basis for belief or disbelief"
     },
+    "accept": [
+      "EVIDENCE"
+    ],
     "difficulty": 1
   },
   {
@@ -167,6 +194,9 @@ window.PUZZLES = [
       "word": "IMPORTANT",
       "clue": "of great significance or value"
     },
+    "accept": [
+      "IMPORTANT"
+    ],
     "difficulty": 3
   },
   {
@@ -184,6 +214,9 @@ window.PUZZLES = [
       "word": "INCREASED",
       "clue": "made greater in size or amount or degree"
     },
+    "accept": [
+      "INCREASED"
+    ],
     "difficulty": 3
   },
   {
@@ -201,6 +234,9 @@ window.PUZZLES = [
       "word": "DEPRESSION",
       "clue": "a mental state characterized by a pessimistic sense of inadequacy and a despondent lack of activity"
     },
+    "accept": [
+      "DEPRESSION"
+    ],
     "difficulty": 3
   },
   {
@@ -218,6 +254,9 @@ window.PUZZLES = [
       "word": "DOCUMENTARY",
       "clue": "a film or TV program presenting the facts about a person or event"
     },
+    "accept": [
+      "DOCUMENTARY"
+    ],
     "difficulty": 4
   },
   {
@@ -235,6 +274,9 @@ window.PUZZLES = [
       "word": "SOUTHERN",
       "clue": "in or characteristic of a region of the United States south of the Mason-Dixon line"
     },
+    "accept": [
+      "SOUTHERN"
+    ],
     "difficulty": 1
   },
   {
@@ -252,6 +294,9 @@ window.PUZZLES = [
       "word": "GREATEST",
       "clue": "highest in quality"
     },
+    "accept": [
+      "GREATEST"
+    ],
     "difficulty": 1
   },
   {
@@ -269,6 +314,9 @@ window.PUZZLES = [
       "word": "VIOLENCE",
       "clue": "an act of aggression"
     },
+    "accept": [
+      "VIOLENCE"
+    ],
     "difficulty": 1
   },
   {
@@ -286,6 +334,9 @@ window.PUZZLES = [
       "word": "PRESIDENT",
       "clue": "an executive officer of a firm or corporation"
     },
+    "accept": [
+      "PRESIDENT"
+    ],
     "difficulty": 3
   },
   {
@@ -303,6 +354,9 @@ window.PUZZLES = [
       "word": "POTENTIAL",
       "clue": "the inherent capacity for coming into being"
     },
+    "accept": [
+      "POTENTIAL"
+    ],
     "difficulty": 2
   },
   {
@@ -320,6 +374,9 @@ window.PUZZLES = [
       "word": "IMPORTANCE",
       "clue": "the quality of being important and worthy of note"
     },
+    "accept": [
+      "IMPORTANCE"
+    ],
     "difficulty": 4
   },
   {
@@ -337,6 +394,9 @@ window.PUZZLES = [
       "word": "UNDERSTAND",
       "clue": "know and comprehend the nature or meaning of"
     },
+    "accept": [
+      "UNDERSTAND"
+    ],
     "difficulty": 5
   },
   {
@@ -354,6 +414,9 @@ window.PUZZLES = [
       "word": "HERITAGE",
       "clue": "practices that are handed down from the past by tradition"
     },
+    "accept": [
+      "HERITAGE"
+    ],
     "difficulty": 1
   },
   {
@@ -371,6 +434,9 @@ window.PUZZLES = [
       "word": "MATCHING",
       "clue": "being two identical"
     },
+    "accept": [
+      "MATCHING"
+    ],
     "difficulty": 1
   },
   {
@@ -388,6 +454,9 @@ window.PUZZLES = [
       "word": "SOMEWHAT",
       "clue": "to a small degree or extent"
     },
+    "accept": [
+      "SOMEWHAT"
+    ],
     "difficulty": 1
   },
   {
@@ -405,6 +474,9 @@ window.PUZZLES = [
       "word": "CERTAINLY",
       "clue": "definitely or positively"
     },
+    "accept": [
+      "CERTAINLY"
+    ],
     "difficulty": 2
   },
   {
@@ -422,6 +494,9 @@ window.PUZZLES = [
       "word": "NECESSARY",
       "clue": "absolutely essential"
     },
+    "accept": [
+      "NECESSARY"
+    ],
     "difficulty": 2
   },
   {
@@ -439,6 +514,9 @@ window.PUZZLES = [
       "word": "RECRUITMENT",
       "clue": "the act of getting recruits"
     },
+    "accept": [
+      "RECRUITMENT"
+    ],
     "difficulty": 4
   },
   {
@@ -456,6 +534,9 @@ window.PUZZLES = [
       "word": "APPARENTLY",
       "clue": "from appearances alone"
     },
+    "accept": [
+      "APPARENTLY"
+    ],
     "difficulty": 4
   },
   {
@@ -473,6 +554,9 @@ window.PUZZLES = [
       "word": "DISTANCE",
       "clue": "the property created by the space between two objects or points"
     },
+    "accept": [
+      "DISTANCE"
+    ],
     "difficulty": 1
   },
   {
@@ -490,6 +574,9 @@ window.PUZZLES = [
       "word": "ARRANGED",
       "clue": "disposed or placed in a particular kind of order"
     },
+    "accept": [
+      "ARRANGED"
+    ],
     "difficulty": 1
   },
   {
@@ -507,6 +594,9 @@ window.PUZZLES = [
       "word": "EXTERNAL",
       "clue": "happening or arising or located outside or beyond some limits or especially surface"
     },
+    "accept": [
+      "EXTERNAL"
+    ],
     "difficulty": 1
   },
   {
@@ -524,6 +614,9 @@ window.PUZZLES = [
       "word": "AGREEMENT",
       "clue": "the statement of an exchange of promises"
     },
+    "accept": [
+      "AGREEMENT"
+    ],
     "difficulty": 2
   },
   {
@@ -541,6 +634,9 @@ window.PUZZLES = [
       "word": "TREATMENT",
       "clue": "care provided to improve a situation"
     },
+    "accept": [
+      "TREATMENT"
+    ],
     "difficulty": 2
   },
   {
@@ -558,6 +654,9 @@ window.PUZZLES = [
       "word": "TREMENDOUS",
       "clue": "extraordinarily large in size or extent or amount or power or degree"
     },
+    "accept": [
+      "TREMENDOUS"
+    ],
     "difficulty": 4
   },
   {
@@ -575,6 +674,9 @@ window.PUZZLES = [
       "word": "PRODUCTION",
       "clue": "the act or process of producing something"
     },
+    "accept": [
+      "PRODUCTION"
+    ],
     "difficulty": 5
   },
   {
@@ -592,6 +694,9 @@ window.PUZZLES = [
       "word": "INFORMED",
       "clue": "having much knowledge or education"
     },
+    "accept": [
+      "INFORMED"
+    ],
     "difficulty": 1
   },
   {
@@ -609,6 +714,9 @@ window.PUZZLES = [
       "word": "ARGUMENT",
       "clue": "a fact or assertion offered as evidence that something is true"
     },
+    "accept": [
+      "ARGUMENT"
+    ],
     "difficulty": 1
   },
   {
@@ -626,6 +734,9 @@ window.PUZZLES = [
       "word": "INCREASE",
       "clue": "become bigger or greater in amount"
     },
+    "accept": [
+      "INCREASE"
+    ],
     "difficulty": 1
   },
   {
@@ -643,6 +754,9 @@ window.PUZZLES = [
       "word": "REMAINING",
       "clue": "not used up"
     },
+    "accept": [
+      "REMAINING"
+    ],
     "difficulty": 3
   },
   {
@@ -660,6 +774,9 @@ window.PUZZLES = [
       "word": "RELATIONS",
       "clue": "mutual dealings or connections or communications among persons or groups"
     },
+    "accept": [
+      "RELATIONS"
+    ],
     "difficulty": 4
   },
   {
@@ -677,6 +794,9 @@ window.PUZZLES = [
       "word": "ESPECIALLY",
       "clue": "to a distinctly greater extent or degree than is common"
     },
+    "accept": [
+      "ESPECIALLY"
+    ],
     "difficulty": 5
   },
   {
@@ -694,6 +814,9 @@ window.PUZZLES = [
       "word": "TELEVISION",
       "clue": "broadcasting visual images of stationary or moving objects"
     },
+    "accept": [
+      "TELEVISION"
+    ],
     "difficulty": 5
   },
   {
@@ -711,6 +834,9 @@ window.PUZZLES = [
       "word": "MODERATE",
       "clue": "being within reasonable or average limits"
     },
+    "accept": [
+      "MODERATE"
+    ],
     "difficulty": 1
   },
   {
@@ -728,6 +854,9 @@ window.PUZZLES = [
       "word": "GATHERED",
       "clue": "brought together in one place"
     },
+    "accept": [
+      "GATHERED"
+    ],
     "difficulty": 1
   },
   {
@@ -745,6 +874,9 @@ window.PUZZLES = [
       "word": "DIAMETER",
       "clue": "the length of a straight line passing through the center of a circle and connecting two points on the circumference"
     },
+    "accept": [
+      "DIAMETER"
+    ],
     "difficulty": 1
   },
   {
@@ -762,6 +894,9 @@ window.PUZZLES = [
       "word": "NIGHTMARE",
       "clue": "a terrifying or deeply upsetting dream"
     },
+    "accept": [
+      "NIGHTMARE"
+    ],
     "difficulty": 1
   },
   {
@@ -779,6 +914,9 @@ window.PUZZLES = [
       "word": "CHARACTER",
       "clue": "an imaginary person represented in a work of fiction"
     },
+    "accept": [
+      "CHARACTER"
+    ],
     "difficulty": 3
   },
   {
@@ -796,6 +934,9 @@ window.PUZZLES = [
       "word": "RESTAURANT",
       "clue": "a building where people go to eat"
     },
+    "accept": [
+      "RESTAURANT"
+    ],
     "difficulty": 4
   },
   {
@@ -813,6 +954,9 @@ window.PUZZLES = [
       "word": "RESIDENTIAL",
       "clue": "used or designed for residence or limited to residences"
     },
+    "accept": [
+      "RESIDENTIAL"
+    ],
     "difficulty": 5
   },
   {
@@ -830,6 +974,9 @@ window.PUZZLES = [
       "word": "CONTRARY",
       "clue": "very opposed in nature or character or purpose"
     },
+    "accept": [
+      "CONTRARY"
+    ],
     "difficulty": 1
   },
   {
@@ -847,6 +994,9 @@ window.PUZZLES = [
       "word": "DISASTER",
       "clue": "an event resulting in great loss and misfortune"
     },
+    "accept": [
+      "DISASTER"
+    ],
     "difficulty": 1
   },
   {
@@ -864,6 +1014,10 @@ window.PUZZLES = [
       "word": "RESEARCH",
       "clue": "systematic investigation to establish facts"
     },
+    "accept": [
+      "RESEARCH",
+      "SEARCHER"
+    ],
     "difficulty": 3
   },
   {
@@ -881,6 +1035,9 @@ window.PUZZLES = [
       "word": "WONDERFUL",
       "clue": "extraordinarily good or great"
     },
+    "accept": [
+      "WONDERFUL"
+    ],
     "difficulty": 3
   },
   {
@@ -898,6 +1055,9 @@ window.PUZZLES = [
       "word": "INTERFACE",
       "clue": "a surface forming a common boundary between two things"
     },
+    "accept": [
+      "INTERFACE"
+    ],
     "difficulty": 2
   },
   {
@@ -915,6 +1075,9 @@ window.PUZZLES = [
       "word": "DEMOCRATIC",
       "clue": "characterized by or advocating or based upon the principles of democracy or social equality"
     },
+    "accept": [
+      "DEMOCRATIC"
+    ],
     "difficulty": 5
   },
   {
@@ -932,6 +1095,9 @@ window.PUZZLES = [
       "word": "COLLECTION",
       "clue": "several things grouped together or considered as a whole"
     },
+    "accept": [
+      "COLLECTION"
+    ],
     "difficulty": 5
   },
   {
@@ -949,6 +1115,9 @@ window.PUZZLES = [
       "word": "ORIENTED",
       "clue": "adjusted or located in relation to surroundings or circumstances"
     },
+    "accept": [
+      "ORIENTED"
+    ],
     "difficulty": 1
   },
   {
@@ -966,6 +1135,10 @@ window.PUZZLES = [
       "word": "CHEATING",
       "clue": "violating accepted standards or rules"
     },
+    "accept": [
+      "CHEATING",
+      "TEACHING"
+    ],
     "difficulty": 1
   },
   {
@@ -983,6 +1156,9 @@ window.PUZZLES = [
       "word": "MOVEMENT",
       "clue": "a change of position that does not entail a change of location"
     },
+    "accept": [
+      "MOVEMENT"
+    ],
     "difficulty": 1
   },
   {
@@ -1000,6 +1176,10 @@ window.PUZZLES = [
       "word": "CONTINUED",
       "clue": "without stop or interruption"
     },
+    "accept": [
+      "CONTINUED",
+      "UNNOTICED"
+    ],
     "difficulty": 5
   },
   {
@@ -1017,6 +1197,9 @@ window.PUZZLES = [
       "word": "CONFIRMED",
       "clue": "of persons"
     },
+    "accept": [
+      "CONFIRMED"
+    ],
     "difficulty": 2
   },
   {
@@ -1034,6 +1217,9 @@ window.PUZZLES = [
       "word": "MAINTENANCE",
       "clue": "activity involved in maintaining something in good working order"
     },
+    "accept": [
+      "MAINTENANCE"
+    ],
     "difficulty": 5
   },
   {
@@ -1051,6 +1237,9 @@ window.PUZZLES = [
       "word": "RETIREMENT",
       "clue": "the state of being retired from one's business or occupation"
     },
+    "accept": [
+      "RETIREMENT"
+    ],
     "difficulty": 4
   },
   {
@@ -1068,6 +1257,10 @@ window.PUZZLES = [
       "word": "RELATION",
       "clue": "an abstraction belonging to or characteristic of two entities or parts together"
     },
+    "accept": [
+      "ORIENTAL",
+      "RELATION"
+    ],
     "difficulty": 1
   },
   {
@@ -1085,6 +1278,9 @@ window.PUZZLES = [
       "word": "MENTALLY",
       "clue": "in your mind"
     },
+    "accept": [
+      "MENTALLY"
+    ],
     "difficulty": 1
   },
   {
@@ -1102,6 +1298,9 @@ window.PUZZLES = [
       "word": "STRATEGY",
       "clue": "an elaborate and systematic plan of action"
     },
+    "accept": [
+      "STRATEGY"
+    ],
     "difficulty": 1
   },
   {
@@ -1119,6 +1318,9 @@ window.PUZZLES = [
       "word": "LITERALLY",
       "clue": "without exaggeration"
     },
+    "accept": [
+      "LITERALLY"
+    ],
     "difficulty": 3
   },
   {
@@ -1136,6 +1338,9 @@ window.PUZZLES = [
       "word": "PROMOTION",
       "clue": "a message issued in behalf of some product or cause or idea or person or institution"
     },
+    "accept": [
+      "PROMOTION"
+    ],
     "difficulty": 2
   },
   {
@@ -1153,6 +1358,9 @@ window.PUZZLES = [
       "word": "ATMOSPHERE",
       "clue": "a particular environment or surrounding influence"
     },
+    "accept": [
+      "ATMOSPHERE"
+    ],
     "difficulty": 4
   },
   {
@@ -1170,6 +1378,9 @@ window.PUZZLES = [
       "word": "THREATENED",
       "clue": "likely in the near future to become endangered"
     },
+    "accept": [
+      "THREATENED"
+    ],
     "difficulty": 5
   },
   {
@@ -1187,6 +1398,9 @@ window.PUZZLES = [
       "word": "BASEMENT",
       "clue": "the lowermost portion of a structure partly or wholly below ground level"
     },
+    "accept": [
+      "BASEMENT"
+    ],
     "difficulty": 1
   },
   {
@@ -1204,6 +1418,9 @@ window.PUZZLES = [
       "word": "RESPONSE",
       "clue": "a bodily process occurring due to the effect of some antecedent stimulus or agent"
     },
+    "accept": [
+      "RESPONSE"
+    ],
     "difficulty": 1
   },
   {
@@ -1221,6 +1438,9 @@ window.PUZZLES = [
       "word": "MATERIAL",
       "clue": "the tangible substance that goes into the makeup of a physical object"
     },
+    "accept": [
+      "MATERIAL"
+    ],
     "difficulty": 1
   },
   {
@@ -1238,6 +1458,9 @@ window.PUZZLES = [
       "word": "TECHNICAL",
       "clue": "of or relating to technique or proficiency in a practical skill"
     },
+    "accept": [
+      "TECHNICAL"
+    ],
     "difficulty": 3
   },
   {
@@ -1255,6 +1478,9 @@ window.PUZZLES = [
       "word": "DANGEROUS",
       "clue": "involving or causing danger or risk"
     },
+    "accept": [
+      "DANGEROUS"
+    ],
     "difficulty": 3
   },
   {
@@ -1272,6 +1498,9 @@ window.PUZZLES = [
       "word": "CONCLUSION",
       "clue": "a position or opinion or judgment reached after consideration"
     },
+    "accept": [
+      "CONCLUSION"
+    ],
     "difficulty": 4
   },
   {
@@ -1289,6 +1518,9 @@ window.PUZZLES = [
       "word": "ALTOGETHER",
       "clue": "to a complete degree or to the full or entire extent"
     },
+    "accept": [
+      "ALTOGETHER"
+    ],
     "difficulty": 4
   },
   {
@@ -1306,6 +1538,9 @@ window.PUZZLES = [
       "word": "SHOULDER",
       "clue": "the part of the body between the neck and the upper arm"
     },
+    "accept": [
+      "SHOULDER"
+    ],
     "difficulty": 1
   },
   {
@@ -1323,6 +1558,9 @@ window.PUZZLES = [
       "word": "TRAINING",
       "clue": "activity leading to skilled behavior"
     },
+    "accept": [
+      "TRAINING"
+    ],
     "difficulty": 1
   },
   {
@@ -1340,6 +1578,9 @@ window.PUZZLES = [
       "word": "DAUGHTER",
       "clue": "a female human offspring"
     },
+    "accept": [
+      "DAUGHTER"
+    ],
     "difficulty": 1
   },
   {
@@ -1357,6 +1598,9 @@ window.PUZZLES = [
       "word": "DEFENSIVE",
       "clue": "intended or appropriate for defending against or deterring aggression or attack"
     },
+    "accept": [
+      "DEFENSIVE"
+    ],
     "difficulty": 2
   },
   {
@@ -1374,6 +1618,9 @@ window.PUZZLES = [
       "word": "STRATEGIC",
       "clue": "relating to or concerned with strategy"
     },
+    "accept": [
+      "STRATEGIC"
+    ],
     "difficulty": 4
   },
   {
@@ -1391,6 +1638,9 @@ window.PUZZLES = [
       "word": "APPRECIATE",
       "clue": "recognize with gratitude"
     },
+    "accept": [
+      "APPRECIATE"
+    ],
     "difficulty": 4
   },
   {
@@ -1408,6 +1658,9 @@ window.PUZZLES = [
       "word": "JOURNALIST",
       "clue": "a writer for newspapers and magazines"
     },
+    "accept": [
+      "JOURNALIST"
+    ],
     "difficulty": 5
   },
   {
@@ -1425,6 +1678,9 @@ window.PUZZLES = [
       "word": "INTEREST",
       "clue": "a sense of concern with and curiosity about someone or something"
     },
+    "accept": [
+      "INTEREST"
+    ],
     "difficulty": 2
   },
   {
@@ -1442,6 +1698,9 @@ window.PUZZLES = [
       "word": "FAVORITE",
       "clue": "something regarded with special favor or liking"
     },
+    "accept": [
+      "FAVORITE"
+    ],
     "difficulty": 1
   },
   {
@@ -1459,6 +1718,9 @@ window.PUZZLES = [
       "word": "ATTACHED",
       "clue": "being joined in close association"
     },
+    "accept": [
+      "ATTACHED"
+    ],
     "difficulty": 1
   },
   {
@@ -1476,6 +1738,9 @@ window.PUZZLES = [
       "word": "SATELLITE",
       "clue": "man-made equipment that orbits around the earth or the moon"
     },
+    "accept": [
+      "SATELLITE"
+    ],
     "difficulty": 2
   },
   {
@@ -1493,6 +1758,9 @@ window.PUZZLES = [
       "word": "SECRETARY",
       "clue": "an assistant who handles correspondence and clerical work for a boss or an organization"
     },
+    "accept": [
+      "SECRETARY"
+    ],
     "difficulty": 4
   },
   {
@@ -1510,6 +1778,9 @@ window.PUZZLES = [
       "word": "LITERATURE",
       "clue": "creative writing of recognized artistic value"
     },
+    "accept": [
+      "LITERATURE"
+    ],
     "difficulty": 5
   },
   {
@@ -1527,6 +1798,9 @@ window.PUZZLES = [
       "word": "REGARDLESS",
       "clue": "in spite of everything"
     },
+    "accept": [
+      "REGARDLESS"
+    ],
     "difficulty": 4
   },
   {
@@ -1544,6 +1818,9 @@ window.PUZZLES = [
       "word": "DIABETES",
       "clue": "a polygenic disease characterized by abnormally high glucose levels in the blood"
     },
+    "accept": [
+      "DIABETES"
+    ],
     "difficulty": 1
   },
   {
@@ -1561,6 +1838,9 @@ window.PUZZLES = [
       "word": "PROPERTY",
       "clue": "something owned"
     },
+    "accept": [
+      "PROPERTY"
+    ],
     "difficulty": 3
   },
   {
@@ -1578,6 +1858,9 @@ window.PUZZLES = [
       "word": "LOCATION",
       "clue": "a point or extent in space"
     },
+    "accept": [
+      "LOCATION"
+    ],
     "difficulty": 1
   },
   {
@@ -1595,6 +1878,9 @@ window.PUZZLES = [
       "word": "DISAPPEAR",
       "clue": "get lost, as without warning or explanation"
     },
+    "accept": [
+      "DISAPPEAR"
+    ],
     "difficulty": 2
   },
   {
@@ -1612,6 +1898,9 @@ window.PUZZLES = [
       "word": "ACCORDING",
       "clue": "as reported or stated by"
     },
+    "accept": [
+      "ACCORDING"
+    ],
     "difficulty": 5
   },
   {
@@ -1629,6 +1918,9 @@ window.PUZZLES = [
       "word": "OPERATIONS",
       "clue": "financial transactions at a brokerage"
     },
+    "accept": [
+      "OPERATIONS"
+    ],
     "difficulty": 5
   },
   {
@@ -1646,6 +1938,9 @@ window.PUZZLES = [
       "word": "EXPERIMENT",
       "clue": "the act of conducting a controlled test or investigation"
     },
+    "accept": [
+      "EXPERIMENT"
+    ],
     "difficulty": 5
   },
   {
@@ -1663,6 +1958,9 @@ window.PUZZLES = [
       "word": "REPORTED",
       "clue": "made known or told about"
     },
+    "accept": [
+      "REPORTED"
+    ],
     "difficulty": 2
   },
   {
@@ -1680,6 +1978,9 @@ window.PUZZLES = [
       "word": "TROUBLED",
       "clue": "characterized by unrest or disorder or insubordination"
     },
+    "accept": [
+      "TROUBLED"
+    ],
     "difficulty": 1
   },
   {
@@ -1697,6 +1998,9 @@ window.PUZZLES = [
       "word": "SPEAKING",
       "clue": "the utterance of intelligible speech"
     },
+    "accept": [
+      "SPEAKING"
+    ],
     "difficulty": 1
   },
   {
@@ -1714,6 +2018,9 @@ window.PUZZLES = [
       "word": "WONDERING",
       "clue": "showing curiosity"
     },
+    "accept": [
+      "WONDERING"
+    ],
     "difficulty": 3
   },
   {
@@ -1731,6 +2038,9 @@ window.PUZZLES = [
       "word": "TOLERANCE",
       "clue": "the act of tolerating something"
     },
+    "accept": [
+      "TOLERANCE"
+    ],
     "difficulty": 2
   },
   {
@@ -1748,6 +2058,9 @@ window.PUZZLES = [
       "word": "ARRANGEMENT",
       "clue": "the thing arranged or agreed to"
     },
+    "accept": [
+      "ARRANGEMENT"
+    ],
     "difficulty": 5
   },
   {
@@ -1765,6 +2078,9 @@ window.PUZZLES = [
       "word": "REASONABLY",
       "clue": "to a moderately sufficient extent or degree"
     },
+    "accept": [
+      "REASONABLY"
+    ],
     "difficulty": 5
   },
   {
@@ -1782,6 +2098,9 @@ window.PUZZLES = [
       "word": "BREEDING",
       "clue": "producing offspring or set aside especially for producing offspring"
     },
+    "accept": [
+      "BREEDING"
+    ],
     "difficulty": 1
   },
   {
@@ -1799,6 +2118,9 @@ window.PUZZLES = [
       "word": "STRAIGHT",
       "clue": "without deviation"
     },
+    "accept": [
+      "STRAIGHT"
+    ],
     "difficulty": 2
   },
   {
@@ -1816,6 +2138,9 @@ window.PUZZLES = [
       "word": "ELEVATOR",
       "clue": "lifting device consisting of a platform or cage that is raised and lowered mechanically in a vertical shaft in order to…"
     },
+    "accept": [
+      "ELEVATOR"
+    ],
     "difficulty": 1
   },
   {
@@ -1833,6 +2158,9 @@ window.PUZZLES = [
       "word": "GENERALLY",
       "clue": "usually"
     },
+    "accept": [
+      "GENERALLY"
+    ],
     "difficulty": 3
   },
   {
@@ -1850,6 +2178,9 @@ window.PUZZLES = [
       "word": "TRANSPORT",
       "clue": "move something or somebody around"
     },
+    "accept": [
+      "TRANSPORT"
+    ],
     "difficulty": 4
   },
   {
@@ -1867,6 +2198,9 @@ window.PUZZLES = [
       "word": "TREACHEROUS",
       "clue": "dangerously unstable and unpredictable"
     },
+    "accept": [
+      "TREACHEROUS"
+    ],
     "difficulty": 4
   },
   {
@@ -1884,6 +2218,9 @@ window.PUZZLES = [
       "word": "IRRELEVANT",
       "clue": "having no bearing on or connection with the subject at issue"
     },
+    "accept": [
+      "IRRELEVANT"
+    ],
     "difficulty": 4
   },
   {
@@ -1901,6 +2238,9 @@ window.PUZZLES = [
       "word": "ABSOLUTE",
       "clue": "perfect or complete or pure"
     },
+    "accept": [
+      "ABSOLUTE"
+    ],
     "difficulty": 2
   },
   {
@@ -1918,6 +2258,9 @@ window.PUZZLES = [
       "word": "CUSTOMER",
       "clue": "someone who pays for goods or services"
     },
+    "accept": [
+      "CUSTOMER"
+    ],
     "difficulty": 2
   },
   {
@@ -1935,6 +2278,9 @@ window.PUZZLES = [
       "word": "DECISION",
       "clue": "the act of making up your mind about something"
     },
+    "accept": [
+      "DECISION"
+    ],
     "difficulty": 3
   },
   {
@@ -1952,6 +2298,10 @@ window.PUZZLES = [
       "word": "PORTRAYED",
       "clue": "represented graphically by sketch or design or lines"
     },
+    "accept": [
+      "PORTRAYED",
+      "PREDATORY"
+    ],
     "difficulty": 2
   },
   {
@@ -1969,6 +2319,9 @@ window.PUZZLES = [
       "word": "ESSENTIAL",
       "clue": "absolutely necessary"
     },
+    "accept": [
+      "ESSENTIAL"
+    ],
     "difficulty": 2
   },
   {
@@ -1986,6 +2339,9 @@ window.PUZZLES = [
       "word": "ELEMENTARY",
       "clue": "easy and not involved or complicated"
     },
+    "accept": [
+      "ELEMENTARY"
+    ],
     "difficulty": 4
   },
   {
@@ -2003,6 +2359,9 @@ window.PUZZLES = [
       "word": "SWEETHEART",
       "clue": "any well-liked individual"
     },
+    "accept": [
+      "SWEETHEART"
+    ],
     "difficulty": 4
   },
   {
@@ -2020,6 +2379,9 @@ window.PUZZLES = [
       "word": "DRINKING",
       "clue": "the act of consuming liquids"
     },
+    "accept": [
+      "DRINKING"
+    ],
     "difficulty": 1
   },
   {
@@ -2037,6 +2399,9 @@ window.PUZZLES = [
       "word": "INDUSTRY",
       "clue": "the people or companies engaged in a particular kind of commercial enterprise"
     },
+    "accept": [
+      "INDUSTRY"
+    ],
     "difficulty": 2
   },
   {
@@ -2054,6 +2419,9 @@ window.PUZZLES = [
       "word": "MOREOVER",
       "clue": "in addition"
     },
+    "accept": [
+      "MOREOVER"
+    ],
     "difficulty": 1
   },
   {
@@ -2071,6 +2439,9 @@ window.PUZZLES = [
       "word": "DIRECTORY",
       "clue": "an alphabetical list of names and addresses"
     },
+    "accept": [
+      "DIRECTORY"
+    ],
     "difficulty": 2
   },
   {
@@ -2088,6 +2459,9 @@ window.PUZZLES = [
       "word": "DETERMINE",
       "clue": "establish after a calculation, investigation, experiment, survey, or study"
     },
+    "accept": [
+      "DETERMINE"
+    ],
     "difficulty": 4
   },
   {
@@ -2105,6 +2479,9 @@ window.PUZZLES = [
       "word": "PRODUCTIVE",
       "clue": "producing or capable of producing"
     },
+    "accept": [
+      "PRODUCTIVE"
+    ],
     "difficulty": 4
   },
   {
@@ -2122,6 +2499,10 @@ window.PUZZLES = [
       "word": "LEADERSHIP",
       "clue": "the activity of leading"
     },
+    "accept": [
+      "DEALERSHIP",
+      "LEADERSHIP"
+    ],
     "difficulty": 5
   },
   {
@@ -2139,6 +2520,9 @@ window.PUZZLES = [
       "word": "ABORTION",
       "clue": "termination of pregnancy"
     },
+    "accept": [
+      "ABORTION"
+    ],
     "difficulty": 1
   },
   {
@@ -2156,6 +2540,9 @@ window.PUZZLES = [
       "word": "SEMESTER",
       "clue": "half a year"
     },
+    "accept": [
+      "SEMESTER"
+    ],
     "difficulty": 1
   },
   {
@@ -2173,6 +2560,9 @@ window.PUZZLES = [
       "word": "CREATURE",
       "clue": "a living organism characterized by voluntary movement"
     },
+    "accept": [
+      "CREATURE"
+    ],
     "difficulty": 1
   },
   {
@@ -2190,6 +2580,9 @@ window.PUZZLES = [
       "word": "SIGNATURE",
       "clue": "a distinguishing style"
     },
+    "accept": [
+      "SIGNATURE"
+    ],
     "difficulty": 2
   },
   {
@@ -2207,6 +2600,9 @@ window.PUZZLES = [
       "word": "REVEALING",
       "clue": "disclosing unintentionally"
     },
+    "accept": [
+      "REVEALING"
+    ],
     "difficulty": 2
   },
   {
@@ -2224,6 +2620,9 @@ window.PUZZLES = [
       "word": "TERRIFYING",
       "clue": "causing extreme terror"
     },
+    "accept": [
+      "TERRIFYING"
+    ],
     "difficulty": 3
   },
   {
@@ -2241,6 +2640,9 @@ window.PUZZLES = [
       "word": "REMARKABLE",
       "clue": "unusual or striking"
     },
+    "accept": [
+      "REMARKABLE"
+    ],
     "difficulty": 5
   },
   {
@@ -2258,6 +2660,9 @@ window.PUZZLES = [
       "word": "PRODUCER",
       "clue": "someone who manufactures something"
     },
+    "accept": [
+      "PRODUCER"
+    ],
     "difficulty": 1
   },
   {
@@ -2275,6 +2680,9 @@ window.PUZZLES = [
       "word": "BIRTHDAY",
       "clue": "an anniversary of the day on which a person was born"
     },
+    "accept": [
+      "BIRTHDAY"
+    ],
     "difficulty": 2
   },
   {
@@ -2292,6 +2700,9 @@ window.PUZZLES = [
       "word": "MILITARY",
       "clue": "of or relating to the study of the principles of warfare"
     },
+    "accept": [
+      "MILITARY"
+    ],
     "difficulty": 2
   },
   {
@@ -2309,6 +2720,9 @@ window.PUZZLES = [
       "word": "GUARANTEE",
       "clue": "give surety or assume responsibility"
     },
+    "accept": [
+      "GUARANTEE"
+    ],
     "difficulty": 3
   },
   {
@@ -2326,6 +2740,9 @@ window.PUZZLES = [
       "word": "EXTENSION",
       "clue": "a mutually agreed delay in the date set for the completion of a job or payment of a debt"
     },
+    "accept": [
+      "EXTENSION"
+    ],
     "difficulty": 3
   },
   {
@@ -2343,6 +2760,9 @@ window.PUZZLES = [
       "word": "CONFERENCE",
       "clue": "a prearranged meeting for consultation or exchange of information or discussion"
     },
+    "accept": [
+      "CONFERENCE"
+    ],
     "difficulty": 5
   },
   {
@@ -2360,6 +2780,9 @@ window.PUZZLES = [
       "word": "CONCENTRATE",
       "clue": "make denser, stronger, or purer"
     },
+    "accept": [
+      "CONCENTRATE"
+    ],
     "difficulty": 5
   },
   {
@@ -2377,6 +2800,10 @@ window.PUZZLES = [
       "word": "RECEIVED",
       "clue": "widely accepted as true or worthy"
     },
+    "accept": [
+      "DECEIVER",
+      "RECEIVED"
+    ],
     "difficulty": 3
   },
   {
@@ -2394,6 +2821,9 @@ window.PUZZLES = [
       "word": "GENEROUS",
       "clue": "willing to give and share unstintingly"
     },
+    "accept": [
+      "GENEROUS"
+    ],
     "difficulty": 1
   },
   {
@@ -2411,6 +2841,9 @@ window.PUZZLES = [
       "word": "ISOLATED",
       "clue": "not close together in time"
     },
+    "accept": [
+      "ISOLATED"
+    ],
     "difficulty": 2
   },
   {
@@ -2428,6 +2861,9 @@ window.PUZZLES = [
       "word": "PERMANENT",
       "clue": "continuing or enduring without marked change in status or condition or place"
     },
+    "accept": [
+      "PERMANENT"
+    ],
     "difficulty": 3
   },
   {
@@ -2445,6 +2881,9 @@ window.PUZZLES = [
       "word": "BRILLIANT",
       "clue": "of surpassing excellence"
     },
+    "accept": [
+      "BRILLIANT"
+    ],
     "difficulty": 3
   },
   {
@@ -2462,6 +2901,9 @@ window.PUZZLES = [
       "word": "REGISTERED",
       "clue": "furnished with necessary official documents specifying ownership etc"
     },
+    "accept": [
+      "REGISTERED"
+    ],
     "difficulty": 5
   },
   {
@@ -2479,6 +2921,9 @@ window.PUZZLES = [
       "word": "DESCRIPTION",
       "clue": "a statement that represents something in words"
     },
+    "accept": [
+      "DESCRIPTION"
+    ],
     "difficulty": 5
   },
   {
@@ -2496,6 +2941,9 @@ window.PUZZLES = [
       "word": "THREATEN",
       "clue": "pose a threat to"
     },
+    "accept": [
+      "THREATEN"
+    ],
     "difficulty": 1
   },
   {
@@ -2513,6 +2961,9 @@ window.PUZZLES = [
       "word": "MAGAZINE",
       "clue": "a periodic publication containing pictures and stories and articles of interest to those who purchase it or subscribe…"
     },
+    "accept": [
+      "MAGAZINE"
+    ],
     "difficulty": 2
   },
   {
@@ -2530,6 +2981,9 @@ window.PUZZLES = [
       "word": "EARLIEST",
       "clue": "more early than"
     },
+    "accept": [
+      "EARLIEST"
+    ],
     "difficulty": 1
   },
   {
@@ -2547,6 +3001,9 @@ window.PUZZLES = [
       "word": "SUPPORTED",
       "clue": "held up or having the weight borne especially from below"
     },
+    "accept": [
+      "SUPPORTED"
+    ],
     "difficulty": 3
   },
   {
@@ -2564,6 +3021,9 @@ window.PUZZLES = [
       "word": "RELEVANCE",
       "clue": "the relation of something to the matter at hand"
     },
+    "accept": [
+      "RELEVANCE"
+    ],
     "difficulty": 2
   },
   {
@@ -2581,6 +3041,9 @@ window.PUZZLES = [
       "word": "SEPARATELY",
       "clue": "apart from others"
     },
+    "accept": [
+      "SEPARATELY"
+    ],
     "difficulty": 5
   },
   {
@@ -2598,6 +3061,9 @@ window.PUZZLES = [
       "word": "PERFECTION",
       "clue": "the state of being without a flaw or defect"
     },
+    "accept": [
+      "PERFECTION"
+    ],
     "difficulty": 4
   },
   {
@@ -2615,6 +3081,9 @@ window.PUZZLES = [
       "word": "MEASURED",
       "clue": "unhurried and with care and dignity"
     },
+    "accept": [
+      "MEASURED"
+    ],
     "difficulty": 1
   },
   {
@@ -2632,6 +3101,9 @@ window.PUZZLES = [
       "word": "HONESTLY",
       "clue": "it is sincerely the case that"
     },
+    "accept": [
+      "HONESTLY"
+    ],
     "difficulty": 1
   },
   {
@@ -2649,6 +3121,9 @@ window.PUZZLES = [
       "word": "ASSEMBLY",
       "clue": "the act of constructing something"
     },
+    "accept": [
+      "ASSEMBLY"
+    ],
     "difficulty": 3
   },
   {
@@ -2666,6 +3141,9 @@ window.PUZZLES = [
       "word": "INFLUENCE",
       "clue": "a power to affect persons or events especially power based on prestige etc"
     },
+    "accept": [
+      "INFLUENCE"
+    ],
     "difficulty": 4
   },
   {
@@ -2683,6 +3161,9 @@ window.PUZZLES = [
       "word": "HOMESTEAD",
       "clue": "dwelling that is usually a farmhouse and adjoining land"
     },
+    "accept": [
+      "HOMESTEAD"
+    ],
     "difficulty": 2
   },
   {
@@ -2700,6 +3181,9 @@ window.PUZZLES = [
       "word": "ADVERTISING",
       "clue": "a public promotion of some product or service"
     },
+    "accept": [
+      "ADVERTISING"
+    ],
     "difficulty": 5
   },
   {
@@ -2717,6 +3201,9 @@ window.PUZZLES = [
       "word": "PRELIMINARY",
       "clue": "denoting an action or event preceding or in preparation for something more important"
     },
+    "accept": [
+      "PRELIMINARY"
+    ],
     "difficulty": 5
   },
   {
@@ -2734,6 +3221,9 @@ window.PUZZLES = [
       "word": "COLLAPSE",
       "clue": "break down, literally or metaphorically"
     },
+    "accept": [
+      "COLLAPSE"
+    ],
     "difficulty": 2
   },
   {
@@ -2751,6 +3241,9 @@ window.PUZZLES = [
       "word": "AFFECTED",
       "clue": "acted upon"
     },
+    "accept": [
+      "AFFECTED"
+    ],
     "difficulty": 2
   },
   {
@@ -2768,6 +3261,9 @@ window.PUZZLES = [
       "word": "SHORTAGE",
       "clue": "the property of being an amount by which something is less than expected or required"
     },
+    "accept": [
+      "SHORTAGE"
+    ],
     "difficulty": 1
   },
   {
@@ -2785,6 +3281,9 @@ window.PUZZLES = [
       "word": "FORMATION",
       "clue": "an arrangement of people or things acting as a unit"
     },
+    "accept": [
+      "FORMATION"
+    ],
     "difficulty": 3
   }
 ];

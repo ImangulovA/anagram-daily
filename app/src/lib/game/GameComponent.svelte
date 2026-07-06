@@ -506,7 +506,9 @@
     const poolEls = Array.from(rootEl.querySelectorAll('.tile'));
     const src = srcEls.length ? srcEls : poolEls;
     const srcPts = src.map((e) => pt(e.getBoundingClientRect()));
-    const answer = engine.answers.c;
+    // Fly the letters the player actually submitted (an accepted anagram may
+    // differ from the canonical C), so they match what sits in the boxes.
+    const answer = collect('c') || engine.answers.c;
     const list = [];
     for (let i = 0; i < cEls.length; i++) {
       const end = pt(cEls[i].getBoundingClientRect());
