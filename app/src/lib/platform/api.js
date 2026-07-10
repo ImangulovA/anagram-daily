@@ -35,48 +35,49 @@ export function clientId() {
 
 export const statsEnabled = () => !!STATS_API;
 
-// Fire-and-forget POST. Uses sendBeacon when available (survives page unload).
+// CONFIRMED POST. Awaits the response and returns true ONLY when the Worker
+// actually accepted the event, so a dropped request is never marked "sent" and
+// gets retried on the next visit (Worker dedupes by clientId, so retries are
+// safe). We use fetch with keepalive rather than navigator.sendBeacon: beacon
+// returns true the instant the request is queued — NOT when it's delivered — so
+// a silently dropped beacon looks like success. keepalive still lets the request
+// survive a tab close, and our payloads are far under its 64KB cap.
 //
 // IMPORTANT: body is text/plain, NOT application/json. text/plain is a CORS-
 // safelisted content type, so the cross-origin POST is a "simple request" with
-// no preflight. sendBeacon CANNOT send preflighted requests and silently drops
-// application/json beacons. The Worker parses with request.json() regardless.
-function post(path, payload) {
+// no preflight. The Worker parses with request.json() regardless.
+async function post(path, payload) {
   if (!STATS_API || typeof fetch === 'undefined') return false;
   const url = STATS_API + path;
   try {
-    const blob = JSON.stringify(payload);
-    if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
-      if (navigator.sendBeacon(url, new Blob([blob], { type: 'text/plain' }))) return true;
-    }
-    fetch(url, {
+    const r = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: blob,
+      body: JSON.stringify(payload),
       keepalive: true
-    }).catch(() => {});
-    return true;
+    });
+    return r.ok;
   } catch (e) {
     return false;
   }
 }
 
-// Mark a once-per-(kind,day) event as sent only if it was actually dispatched,
-// so a transient failure can backfill next visit (Worker dedupes by clientId).
-function once(kind, day, payload) {
+// Mark a once-per-(kind,day) event as sent only after the Worker CONFIRMS it,
+// so a transient failure backfills next visit (Worker dedupes by clientId).
+async function once(kind, day, payload) {
   if (!STATS_API) return; // no backend yet -> don't mark, allow later backfill
   const hasLS = typeof localStorage !== 'undefined';
   if (hasLS && localStorage.getItem(sentKey(kind, day))) return;
-  const ok = post('/' + kind, { game: STATS_GAME, day, clientId: clientId(), ...payload });
+  const ok = await post('/' + kind, { game: STATS_GAME, day, clientId: clientId(), ...payload });
   if (ok && hasLS) localStorage.setItem(sentKey(kind, day), '1');
 }
 
 export function submitStart(day) {
-  once('start', day, {});
+  return once('start', day, {});
 }
 
 export function submitFinish(day, ms, score) {
-  once('finish', day, {
+  return once('finish', day, {
     ms: Math.round(ms || 0),
     score: typeof score === 'number' ? score : null
   });

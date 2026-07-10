@@ -84,10 +84,13 @@
 
     if (record.finished) {
       view = 'end';
-      // Backfill possibly-missed beacons (idempotent server-side).
+      // Backfill possibly-missed beacons (idempotent server-side). Read the
+      // aggregates only after the finish is confirmed, so a recovered (earlier
+      // lost) solve is reflected in the counts.
       submitStart(dayIdx);
-      submitFinish(dayIdx, record.elapsedMs || 0, GAME.scoreOf ? GAME.scoreOf(record.result) : null);
-      loadAgg();
+      Promise.resolve(
+        submitFinish(dayIdx, record.elapsedMs || 0, GAME.scoreOf ? GAME.scoreOf(record.result) : null)
+      ).then(() => loadAgg({ settle: true }));
     } else if (record.started) {
       submitStart(dayIdx);
       timer.start();
@@ -132,7 +135,7 @@
     record.elapsedMs = timer.elapsed();
     persist();
   }
-  function handleFinish(result) {
+  async function handleFinish(result) {
     const ms = timer.stop();
     record.finished = true;
     record.finishedAt = Date.now();
@@ -141,17 +144,26 @@
     // `live` mirrors the other games' semantics for the hub badge.
     record.live = dayIdx === todayIndex();
     persist();
-    submitFinish(dayIdx, ms, GAME.scoreOf ? GAME.scoreOf(record.result) : null);
     view = 'end';
-    loadAgg();
-    // Re-fetch shortly after so the just-posted finish is counted.
-    setTimeout(loadAgg, 1600);
+    // Wait for the finish to be recorded before reading aggregates, so the end
+    // screen counts our own solve. (settle: true adds a short buffer on top, in
+    // case D1's read-after-write lags slightly behind the write ack.)
+    await submitFinish(dayIdx, ms, GAME.scoreOf ? GAME.scoreOf(record.result) : null);
+    loadAgg({ settle: true });
   }
 
   // --- end screen -----------------------------------------------------------
-  async function loadAgg() {
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  async function loadAgg({ settle = false } = {}) {
     if (!statsEnabled()) return;
     agg = await fetchAgg([dayIdx]);
+    if (settle) {
+      // Give a just-submitted finish a moment to become visible, then refresh
+      // so our own solve is reflected in the counts and time distribution.
+      await sleep(1200);
+      const fresh = await fetchAgg([dayIdx]);
+      if (fresh) agg = fresh;
+    }
   }
   function dayAgg() {
     return agg?.agg?.[dayIdx] || null;
@@ -218,22 +230,66 @@
   }
   let shared = $state('');
   let showPuzzle = $state(false); // end screen: preview the solved puzzle
+
+  // Last-resort copy for desktop browsers without navigator.share and without a
+  // secure-context clipboard (http/file://, older browsers). Uses a hidden
+  // textarea + execCommand('copy'), which works from a user gesture almost
+  // everywhere.
+  function legacyCopy(text) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function flashCopied() {
+    shared = 'Copied!';
+    setTimeout(() => (shared = ''), 2000);
+  }
+
   async function share() {
     const text = shareText();
-    try {
-      if (navigator.share) {
+
+    // Native share sheet (mainly mobile, some desktop browsers).
+    if (navigator.share) {
+      try {
         await navigator.share({ text });
         shared = '';
         return;
+      } catch (e) {
+        // User cancelled the share sheet on purpose — do nothing, don't copy.
+        if (e && e.name === 'AbortError') return;
+        // Any other failure: fall through to clipboard copy below.
       }
-    } catch (e) {
-      /* cancelled — fall through to clipboard */
     }
-    try {
-      await navigator.clipboard.writeText(text);
-      shared = 'Copied!';
-      setTimeout(() => (shared = ''), 2000);
-    } catch (e) {
+
+    // Secure-context clipboard API.
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        flashCopied();
+        return;
+      } catch (e) {
+        /* fall through to legacy copy */
+      }
+    }
+
+    // Last resort for http/file:// and older desktop browsers.
+    if (legacyCopy(text)) {
+      flashCopied();
+    } else {
       shared = 'Copy failed';
     }
   }
